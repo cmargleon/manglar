@@ -1,0 +1,413 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroPhoto = "https://lh3.googleusercontent.com/aida-public/AB6AXuD5ABnY2OkOsvVHOhcW6BLZjC3_kySEhEQ3VXmx8nJiSPb4x_VGNilPVik4eP2sQ51kT17ybrDmn4miWOQeZT6P8835RhaFcdb-6mKLGVfqGGa8TaDZ0B3wKrDauTO0PgIdQZEoRMVPCTo8yTqkS09bY922WY4gan81ixtUjMi1IxHcioSMwSo_4YyPYkszh3QF3wFQ8Vpv6Hk8JyHWstK5HY6NSrzzpq9xb_DFbogmbBcSkTYdyIyhLe3HqkyCGtnB12r8T96RSqs";
+const photos = [
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuBGno_AVjNeTIVAdZD0An7vbs7mUlzaobZ4ir_5YqAY44KtpKO-Y5IkK0rt3Ek7b3MlstaQo2oXPQHuCc_ZcDMwO5geUMkgXOWOhtMws0pN2Fa7mYE7FIL8f8mL8wz3xdtzRSn_AbX_xGbBP2N7H1iuPGJALdncw1SwSUmZwUhPUYG_tfRYaUoXFZosrr456l7WapmyzaEAkdduUY1egZ3HH9mZln0vsiq29X4znZJRw1SHewxZgQTR2hp8vvI21gF6Y8x1qDB351c",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuCKwY3DVFg4Ta6ty2EbDzoHKes70i_o3_SM02ZHHw26OPDv9EO0ws8-pdmvGcqD6P9TA3ogU3yCLNLIJlryKWa8pTg0ShncIBYHL86BwV5cbZBe0liU3UJ2IVlM9Aeacpw8h3TzRXqZa-UxRAuW8T11lKmrT6tFSZmusHmD_aPy4iFdjbDFCjRKdD0-1ncp2obY-CFCszdIoV5d5zOWSpCt-S8Z0C922UwL-4Lx9zoUahg52OKXoDp7J009EM0MPVW4hxicgA4PuXI",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuD4Psu_b9emuf2aGLzIyVyW0Sejz7Q-nf9TC9vEa-x3GOHpwikXO0JOJSmB0lbipjbn4inyN33Pn3zbvJ3nF2xD7o1W8qDjauC4NWEEEW_TCUCDzGFH8SGGS7Y0iT0pqx-0c8HcYVjHnjSbjoaNwri-jgEy6EXyrttrUutpo9UZndmZm1RRIvz7HlbRqk4y_JTinSi2whcx6rsRdAFEUJJcvDpJH7kqydlB3kkMTihHq1peROj3jRmgrWw-8-lj3fzzU6YO-Q6jZ2o",
+  "https://lh3.googleusercontent.com/aida-public/AB6AXuAS-ec4cgsJ9v4P_9l769-Tf79yBxlWum2HZFU32dMwVsSvyXul_AX7beFqUGhewtNEZUCOQ292aPPMu3oQ_Kc2-eIIiufhu86pbGMp8MnOZT_Y9aHSAXHxoehNUlhpcsOHf50GIA8GAfwkqlw7dr3B4D-Pt2SiC7Bg4brfU3jfGcQv9VLEpRCdGpfDg-f6B03G7DoydY044E55QuQ8VNBqdMJN2v1M8QOFBw-y9b9kvizn5xkh32Sr5-nPjKE23ZNRAdIX5yiRrr4",
+];
+const productionPhoto = "https://lh3.googleusercontent.com/aida-public/AB6AXuAOutaWTXsZnh98Kg9hJAKtZK03H3xGcYRfyWWx3CZTvs0L7T_dEZwJMCuWfVG5uGiNnf_8KD0hSxSKpVZfmH1zFAjGbSojDSPz0fKRpQ0lc2pwsdh-8M_0WuUQeQwNiXrYrmi_GXd7Vjq-zrFzUA5ka48tRE_Zg1mgV8rWKz7KJW47zbUgEQSWJqxwL2NmcYxWHD8GqF_CV1xdg_oap1sLsb1VGv1SUvlKJa5iaoCRtKD2P5aqQO4Vx0cNhF74EzQM6Sw8Wlomzrs";
+---
+
+<Layout>
+
+<style>
+  /* ── Responsive overrides ── */
+  @media (max-width: 768px) {
+    .nav-inner { padding: 18px 20px !important; }
+    .nav-links { display: none !important; }
+    .nav-cta { padding: 10px 18px !important; font-size: 0.72rem !important; }
+
+    .hero-grid { grid-template-columns: 1fr !important; height: auto !important; min-height: 100svh !important; }
+    .hero-text { padding: 100px 24px 60px !important; }
+    .hero-photo { display: none !important; }
+    .hero-h1 { font-size: clamp(3.2rem, 12vw, 5rem) !important; }
+
+    .section-pad { padding-left: 20px !important; padding-right: 20px !important; }
+
+    .services-section { padding: 80px 20px !important; }
+    .services-grid { grid-template-columns: 1fr !important; }
+    .catalog-card { grid-column: span 1 !important; }
+
+    .fullwidth-section { height: 420px !important; }
+    .fullwidth-text { padding: 40px 20px !important; }
+
+    .gallery-section { padding: 80px 20px !important; }
+    .gallery-header { flex-direction: column !important; align-items: flex-start !important; gap: 24px !important; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .gallery-stagger { margin-top: 0 !important; }
+
+    .ia-section { padding: 80px 20px !important; }
+    .ia-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+
+    .steps-section { padding: 0 20px 80px !important; }
+    .steps-inner { padding-top: 80px !important; }
+    .steps-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+    .steps-line { display: none !important; }
+
+    .cta-section { padding: 80px 20px !important; }
+
+    .footer-inner { padding: 56px 20px !important; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+    .footer-brand { grid-column: span 2 !important; }
+    .footer-bottom-inner { flex-direction: column !important; gap: 16px !important; text-align: center !important; }
+    .footer-bottom { padding: 0 20px 32px !important; }
+  }
+
+  @media (max-width: 480px) {
+    .steps-grid { grid-template-columns: 1fr !important; }
+    .gallery-grid { grid-template-columns: 1fr !important; }
+    .footer-grid { grid-template-columns: 1fr !important; }
+    .footer-brand { grid-column: span 1 !important; }
+  }
+</style>
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;width:100%;z-index:50;background:rgba(14,14,14,0.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05);">
+  <div class="nav-inner" style="max-width:1400px;margin:0 auto;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;">
+    <div class="font-headline" style="font-weight:900;font-size:1.1rem;letter-spacing:-0.02em;color:#fff;">MANGLAR</div>
+    <div class="nav-links" style="display:flex;gap:40px;">
+      <a href="#servicios" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;">Services</a>
+      <a href="#galeria" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;">Gallery</a>
+      <a href="#ia" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;">IA</a>
+      <a href="#contacto" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.55);text-decoration:none;">Contact</a>
+    </div>
+    <a href="#contacto" class="nav-cta" style="background:linear-gradient(135deg,#ff8c95,#e80048);color:#fff;padding:13px 30px;border-radius:9999px;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;">
+      Get Started
+    </a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero-grid" style="height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+
+  <!-- Texto -->
+  <div class="hero-text" style="display:flex;flex-direction:column;justify-content:center;padding:0 48px 0 40px;background:#0e0e0e;position:relative;">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff8c95,#e80048);padding:7px 16px;border-radius:9999px;margin-bottom:40px;width:fit-content;">
+      <span style="width:6px;height:6px;background:#fff;border-radius:50%;display:inline-block;"></span>
+      <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;">Live Social Velocity</span>
+    </div>
+
+    <h1 class="font-headline hero-h1" style="font-size:clamp(4rem,7vw,7.5rem);font-weight:900;line-height:0.88;letter-spacing:-0.04em;margin-bottom:32px;">
+      Operamos el<br/>
+      <span style="color:#ff8c95;">Social</span><br/>
+      Commerce.
+    </h1>
+
+    <p style="font-size:1.1rem;line-height:1.7;color:rgba(255,255,255,0.5);max-width:420px;margin-bottom:44px;">
+      Subimos tus productos a TikTok Shop y Shein y creamos producciones visuales con IA. El algoritmo es nuestro aliado.
+    </p>
+
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <a href="#contacto" style="background:linear-gradient(135deg,#ff8c95,#e80048);color:#fff;padding:18px 36px;border-radius:9999px;font-size:1rem;font-weight:700;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;">
+        Agenda tu consulta gratis
+      </a>
+      <a href="#galeria" style="color:rgba(255,255,255,0.6);font-size:1rem;font-weight:600;text-decoration:none;">
+        Ver Portafolio →
+      </a>
+    </div>
+  </div>
+
+  <!-- Foto -->
+  <div class="hero-photo" style="position:relative;overflow:hidden;background:#d6d0c8;">
+    <img
+      src={heroPhoto}
+      alt="Fashion model"
+      style="width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(100%);transition:filter 0.8s ease;"
+      onmouseover="this.style.filter='grayscale(0%)'"
+      onmouseout="this.style.filter='grayscale(100%)'"
+    />
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, #0e0e0e 0%, transparent 20%);pointer-events:none;"></div>
+    <div style="position:absolute;bottom:40px;left:32px;background:rgba(14,14,14,0.9);backdrop-filter:blur(16px);padding:18px 24px;border-radius:1rem;border:1px solid rgba(255,255,255,0.1);">
+      <div style="color:#ff8c95;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.75rem;font-weight:900;margin-bottom:2px;">+450%</div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Engagement promedio</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ SERVICIOS ═══════════════════════════════ -->
+<section id="servicios" class="services-section section-pad" style="padding:120px 40px;max-width:1400px;margin:0 auto;">
+  <div style="margin-bottom:64px;">
+    <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1;">
+      Servicios <em style="color:#ff8c95;font-style:italic;">Estratégicos</em>
+    </h2>
+    <div style="height:3px;width:72px;background:linear-gradient(90deg,#ff8c95,#e80048);border-radius:9999px;margin-top:20px;"></div>
+  </div>
+
+  <div class="services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+    <!-- Catálogo 2-col -->
+    <div class="catalog-card" style="grid-column:span 2;background:#161616;border-radius:1.5rem;padding:48px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
+      <span class="material-symbols-outlined" style="font-size:3rem;color:#ff8c95;margin-bottom:24px;display:block;">inventory_2</span>
+      <h3 class="font-headline" style="font-size:2.25rem;font-weight:900;margin-bottom:16px;">Gestión de <em style="color:#ff8c95;font-style:italic;">Catálogo</em></h3>
+      <p style="color:rgba(255,255,255,0.45);line-height:1.75;max-width:440px;margin-bottom:28px;">
+        Alta, optimización y mantenimiento completo de tu catálogo en TikTok Shop y Shein. Listings que convierten con keywords, precios y descripciones que venden.
+      </p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;">
+        {["Alta masiva de productos","Optimización de títulos y keywords","Gestión de variantes y stock","Mantenimiento continuo"].map(i => (
+          <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:rgba(255,255,255,0.45);">
+            <span class="material-symbols-outlined" style="font-size:1rem;color:#ff8c95;">check_circle</span>{i}
+          </li>
+        ))}
+      </ul>
+      <div style="position:absolute;bottom:-20px;right:-20px;opacity:0.04;">
+        <span class="material-symbols-outlined" style="font-size:200px;color:#ff8c95;">inventory_2</span>
+      </div>
+    </div>
+
+    <!-- TikTok LIVE -->
+    <div style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(232,0,72,0.2);display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff8c95,#e80048);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+          <span class="material-symbols-outlined" style="font-size:24px;color:#fff;">live_tv</span>
+        </div>
+        <h3 class="font-headline" style="font-size:1.75rem;font-weight:900;margin-bottom:12px;">TikTok <em style="color:#ff8c95;font-style:italic;">LIVE</em></h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.4);">Estrategia y ejecución de transmisiones en vivo. Guiones, timing de ofertas y gestión de comentarios para maximizar conversión.</p>
+      </div>
+      <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
+        <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff8c95;">Mayor conversión</span>
+      </div>
+    </div>
+
+    <!-- Campañas -->
+    <div style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(255,255,255,0.06);">
+      <span class="material-symbols-outlined" style="font-size:2.5rem;color:rgba(255,255,255,0.2);margin-bottom:20px;display:block;">campaign</span>
+      <h3 class="font-headline" style="font-size:1.35rem;font-weight:900;margin-bottom:12px;">Campañas &amp; <em style="color:#ff8c95;font-style:italic;">Promociones</em></h3>
+      <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.38);">Eventos estratégicos de los marketplaces, descuentos inteligentes y campañas pagadas para maximizar visibilidad.</p>
+    </div>
+
+    <!-- Analytics -->
+    <div style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(255,255,255,0.06);">
+      <span class="material-symbols-outlined" style="font-size:2.5rem;color:rgba(255,255,255,0.2);margin-bottom:20px;display:block;">analytics</span>
+      <h3 class="font-headline" style="font-size:1.35rem;font-weight:900;margin-bottom:12px;">Performance &amp; <em style="color:#ff8c95;font-style:italic;">Análisis</em></h3>
+      <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.38);">Reportes semanales de ventas, conversión y posicionamiento. Data real, decisiones reales.</p>
+    </div>
+
+    <!-- Escalamiento -->
+    <div style="background:linear-gradient(135deg,#1f0a0e 0%,#161616 100%);border-radius:1.5rem;padding:36px;border:1px solid rgba(255,140,149,0.15);">
+      <span class="material-symbols-outlined" style="font-size:2.5rem;color:#ff8c95;margin-bottom:20px;display:block;">rocket_launch</span>
+      <h3 class="font-headline" style="font-size:1.35rem;font-weight:900;margin-bottom:12px;">Sistema <em style="color:#ff8c95;font-style:italic;">Escalable</em></h3>
+      <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.38);">De decenas a miles de SKUs sin aumentar tu carga operativa. Automatización que crece con vos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOTO FULL WIDTH ═══════════════════════════════ -->
+<section class="fullwidth-section" style="position:relative;height:560px;overflow:hidden;">
+  <img src={productionPhoto} alt="Producción editorial" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(0.6);" />
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,#0e0e0e 0%,rgba(14,14,14,0.2) 60%,transparent 100%);"></div>
+  <div class="fullwidth-text" style="position:absolute;bottom:0;left:0;right:0;padding:60px 40px;max-width:1400px;margin:0 auto;">
+    <span class="material-symbols-outlined" style="font-size:3rem;color:#ff8c95;margin-bottom:16px;display:block;">photo_camera</span>
+    <h3 class="font-headline" style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.04em;margin-bottom:12px;">
+      <em style="color:#ff8c95;font-style:italic;">Photography</em> &amp; Production
+    </h3>
+    <p style="font-size:1rem;color:rgba(255,255,255,0.55);max-width:540px;line-height:1.65;">Sesiones de estudio dirigidas por profesionales. Fotografía editorial diseñada para convertir clics en ventas.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ GALERÍA ═══════════════════════════════ -->
+<section id="galeria" class="gallery-section" style="padding:120px 40px;background:#0a0a0a;">
+  <div style="max-width:1400px;margin:0 auto;">
+    <div class="gallery-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;gap:32px;">
+      <div>
+        <h2 class="font-headline" style="font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;letter-spacing:-0.04em;text-transform:uppercase;line-height:0.9;">
+          <em style="color:#ff8c95;font-style:italic;">Visual</em><br/>Authority
+        </h2>
+        <p style="font-size:1rem;color:rgba(255,255,255,0.35);font-style:italic;margin-top:16px;max-width:460px;line-height:1.65;">
+          "No vendemos productos, vendemos aspiraciones. Nuestro contenido está diseñado para detener el scroll."
+        </p>
+      </div>
+      <div style="display:flex;gap:12px;flex-shrink:0;">
+        <button style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <span class="material-symbols-outlined" style="font-size:1.1rem;">arrow_back</span>
+        </button>
+        <button style="width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:transparent;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+          <span class="material-symbols-outlined" style="font-size:1.1rem;">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
+      {photos.map((src, i) => (
+        <div class={i % 2 !== 0 ? 'gallery-stagger' : ''} style={`border-radius:1.25rem;overflow:hidden;aspect-ratio:3/4;${i % 2 !== 0 ? 'margin-top:56px;' : ''}`}>
+          <img src={src} alt="" style="width:100%;height:100%;object-fit:cover;filter:grayscale(80%);transition:filter 0.5s ease,transform 0.5s ease;" onmouseover="this.style.filter='grayscale(0%)';this.style.transform='scale(1.04)'" onmouseout="this.style.filter='grayscale(80%)';this.style.transform='scale(1)'" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ IA ═══════════════════════════════ -->
+<section id="ia" class="ia-section section-pad" style="padding:120px 40px;">
+  <div style="max-width:1400px;margin:0 auto;">
+    <div class="ia-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+      <div>
+        <h2 class="font-headline" style="font-size:clamp(2.5rem,4.5vw,4rem);font-weight:900;letter-spacing:-0.04em;line-height:1;margin-bottom:28px;">
+          Contenido visual con<br/><em style="color:#ff8c95;font-style:italic;">Inteligencia Artificial</em>
+        </h2>
+        <p style="font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,0.45);margin-bottom:48px;">
+          Resolvemos el mayor cuello de botella del ecommerce. Fotografía editorial para cada producto — sin estudio, sin esperas, sin costos de producción tradicional.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:28px;">
+          {[
+            { title:"Fotografías con modelos IA", desc:"Imágenes profesionales con modelos generados por IA, adaptados al estilo y marketplace.", icon:"photo_camera" },
+            { title:"Modelos personalizados", desc:"Edad, género, estilo y estética exactos para tu público objetivo.", icon:"person" },
+            { title:"Estilos visuales consistentes", desc:"Lifestyle, editorial, luxury o fast fashion. Consistencia en todo el catálogo.", icon:"palette" },
+          ].map(item => (
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <div style="width:44px;height:44px;background:linear-gradient(135deg,rgba(255,140,149,0.15),rgba(232,0,72,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,140,149,0.2);">
+                <span class="material-symbols-outlined" style="font-size:1.3rem;color:#ff8c95;">{item.icon}</span>
+              </div>
+              <div>
+                <div class="font-headline" style="font-weight:700;font-size:1rem;margin-bottom:6px;">{item.title}</div>
+                <div style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.38);">{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#161616;border-radius:1.5rem;padding:32px;border:1px solid rgba(255,255,255,0.06);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+            <div>
+              <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:6px;">Sin Manglar</div>
+              <div class="font-headline" style="font-weight:800;font-size:1.2rem;">Producción tradicional</div>
+            </div>
+            <span style="font-size:1.75rem;">😓</span>
+          </div>
+          {[["Costo por foto","$15–50 USD"],["Tiempo de entrega","2–4 semanas"],["Flexibilidad","Mínima"],["Consistencia","Variable"]].map(([l,v]) => (
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.9rem;">
+              <span style="color:rgba(255,255,255,0.28);">{l}</span>
+              <span style="color:rgba(255,255,255,0.22);">{v}</span>
+            </div>
+          ))}
+        </div>
+
+        <div style="background:linear-gradient(135deg,#200c10,#161616);border-radius:1.5rem;padding:32px;border:1px solid rgba(255,140,149,0.25);box-shadow:0 0 60px rgba(232,0,72,0.08);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+            <div>
+              <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#ff8c95;margin-bottom:6px;">Con Manglar IA</div>
+              <div class="font-headline" style="font-weight:800;font-size:1.2rem;">Generación automática</div>
+            </div>
+            <span style="font-size:1.75rem;">🤖</span>
+          </div>
+          {[["Costo por foto","Incluido"],["Tiempo de entrega","24–48 horas"],["Flexibilidad","Ilimitada"],["Consistencia","100%"]].map(([l,v]) => (
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,140,149,0.08);font-size:0.9rem;">
+              <span style="color:rgba(255,255,255,0.5);">{l}</span>
+              <span style="font-weight:700;color:#ff8c95;">{v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CÓMO FUNCIONA ═══════════════════════════════ -->
+<section class="steps-section section-pad" style="padding:0 40px 120px;background:#0a0a0a;">
+  <div class="steps-inner" style="max-width:1400px;margin:0 auto;padding-top:120px;">
+    <div style="margin-bottom:80px;">
+      <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1;">
+        Cómo <em style="color:#ff8c95;font-style:italic;">funciona</em>
+      </h2>
+      <div style="height:3px;width:72px;background:linear-gradient(90deg,#ff8c95,#e80048);border-radius:9999px;margin-top:20px;"></div>
+    </div>
+    <div class="steps-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;position:relative;">
+      <div class="steps-line" style="position:absolute;top:30px;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,140,149,0.25),transparent);"></div>
+      {[
+        { n:"01", title:"Compartís tu catálogo", desc:"Productos, assets y briefing. En 48h empezamos." },
+        { n:"02", title:"Generamos contenido IA", desc:"Fotos profesionales con modelos IA adaptados a tu marca." },
+        { n:"03", title:"Subimos y optimizamos", desc:"Listings publicados con keywords y precios perfectos." },
+        { n:"04", title:"Ejecutamos LIVE y campañas", desc:"TikTok LIVE y eventos estratégicos en ambas plataformas." },
+        { n:"05", title:"Optimizamos sin parar", desc:"Análisis continuo y reportes semanales de resultados." },
+      ].map(step => (
+        <div style="text-align:center;position:relative;">
+          <div class="font-headline" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#ff8c95,#e80048);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.8rem;color:#fff;margin:0 auto 28px;position:relative;z-index:1;">
+            {step.n}
+          </div>
+          <h3 class="font-headline" style="font-weight:700;font-size:0.95rem;margin-bottom:10px;">{step.title}</h3>
+          <p style="font-size:0.8rem;line-height:1.65;color:rgba(255,255,255,0.35);">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CTA ═══════════════════════════════ -->
+<section id="contacto" class="cta-section" style="background:linear-gradient(135deg,#ff8c95 0%,#e80048 100%);padding:128px 40px;text-align:center;">
+  <div style="max-width:760px;margin:0 auto;">
+    <h2 class="font-headline" style="font-size:clamp(2.5rem,7vw,6rem);font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:0.92;margin-bottom:28px;">
+      ¿Listo para escalar al siguiente nivel?
+    </h2>
+    <p style="font-size:1.25rem;color:rgba(255,255,255,0.75);margin-bottom:52px;line-height:1.65;">
+      Únete a las marcas que ya están dominando TikTok Shop y Shein con nosotros.
+    </p>
+    <a href="mailto:hola@manglar.io" class="font-headline" style="display:inline-block;background:#fff;color:#e80048;padding:22px 56px;border-radius:9999px;font-size:1.05rem;font-weight:700;text-decoration:none;box-shadow:0 8px 40px rgba(0,0,0,0.2);">
+      Agenda tu consulta gratis
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.04);">
+  <div class="footer-inner" style="max-width:1400px;margin:0 auto;padding:72px 40px 56px;">
+    <div class="footer-grid" style="display:grid;grid-template-columns:1fr repeat(3,auto);gap:64px;align-items:start;margin-bottom:56px;">
+      <div class="footer-brand">
+        <div class="font-headline" style="font-weight:900;font-size:1.1rem;color:#fff;margin-bottom:20px;">MANGLAR</div>
+        <p style="font-size:0.875rem;color:rgba(255,255,255,0.22);max-width:260px;line-height:1.75;">
+          Elevando marcas en el ecosistema del social commerce mediante estrategia y estética superior.
+        </p>
+      </div>
+      <div>
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:20px;">Strategy</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;">
+          {["TikTok Shop","Shein Strategy","Photography","IA Content"].map(s=>(
+            <li><a href="#servicios" style="font-size:0.875rem;color:rgba(255,255,255,0.28);text-decoration:none;">{s}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:20px;">Company</div>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;">
+          {["Contact","Privacy","Terms"].map(s=>(
+            <li><a href="#contacto" style="font-size:0.875rem;color:rgba(255,255,255,0.28);text-decoration:none;">{s}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:20px;">Newsletter</div>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:220px;">
+          <input type="email" placeholder="Email address" style="background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 16px;font-size:0.875rem;color:#fff;outline:none;" />
+          <button style="background:linear-gradient(135deg,#ff8c95,#e80048);color:#fff;font-weight:700;padding:12px;border-radius:10px;border:none;font-size:0.875rem;cursor:pointer;">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom" style="padding:0 40px 32px;">
+    <div class="footer-bottom-inner" style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+      <p style="font-size:0.75rem;color:rgba(255,255,255,0.12);">© 2025 Manglar Agency. All Rights Reserved.</p>
+      <div style="display:flex;gap:20px;">
+        <a href="#" style="color:rgba(255,255,255,0.18);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">share</span></a>
+        <a href="#" style="color:rgba(255,255,255,0.18);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">language</span></a>
+        <a href="mailto:hola@manglar.io" style="color:rgba(255,255,255,0.18);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">mail</span></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── WHATSAPP FLOTANTE ─── -->
+<a href="https://wa.me/5491100000000" target="_blank" rel="noopener noreferrer"
+  style="position:fixed;bottom:32px;right:32px;z-index:100;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,0.45);text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;"
+  onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 8px 36px rgba(37,211,102,0.55)'"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 24px rgba(37,211,102,0.45)'"
+>
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+</Layout>
