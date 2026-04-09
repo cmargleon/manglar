@@ -2,12 +2,17 @@
 interface Props {
   title?: string;
   description?: string;
+  canonicalUrl?: string;
 }
 
 const {
-  title = "Manglar — Shein, TikTok Shop y TikTok LIVE sin carga operativa",
-  description = "Manglar opera Shein y TikTok Shop de principio a fin con catálogo, fotos con IA, campañas, descuentos y TikTok LIVE para vender más sin dedicarle horas a la operación.",
+  title = "Manglar — Agencia gestión Shein y TikTok Shop México | TikTok LIVE",
+  description = "Agencia especializada en gestión de tiendas Shein y TikTok Shop en México. Catálogo, fotos con IA, campañas y TikTok LIVE. Diagnóstico gratuito para tu tienda.",
+  canonicalUrl = "https://agenciamanglar.mx",
 } = Astro.props;
+
+const siteName = "Manglar";
+const ogImage = "https://agenciamanglar.mx/og-image.jpg";
 ---
 
 <!doctype html>
@@ -16,7 +21,76 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+    <!-- Reemplazar el content con el token que da Google Search Console -->
+    <meta name="google-site-verification" content="REEMPLAZAR_CON_TOKEN_DE_GSC" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_MX" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <title>{title}</title>
+
+    <!-- Schema.org: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Manglar",
+        "url": "https://agenciamanglar.mx",
+        "logo": "https://agenciamanglar.mx/favicon.ico",
+        "email": "contacto@agenciamanglar.mx",
+        "description": "Agencia especializada en operación integral de tiendas Shein y TikTok Shop: catálogo, fotos con IA, campañas, descuentos y TikTok LIVE.",
+        "sameAs": [
+          "https://tiktok.com/@agenciamanglar.mx",
+          "https://instagram.com/agenciamanglar.mx"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "contacto@agenciamanglar.mx",
+          "availableLanguage": "Spanish"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Mexico"
+        },
+        "knowsAbout": ["Agencia Shein México", "Gestión TikTok Shop", "TikTok LIVE ventas", "Operación e-commerce", "Catálogo marketplace", "Fotos producto IA"]
+      }
+    </script>
+
+    <!-- Schema.org: Service -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Operación integral de tiendas Shein y TikTok Shop",
+        "provider": {
+          "@type": "Organization",
+          "name": "Manglar"
+        },
+        "description": "Gestión completa de catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para tiendas en Shein y TikTok Shop.",
+        "serviceType": "E-commerce Management",
+        "areaServed": "Mexico",
+        "url": "https://agenciamanglar.mx"
+      }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
