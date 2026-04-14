@@ -1,5 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import heroVansMujer from '../assets/images/manglar-hero-vans-mujer-marketplace.jpg';
+import galleryGorraUnderArmour from '../assets/images/manglar-galeria-gorra-under-armour-hombre.jpeg';
+import galleryChamarraLentejuelas from '../assets/images/manglar-galeria-chamarra-lentejuelas-nina.png';
+import galleryChamarraDeportiva from '../assets/images/manglar-galeria-chamarra-deportiva-hombre.jpg';
+import galleryLookRosa from '../assets/images/manglar-galeria-look-rosa-nina.png';
+import productionModaInfantil from '../assets/images/manglar-operacion-catalogo-moda-infantil.png';
 
 const brand = 'Manglar';
 const whatsappNumber = '525544636484';
@@ -20,16 +27,40 @@ const liveItems = [
   { icon: 'loop', title: 'Canal repetible', desc: 'Documentamos lo que funciona y construimos el playbook para escalar el LIVE como canal de venta estable.' },
 ];
 
-const heroPhoto =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuD5ABnY2OkOsvVHOhcW6BLZjC3_kySEhEQ3VXmx8nJiSPb4x_VGNilPVik4eP2sQ51kT17ybrDmn4miWOQeZT6P8835RhaFcdb-6mKLGVfqGGa8TaDZ0B3wKrDauTO0PgIdQZEoRMVPCTo8yTqkS09bY922WY4gan81ixtUjMi1IxHcioSMwSo_4YyPYkszh3QF3wFQ8Vpv6Hk8JyHWstK5HY6NSrzzpq9xb_DFbogmbBcSkTYdyIyhLe3HqkyCGtnB12r8T96RSqs';
+const heroPhoto = {
+  src: heroVansMujer,
+  alt: 'Modelo con gorra floral Vans y outfit casual para catálogo femenino de moda en marketplace',
+  width: 1050,
+  loading: 'eager' as const,
+  priority: true,
+};
 const photos = [
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuBGno_AVjNeTIVAdZD0An7vbs7mUlzaobZ4ir_5YqAY44KtpKO-Y5IkK0rt3Ek7b3MlstaQo2oXPQHuCc_ZcDMwO5geUMkgXOWOhtMws0pN2Fa7mYE7FIL8f8mL8wz3xdtzRSn_AbX_xGbBP2N7H1iuPGJALdncw1SwSUmZwUhPUYG_tfRYaUoXFZosrr456l7WapmyzaEAkdduUY1egZ3HH9mZln0vsiq29X4znZJRw1SHewxZgQTR2hp8vvI21gF6Y8x1qDB351c',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCKwY3DVFg4Ta6ty2EbDzoHKes70i_o3_SM02ZHHw26OPDv9EO0ws8-pdmvGcqD6P9TA3ogU3yCLNLIJlryKWa8pTg0ShncIBYHL86BwV5cbZBe0liU3UJ2IVlM9Aeacpw8h3TzRXqZa-UxRAuW8T11lKmrT6tFSZmusHmD_aPy4iFdjbDFCjRKdD0-1ncp2obY-CFCszdIoV5d5zOWSpCt-S8Z0C922UwL-4Lx9zoUahg52OKXoDp7J009EM0MPVW4hxicgA4PuXI',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuD4Psu_b9emuf2aGLzIyVyW0Sejz7Q-nf9TC9vEa-x3GOHpwikXO0JOJSmB0lbipjbn4inyN33Pn3zbvJ3nF2xD7o1W8qDjauC4NWEEEW_TCUCDzGFH8SGGS7Y0iT0pqx-0c8HcYVjHnjSbjoaNwri-jgEy6EXyrttrUutpo9UZndmZm1RRIvz7HlbRqk4y_JTinSi2whcx6rsRdAFEUJJcvDpJH7kqydlB3kkMTihHq1peROj3jRmgrWw-8-lj3fzzU6YO-Q6jZ2o',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAS-ec4cgsJ9v4P_9l769-Tf79yBxlWum2HZFU32dMwVsSvyXul_AX7beFqUGhewtNEZUCOQ292aPPMu3oQ_Kc2-eIIiufhu86pbGMp8MnOZT_Y9aHSAXHxoehNUlhpcsOHf50GIA8GAfwkqlw7dr3B4D-Pt2SiC7Bg4brfU3jfGcQv9VLEpRCdGpfDg-f6B03G7DoydY044E55QuQ8VNBqdMJN2v1M8QOFBw-y9b9kvizn5xkh32Sr5-nPjKE23ZNRAdIX5yiRrr4',
+  {
+    src: galleryGorraUnderArmour,
+    alt: 'Modelo con gorra negra Under Armour para foto de catálogo de ropa deportiva en marketplace',
+    width: 900,
+  },
+  {
+    src: galleryChamarraLentejuelas,
+    alt: 'Niña con chamarra rosa de lentejuelas para imagen de producto infantil en catálogo e-commerce',
+    width: 900,
+  },
+  {
+    src: galleryChamarraDeportiva,
+    alt: 'Modelo con chamarra deportiva azul marino para visual de catálogo masculino optimizado para marketplace',
+    width: 900,
+  },
+  {
+    src: galleryLookRosa,
+    alt: 'Niña con look rosa y falda rayada para foto de producto infantil optimizada para tienda en línea',
+    width: 900,
+  },
 ];
-const productionPhoto =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAOutaWTXsZnh98Kg9hJAKtZK03H3xGcYRfyWWx3CZTvs0L7T_dEZwJMCuWfVG5uGiNnf_8KD0hSxSKpVZfmH1zFAjGbSojDSPz0fKRpQ0lc2pwsdh-8M_0WuUQeQwNiXrYrmi_GXd7Vjq-zrFzUA5ka48tRE_Zg1mgV8rWKz7KJW47zbUgEQSWJqxwL2NmcYxWHD8GqF_CV1xdg_oap1sLsb1VGv1SUvlKJa5iaoCRtKD2P5aqQO4Vx0cNhF74EzQM6Sw8Wlomzrs';
+const productionPhoto = {
+  src: productionModaInfantil,
+  alt: 'Moda infantil para catálogo e-commerce con dos niñas modelando ropa Barbie sobre fondo rosa',
+  width: 1536,
+};
 
 const serviceCards = [
   {
@@ -169,8 +200,8 @@ const faqItems = [
 ---
 
 <Layout
-  title="Manglar — Shein, TikTok Shop y TikTok LIVE sin carga operativa"
-  description="Manglar opera Shein y TikTok Shop de principio a fin: catálogo, fotos con IA, campañas, descuentos y TikTok LIVE para vender más sin dedicarle horas a la operación."
+  title="Manglar | Gestión Shein, TikTok Shop, fotos de producto y TikTok LIVE"
+  description="Manglar opera Shein y TikTok Shop de principio a fin en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más sin dedicarle horas a la operación."
 >
   <style>
     :root {
@@ -543,9 +574,14 @@ const faqItems = [
       </div>
 
       <div class="hero-photo" style="position:relative;overflow:hidden;background:#d6d0c8;">
-        <img
-          src={heroPhoto}
-          alt="Gestión profesional de tienda Shein y TikTok Shop con Manglar"
+        <Image
+          src={heroPhoto.src}
+          alt={heroPhoto.alt}
+          width={heroPhoto.width}
+          format="webp"
+          quality="high"
+          loading={heroPhoto.loading}
+          priority={heroPhoto.priority}
           class="hero-img"
         />
         <div style="position:absolute;inset:0;background:linear-gradient(to right, #0e0e0e 0%, transparent 20%);pointer-events:none;"></div>
@@ -622,7 +658,16 @@ const faqItems = [
     </section>
 
     <section class="fullwidth-section" style="position:relative;height:560px;overflow:hidden;">
-      <img src={productionPhoto} alt="Operación de catálogo e-commerce para Shein y TikTok Shop" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(0.6);" />
+      <Image
+        src={productionPhoto.src}
+        alt={productionPhoto.alt}
+        width={productionPhoto.width}
+        format="webp"
+        quality="high"
+        loading="lazy"
+        class="fullwidth-image"
+        style="width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(0.6);"
+      />
       <div style="position:absolute;inset:0;background:linear-gradient(to top,#0e0e0e 0%,rgba(14,14,14,0.2) 60%,transparent 100%);"></div>
       <div class="fullwidth-text" style="position:absolute;bottom:0;left:0;right:0;padding:60px 40px;max-width:1400px;margin:0 auto;">
         <span class="material-symbols-outlined" style="font-size:3rem;color:#ff8c95;margin-bottom:16px;display:block;">schedule</span>
@@ -673,16 +718,15 @@ const faqItems = [
         </div>
 
         <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
-          {photos.map((src, i) => (
+          {photos.map((photo, i) => (
             <div class={i % 2 !== 0 ? 'gallery-stagger' : ''} style={`border-radius:1.25rem;overflow:hidden;aspect-ratio:3/4;${i % 2 !== 0 ? 'margin-top:56px;' : ''}`}>
-              <img
-                src={src}
-                alt={[
-                  'Foto de producto con IA generada por Manglar para catálogo de Shein',
-                  'Imagen de producto optimizada para marketplace TikTok Shop',
-                  'Foto de catálogo con fondo limpio generada con inteligencia artificial',
-                  'Visual de producto consistente para tienda Shein generado por Manglar',
-                ][i]}
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width}
+                format="webp"
+                quality="high"
+                loading="lazy"
                 class="gallery-img"
               />
             </div>
