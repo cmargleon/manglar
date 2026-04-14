@@ -418,11 +418,13 @@ const faqItems = [
 
     /* ─── TikTok LIVE section ─── */
     .live-intro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
+      display: block;
       margin-bottom: 80px;
+    }
+    .live-intro-copy {
+      max-width: 840px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     /* ─── AI photo section ─── */
@@ -455,11 +457,6 @@ const faqItems = [
     }
     .ia-feature-card:last-child {
       grid-column: 2;
-    }
-    .live-compare-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
     }
     .live-features-grid {
       display: grid;
@@ -507,8 +504,6 @@ const faqItems = [
     }
 
     @media (max-width: 768px) {
-      .live-intro-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-      .live-compare-grid { grid-template-columns: 1fr !important; }
       .live-features-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
       .email-capture-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
       .cta-channels { grid-template-columns: 1fr !important; max-width: 100% !important; }
@@ -574,20 +569,6 @@ const faqItems = [
         <p style="font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.52);max-width:540px;margin-bottom:32px;">
           Operación estable para tiendas de 10 a 5,000+ productos, con foco en orden, velocidad y optimización continua.
         </p>
-
-        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:620px;margin-bottom:32px;">
-          {[
-            { icon: 'store', text: 'Gestión integral de tienda y productos.' },
-            { icon: 'auto_awesome', text: 'Imágenes con IA diseñadas para conversión.' },
-            { icon: 'campaign', text: 'Campañas, descuentos y eventos activos.' },
-            { icon: 'live_tv', text: 'Ejecución completa de TikTok LIVE.' },
-          ].map(({ icon, text }) => (
-            <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:0.9rem;line-height:1.55;color:rgba(255,255,255,0.84);">
-              <span class="material-symbols-outlined" style="font-size:1.1rem;color:#ff8c95;flex-shrink:0;">{icon}</span>
-              {text}
-            </div>
-          ))}
-        </div>
 
         <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
           <a
@@ -797,18 +778,18 @@ const faqItems = [
 
     <section id="tiktok-live" style="padding:120px 40px;background:#080808;border-top:1px solid rgba(255,255,255,0.04);">
       <div style="max-width:1400px;margin:0 auto;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff8c95,#e80048);padding:7px 16px;border-radius:9999px;margin-bottom:40px;width:fit-content;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff8c95,#e80048);padding:7px 16px;border-radius:9999px;margin:0 auto 40px;width:fit-content;">
           <span style="width:6px;height:6px;background:#fff;border-radius:50%;display:inline-block;"></span>
           <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;">Canal de ventas repetible</span>
         </div>
 
         <div class="live-intro-grid">
-          <div>
+          <div class="live-intro-copy">
             <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:0.95;margin-bottom:24px;">
               TikTok LIVE que<br />
               <em style="color:#ff8c95;font-style:italic;">vende de verdad</em>
             </h2>
-            <p style="font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,0.66);margin-bottom:32px;max-width:520px;">
+            <p style="font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,0.66);margin:0 auto 32px;max-width:720px;">
               No es solo transmitir. Un LIVE bien operado es la herramienta de mayor conversión en TikTok Shop cuando tiene estrategia, productos correctos y gestión activa en tiempo real.
             </p>
             <a
@@ -821,43 +802,6 @@ const faqItems = [
               <span class="material-symbols-outlined" style="font-size:1.2rem;">live_tv</span>
               Quiero operar mi TikTok LIVE
             </a>
-          </div>
-
-          <div class="live-compare-grid">
-            <div style="background:#161616;border-radius:1.5rem;padding:32px;border:1px solid rgba(255,255,255,0.06);">
-              <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:20px;">Sin gestión</div>
-              <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;">
-                {[
-                  'Transmitís sin estructura comercial',
-                  'Productos sin anclar ni preparar',
-                  'Sin promociones en el momento justo',
-                  'Sin análisis posterior al LIVE',
-                  'Canal que no escala ni se repite',
-                ].map(item => (
-                  <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:rgba(255,255,255,0.5);line-height:1.5;">
-                    <span class="material-symbols-outlined" style="font-size:1rem;color:rgba(255,100,100,0.7);flex-shrink:0;margin-top:1px;">close</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div style="background:linear-gradient(135deg,#200c10,#161616);border-radius:1.5rem;padding:32px;border:1px solid rgba(255,140,149,0.25);box-shadow:0 0 60px rgba(232,0,72,0.08);">
-              <div style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#ff8c95;margin-bottom:20px;">Con Manglar</div>
-              <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;">
-                {[
-                  'Estrategia comercial definida antes de entrar',
-                  'Productos anclados y ofertas preparadas',
-                  'Promociones activadas en tiempo real',
-                  'Análisis post-LIVE para mejorar cada semana',
-                  'Canal repetible que escala con el tiempo',
-                ].map(item => (
-                  <li style="display:flex;align-items:flex-start;gap:10px;font-size:0.875rem;color:rgba(255,255,255,0.84);line-height:1.5;">
-                    <span class="material-symbols-outlined" style="font-size:1rem;color:#ff8c95;flex-shrink:0;margin-top:1px;">check_circle</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
 
