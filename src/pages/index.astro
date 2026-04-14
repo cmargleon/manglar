@@ -251,7 +251,9 @@ const faqItems = [
       .gallery-stagger { margin-top: 0 !important; }
 
       .ia-section { padding: 80px 20px !important; }
-      .ia-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+      .ia-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .ia-copy { max-width: 100% !important; }
+      .ia-feature-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
 
       .steps-section { padding: 0 20px 80px !important; }
       .steps-inner { padding-top: 80px !important; }
@@ -421,6 +423,38 @@ const faqItems = [
       gap: 80px;
       align-items: start;
       margin-bottom: 80px;
+    }
+
+    /* ─── AI photo section ─── */
+    .ia-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 56px;
+      align-items: start;
+    }
+    .ia-copy {
+      max-width: 560px;
+    }
+    .ia-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+    .ia-feature-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: #161616;
+      border-radius: 1rem;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .ia-feature-card:first-child {
+      transform: translateY(28px);
+    }
+    .ia-feature-card:last-child {
+      grid-column: 2;
     }
     .live-compare-grid {
       display: grid;
@@ -730,71 +764,32 @@ const faqItems = [
 
     <section id="ia" class="ia-section section-pad" style="padding:120px 40px;">
       <div style="max-width:1400px;margin:0 auto;">
-        <div class="ia-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
-          <div>
-            <h2 class="font-headline" style="font-size:clamp(2.5rem,4.5vw,4rem);font-weight:900;letter-spacing:-0.04em;line-height:1;margin-bottom:28px;">
+        <div class="ia-grid">
+          <div class="ia-copy">
+            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,140,149,0.08);padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,140,149,0.18);margin-bottom:28px;">
+              <span style="width:7px;height:7px;background:#ff8c95;border-radius:50%;display:inline-block;"></span>
+              <span style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffb4bb;">Producción visual escalable</span>
+            </div>
+            <h2 class="font-headline" style="font-size:clamp(2.8rem,5vw,4.8rem);font-weight:900;letter-spacing:-0.04em;line-height:0.94;margin-bottom:24px;">
               Fotos de producto con<br /><em style="color:#ff8c95;font-style:italic;">Inteligencia Artificial</em>
             </h2>
-            <p style="font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,0.66);margin-bottom:48px;">
+            <p style="font-size:1.08rem;line-height:1.75;color:rgba(255,255,255,0.66);margin:0;max-width:52ch;">
               Las fotos son uno de los cuellos de botella más pesados en e-commerce. Generamos imágenes limpias, consistentes y optimizadas para marketplace sin sesiones largas, sin fotógrafos y sin costos variables.
             </p>
-            <div style="display:flex;flex-direction:column;gap:28px;">
-              {visualFeatures.map((item) => (
-                <div style="display:flex;gap:16px;align-items:flex-start;">
-                  <div style="width:44px;height:44px;background:linear-gradient(135deg,rgba(255,140,149,0.15),rgba(232,0,72,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,140,149,0.2);">
-                    <span class="material-symbols-outlined" style="font-size:1.3rem;color:#ff8c95;">{item.icon}</span>
-                  </div>
-                  <div>
-                    <div class="font-headline" style="font-weight:700;font-size:1rem;margin-bottom:6px;">{item.title}</div>
-                    <div style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.6);">{item.desc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:16px;">
-            <div style="background:#161616;border-radius:1.5rem;padding:32px;border:1px solid rgba(255,255,255,0.06);">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+          <div class="ia-feature-grid">
+            {visualFeatures.map((item) => (
+              <div class="ia-feature-card">
+                <div style="width:44px;height:44px;background:linear-gradient(135deg,rgba(255,140,149,0.15),rgba(232,0,72,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,140,149,0.2);">
+                  <span class="material-symbols-outlined" style="font-size:1.3rem;color:#ff8c95;">{item.icon}</span>
+                </div>
                 <div>
-                  <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:6px;">Sin Manglar</div>
-                  <div class="font-headline" style="font-weight:800;font-size:1.2rem;">Producción tradicional</div>
+                  <div class="font-headline" style="font-weight:700;font-size:1rem;margin-bottom:6px;">{item.title}</div>
+                  <div style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.6);">{item.desc}</div>
                 </div>
-                <span class="material-symbols-outlined" style="font-size:1.75rem;color:rgba(255,255,255,0.38);">sentiment_dissatisfied</span>
               </div>
-              {[
-                ['Costo por foto', 'Más alto y variable'],
-                ['Tiempo de entrega', 'Días o semanas'],
-                ['Flexibilidad', 'Baja'],
-                ['Consistencia', 'Irregular'],
-              ].map(([label, value]) => (
-                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.9rem;">
-                  <span style="color:rgba(255,255,255,0.5);">{label}</span>
-                  <span style="color:rgba(255,255,255,0.56);">{value}</span>
-                </div>
-              ))}
-            </div>
-
-            <div style="background:linear-gradient(135deg,#200c10,#161616);border-radius:1.5rem;padding:32px;border:1px solid rgba(255,140,149,0.25);box-shadow:0 0 60px rgba(232,0,72,0.08);">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
-                <div>
-                  <div style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#ff8c95;margin-bottom:6px;">Con Manglar</div>
-                  <div class="font-headline" style="font-weight:800;font-size:1.2rem;">Producción con IA</div>
-                </div>
-                <span class="material-symbols-outlined" style="font-size:1.75rem;color:#ff8c95;">auto_awesome</span>
-              </div>
-              {[
-                ['Costo por iteración', 'Más eficiente'],
-                ['Tiempo de entrega', 'Mucho más rápido'],
-                ['Flexibilidad', 'Alta'],
-                ['Consistencia', 'Controlada por catálogo'],
-              ].map(([label, value]) => (
-                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,140,149,0.08);font-size:0.9rem;">
-                  <span style="color:rgba(255,255,255,0.68);">{label}</span>
-                  <span style="font-weight:700;color:#ff8c95;">{value}</span>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </div>
