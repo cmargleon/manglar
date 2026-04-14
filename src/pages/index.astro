@@ -492,7 +492,6 @@ const faqItems = [
         <a href="#visuales" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Visuales</a>
         <a href="#ia" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Fotos IA</a>
         <a href="#tiktok-live" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">TikTok LIVE</a>
-        <a href="#proceso" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Cómo funciona</a>
         <a href="#faq" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">FAQ</a>
         <a href="#contacto" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Contacto</a>
       </div>
@@ -516,7 +515,6 @@ const faqItems = [
     <a href="#visuales" class="mobile-nav-link">Visuales</a>
     <a href="#ia" class="mobile-nav-link">Fotos IA</a>
     <a href="#tiktok-live" class="mobile-nav-link">TikTok LIVE</a>
-    <a href="#proceso" class="mobile-nav-link">Cómo funciona</a>
     <a href="#faq" class="mobile-nav-link">FAQ</a>
     <a href="#contacto" class="mobile-nav-link">Contacto</a>
   </div>
@@ -709,12 +707,7 @@ const faqItems = [
               "Imágenes limpias, consistentes y optimizadas para marketplace. Sin sesiones, sin fotógrafos y sin semanas de espera."
             </p>
           </div>
-          <div style="max-width:340px;padding:18px 22px;border-radius:1rem;background:#121212;border:1px solid rgba(255,255,255,0.06);">
-            <div style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#ff8c95;margin-bottom:8px;">Desde el repo fuente</div>
-            <p style="font-size:0.9rem;line-height:1.65;color:rgba(255,255,255,0.64);margin:0;">
-              Aprovechamos tus fotos si ya funcionan. Si no, generamos nuevas alternativas con IA para elevar consistencia y conversión.
-            </p>
-          </div>
+
         </div>
 
         <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
@@ -887,32 +880,6 @@ const faqItems = [
       </div>
     </section>
 
-    <section id="proceso" class="steps-section section-pad" style="padding:0 40px 120px;background:#0a0a0a;">
-      <div class="steps-inner" style="max-width:1400px;margin:0 auto;padding-top:120px;">
-        <div style="margin-bottom:80px;max-width:760px;">
-          <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1;">
-            Cómo <em style="color:#ff8c95;font-style:italic;">funciona</em>
-          </h2>
-          <p style="margin-top:20px;font-size:1rem;line-height:1.7;color:rgba(255,255,255,0.62);">
-            El flujo nace del repo original: diagnóstico, orden, operación, TikTok LIVE y optimización semanal para convertir mejor sin cargar a tu equipo.
-          </p>
-          <div style="height:3px;width:72px;background:linear-gradient(90deg,#ff8c95,#e80048);border-radius:9999px;margin-top:20px;"></div>
-        </div>
-        <div class="steps-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;position:relative;">
-          <div class="steps-line" style="position:absolute;top:30px;left:6%;right:6%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,140,149,0.5) 15%,rgba(232,0,72,0.4) 85%,transparent);border-radius:9999px;"></div>
-          {steps.map((step) => (
-            <div style="text-align:center;position:relative;">
-              <div class="font-headline" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#ff8c95,#e80048);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.8rem;color:#fff;margin:0 auto 28px;position:relative;z-index:1;">
-                {step.n}
-              </div>
-              <h3 class="font-headline" style="font-weight:700;font-size:0.95rem;margin-bottom:10px;">{step.title}</h3>
-              <p style="font-size:0.8rem;line-height:1.65;color:rgba(255,255,255,0.62);">{step.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
     <section id="faq" class="faq-section section-pad" style="padding:120px 40px;background:#0e0e0e;">
       <div style="max-width:1400px;margin:0 auto;">
         <div class="faq-grid" style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:start;">
@@ -956,11 +923,7 @@ const faqItems = [
 
     <section id="contacto" class="cta-section" style="background:linear-gradient(135deg,#ff8c95 0%,#e80048 100%);padding:120px 40px;text-align:center;">
       <div style="max-width:960px;margin:0 auto;">
-        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.18);backdrop-filter:blur(10px);padding:8px 20px;border-radius:9999px;margin-bottom:32px;border:1px solid rgba(255,255,255,0.25);">
-          <span style="width:8px;height:8px;background:#fff;border-radius:50%;display:inline-block;animation:pulse 1.5s ease-in-out infinite;flex-shrink:0;"></span>
-          <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;">5 cupos disponibles este mes · Diagnóstico gratuito</span>
-        </div>
-        <h2 class="font-headline" style="font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:0.92;margin-bottom:28px;">
+<h2 class="font-headline" style="font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:0.92;margin-bottom:28px;">
           Tu tienda puede<br /><em style="font-style:italic;">vender más</em><br />sin operar todo el día
         </h2>
         <p style="font-size:1.15rem;color:rgba(255,255,255,0.82);margin-bottom:52px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto;">
@@ -979,7 +942,6 @@ const faqItems = [
               <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">Diagnóstico gratuito</div>
               <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">No sé por dónde empezar, quiero que revisen mi tienda</div>
             </div>
-            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fff;">Iniciar por WhatsApp →</div>
           </a>
           <a
             href={whatsappCatalogo}
@@ -993,7 +955,6 @@ const faqItems = [
               <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">Operar mi catálogo</div>
               <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">Necesito gestión de productos, fotos y campañas</div>
             </div>
-            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fff;">Iniciar por WhatsApp →</div>
           </a>
           <a
             href={whatsappLive}
@@ -1007,7 +968,6 @@ const faqItems = [
               <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">TikTok LIVE</div>
               <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">Quiero arrancar o mejorar mis transmisiones</div>
             </div>
-            <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fff;">Iniciar por WhatsApp →</div>
           </a>
         </div>
         <a
