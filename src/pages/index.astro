@@ -9,6 +9,7 @@ import galleryLookRosa from '../assets/images/manglar-galeria-look-rosa-nina.png
 import productionModaInfantil from '../assets/images/manglar-operacion-catalogo-moda-infantil.png';
 
 const brand = 'Manglar';
+const currentYear = new Date().getFullYear();
 const whatsappNumber = '525544636484';
 const whatsappText = encodeURIComponent(
   'Hola, quiero impulsar mis ventas en Shein y TikTok Shop con Manglar.'
@@ -24,50 +25,72 @@ const liveItems = [
   { icon: 'sell', title: 'Productos y promociones', desc: 'Anclamos los productos, creamos las ofertas de LIVE y activamos descuentos en el momento exacto.' },
   { icon: 'live_tv', title: 'Gestión en transmisión', desc: 'Estructura de venta, timing e interacción con audiencia durante el LIVE para mantener el ritmo de compra.' },
   { icon: 'analytics', title: 'Análisis post-LIVE', desc: 'Revisamos métricas, ventas por producto y comportamiento de audiencia para mejorar cada semana.' },
-  { icon: 'loop', title: 'Canal repetible', desc: 'Documentamos lo que funciona y construimos el playbook para escalar el LIVE como canal de venta estable.' },
+  { icon: 'loop', title: 'Sistema escalable', desc: 'Documentamos lo que funciona y construimos el playbook para escalar el LIVE con una operación comercial estable.' },
 ];
 
 const heroPhoto = {
   src: heroVansMujer,
-  alt: 'Modelo con gorra floral Vans y outfit casual para catálogo femenino de moda en marketplace',
+  alt: 'Modelo con gorra floral Vans para catálogo de moda femenina operado por Manglar en Shein y TikTok Shop',
   width: 1050,
+  widths: [480, 640, 768, 960, 1050],
+  sizes: '(max-width: 768px) calc(100vw - 40px), (max-width: 1200px) 46vw, 620px',
   loading: 'eager' as const,
   priority: true,
 };
+
+const galleryWidths = [320, 480, 640, 900];
+const gallerySizes = '(max-width: 480px) calc(100vw - 40px), (max-width: 768px) calc(50vw - 28px), 320px';
+
 const photos = [
   {
     src: galleryGorraUnderArmour,
     alt: 'Modelo con gorra negra Under Armour para foto de catálogo de ropa deportiva en marketplace',
     width: 900,
+    widths: galleryWidths,
+    sizes: gallerySizes,
   },
   {
     src: galleryChamarraLentejuelas,
     alt: 'Niña con chamarra rosa de lentejuelas para imagen de producto infantil en catálogo e-commerce',
     width: 900,
+    widths: galleryWidths,
+    sizes: gallerySizes,
   },
   {
     src: galleryChamarraDeportiva,
     alt: 'Modelo con chamarra deportiva azul marino para visual de catálogo masculino optimizado para marketplace',
     width: 900,
+    widths: galleryWidths,
+    sizes: gallerySizes,
   },
   {
     src: galleryLookRosa,
     alt: 'Niña con look rosa y falda rayada para foto de producto infantil optimizada para tienda en línea',
     width: 900,
+    widths: galleryWidths,
+    sizes: gallerySizes,
   },
 ];
+
+const carouselPhotos = Array.from({ length: 3 }, (_, loopIndex) =>
+  photos.map((photo) => ({
+    ...photo,
+    isDecorative: loopIndex !== 1,
+  }))
+).flat();
+
 const productionPhoto = {
   src: productionModaInfantil,
-  alt: 'Moda infantil para catálogo e-commerce con dos niñas modelando ropa Barbie sobre fondo rosa',
+  alt: 'Moda infantil para catálogo e-commerce con dos niñas modelando ropa Barbie sobre fondo rosa para marketplace',
   width: 1536,
+  widths: [640, 960, 1200, 1536],
+  sizes: '100vw',
 };
 
 const serviceCards = [
   {
     icon: 'inventory_2',
     title: 'Gestión integral de catálogo',
-    description:
-      'Subimos, bajamos, ordenamos y optimizamos productos, variantes, categorías, precios y stock para que tu tienda siempre esté lista para vender.',
     items: [
       'Alta y baja de productos por fases',
       'Títulos, atributos y variantes consistentes',
@@ -92,7 +115,7 @@ const serviceCards = [
     icon: 'live_tv',
     title: 'Gestión completa de TikTok LIVE',
     description:
-      'Estrategia, preparación, productos anclados, promociones, dinámica de venta y optimización posterior para convertir LIVE en un canal repetible.',
+      'Estrategia, preparación, productos anclados, promociones, dinámica de venta y optimización posterior para convertir LIVE en una operación comercial estable.',
   },
   {
     icon: 'analytics',
@@ -119,6 +142,47 @@ const visualFeatures = [
     icon: 'palette',
   },
 ];
+
+const partnerLogos = [
+  {
+    label: 'Barbie',
+    sector: 'Moda infantil',
+    src: '/logos/barbie.svg',
+    alt: 'Logo de Barbie',
+    width: 1000,
+    height: 495,
+  },
+  {
+    label: 'Vans',
+    sector: 'Streetwear',
+    src: '/logos/vans.svg',
+    alt: 'Logo de Vans',
+    width: 444,
+    height: 197,
+  },
+  {
+    label: 'Under Armour',
+    sector: 'Performance',
+    src: '/logos/under-armour.svg',
+    alt: 'Logo de Under Armour',
+    width: 302,
+    height: 177,
+  },
+  {
+    label: 'Messi',
+    sector: 'Licencias y retail',
+    src: '/logos/messi.svg',
+    alt: 'Logo de Messi',
+    width: 560,
+    height: 180,
+  },
+];
+const partnerLogoLoop = Array.from({ length: 3 }, (_, loopIndex) =>
+  partnerLogos.map((logo) => ({
+    ...logo,
+    isDecorative: loopIndex !== 1,
+  }))
+).flat();
 
 const steps = [
   {
@@ -183,7 +247,7 @@ const faqItems = [
       'Preparación de productos anclados y promociones.',
       'Estructura de venta durante la transmisión.',
       'Análisis y optimización para siguientes lives.',
-      'Construcción de un canal repetible y escalable.',
+      'Construcción de una operación escalable y ordenada.',
     ],
   },
   {
@@ -200,8 +264,8 @@ const faqItems = [
 ---
 
 <Layout
-  title="Manglar | Gestión Shein, TikTok Shop, fotos de producto y TikTok LIVE"
-  description="Manglar opera Shein y TikTok Shop de principio a fin en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más sin dedicarle horas a la operación."
+  title="Manglar | Agencia para Shein, TikTok Shop y TikTok LIVE en México"
+  description="Manglar opera Shein y TikTok Shop de principio a fin en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más sin frenar tu operación."
 >
   <style>
     :root {
@@ -211,7 +275,9 @@ const faqItems = [
     #servicios,
     #visuales,
     #ia,
+    #marcas,
     #proceso,
+    #tiktok-live,
     #faq,
     #contacto {
       scroll-margin-top: 112px;
@@ -221,6 +287,931 @@ const faqItems = [
       padding-top: var(--nav-height);
     }
 
+    .nav-shell {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+
+    .nav-brand-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-icon {
+      font-size: 1.5rem;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      padding: 0.8125rem 1.875rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      z-index: 49;
+      background: rgba(14,14,14,0.98);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 20px 24px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-grid {
+      min-height: calc(100vh - var(--nav-height));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: visible;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 48px 64px 40px;
+      background: #0e0e0e;
+      position: relative;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #ff8c95, #e80048);
+      padding: 0.4375rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .hero-kicker-dot {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero-kicker-copy {
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .hero-title {
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+      max-width: 760px;
+    }
+
+    .hero-copy {
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+      max-width: 530px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-primary-cta {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    .hero-secondary-link {
+      color: rgba(255,255,255,0.6);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .ia-title {
+      line-height: 0.94;
+      margin-bottom: 24px;
+    }
+
+    .hero-photo {
+      position: relative;
+      overflow: hidden;
+      background: #d6d0c8;
+    }
+
+    .hero-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #0e0e0e 0%, transparent 20%);
+      pointer-events: none;
+    }
+
+    .services-section {
+      padding: 104px 40px 120px;
+    }
+
+    .services-intro {
+      margin-bottom: 64px;
+      max-width: 760px;
+    }
+
+    .section-divider {
+      height: 3px;
+      width: 72px;
+      background: linear-gradient(90deg, #ff8c95, #e80048);
+      border-radius: 9999px;
+      margin-top: 20px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .service-card {
+      background: #161616;
+      border-radius: 1.5rem;
+      padding: 36px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .service-card--catalog {
+      grid-column: span 2;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card--live {
+      border-color: rgba(255,140,149,0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .service-icon-lg {
+      font-size: 3rem;
+      color: #ff8c95;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .service-icon-md {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      display: block;
+      color: #ff8c95;
+    }
+
+    .service-icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff8c95, #e80048);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .service-icon-circle-symbol {
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .service-title {
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .service-title--xl {
+      margin-bottom: 16px;
+    }
+
+    .service-copy {
+      line-height: 1.65;
+      color: rgba(255,255,255,0.58);
+    }
+
+    .service-copy--live {
+      line-height: 1.7;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .service-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .service-list-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .service-check {
+      font-size: 1rem;
+      color: #ff8c95;
+    }
+
+    .service-bg-icon-wrap {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      opacity: 0.04;
+    }
+
+    .service-bg-icon {
+      font-size: 12.5rem;
+      color: #ff8c95;
+    }
+
+    .fullwidth-section {
+      position: relative;
+      min-height: 680px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .fullwidth-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      filter: brightness(0.6);
+    }
+
+    .fullwidth-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0e0e0e 0%, rgba(14,14,14,0.2) 60%, transparent 100%);
+    }
+
+    .fullwidth-text {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 60px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .problem-title {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+
+    .problem-copy {
+      color: rgba(255,255,255,0.72);
+      max-width: 640px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .problem-pills {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 980px;
+    }
+
+    .problem-pill {
+      padding: 16px 18px;
+      border-radius: 1rem;
+      background: rgba(14,14,14,0.72);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .problem-pill-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .problem-pill-icon {
+      font-size: 1.1rem;
+      color: #ff8c95;
+    }
+
+    .problem-pill-title {
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .problem-pill-copy {
+      line-height: 1.55;
+      color: rgba(255,255,255,0.55);
+      margin: 0;
+    }
+
+    .container-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .accent-em {
+      color: #ff8c95;
+      font-style: italic;
+    }
+
+    .accent-italic {
+      font-style: italic;
+    }
+
+    .accent-em--gallery {
+      display: inline-block;
+      margin-top: 0.08em;
+    }
+
+    .gallery-section {
+      padding: 120px 40px;
+      background: #0a0a0a;
+    }
+
+    .gallery-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+      gap: 32px;
+    }
+
+    .gallery-quote {
+      margin-top: 16px;
+      max-width: 520px;
+      font-style: italic;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.65;
+    }
+
+    .ia-section {
+      padding: 120px 40px;
+    }
+
+    .ia-copy-text {
+      margin: 0;
+      max-width: 52ch;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .ia-icon-badge,
+    .live-feature-icon-wrap {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(255,140,149,0.15), rgba(232,0,72,0.1));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,140,149,0.2);
+      flex-shrink: 0;
+    }
+
+    .ia-icon,
+    .live-feature-icon {
+      font-size: 1.3rem;
+      color: #ff8c95;
+    }
+
+    .ia-feature-title {
+      margin: 0 0 6px;
+      font-weight: 700;
+    }
+
+    .ia-feature-copy {
+      margin: 0;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .brands-section {
+      padding: 80px 40px 100px;
+      background: #0e0e0e;
+    }
+
+    .brands-title {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      margin-bottom: 56px;
+      text-align: center;
+    }
+
+    .brand-logo-item {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 40px;
+    }
+
+    .brand-logo-image {
+      height: 4.5rem;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .steps-section {
+      padding: 0 40px 120px;
+      background:
+        linear-gradient(180deg, #0e0e0e 0%, #090909 100%);
+    }
+
+    .steps-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 96px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .steps-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+
+    .steps-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: #ff8c95;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .steps-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff8c95, #e80048);
+      box-shadow: 0 0 18px rgba(255,140,149,0.42);
+    }
+
+    .steps-intro {
+      margin: 0;
+      max-width: 560px;
+      color: rgba(255,255,255,0.64);
+      line-height: 1.75;
+    }
+
+    .steps-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .steps-line {
+      position: absolute;
+      top: 42px;
+      left: 42px;
+      right: 42px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(255,140,149,0.28), rgba(255,255,255,0.08));
+      pointer-events: none;
+    }
+
+    .step-card {
+      position: relative;
+      z-index: 1;
+      min-height: 220px;
+      padding: 24px 22px 22px;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
+        #101010;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff8c95, #e80048);
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .step-title {
+      margin: 0 0 10px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .step-copy {
+      margin: 0;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.7;
+    }
+
+    .live-section {
+      padding: 120px 40px;
+      background: #080808;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .live-title {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+
+    .live-copy {
+      margin: 0 auto 32px;
+      max-width: 720px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .live-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+    }
+
+    .live-cta-icon {
+      font-size: 1.2rem;
+    }
+
+    .live-feature-card {
+      background: #161616;
+      border-radius: 1.25rem;
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .live-feature-icon-wrap {
+      margin-bottom: 18px;
+    }
+
+    .live-feature-title {
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .live-feature-copy {
+      margin: 0;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .faq-section {
+      padding: 120px 40px;
+      background: #0e0e0e;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 40px;
+      align-items: start;
+    }
+
+    .faq-label {
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ff8c95;
+      margin-bottom: 18px;
+    }
+
+    .faq-title {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.96;
+      margin-bottom: 18px;
+    }
+
+    .faq-copy {
+      max-width: 440px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .faq-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-question {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .faq-list {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+    }
+
+    .faq-note {
+      margin-top: 18px;
+      padding-left: 14px;
+      border-left: 3px solid rgba(255,140,149,0.4);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #ff8c95 0%, #e80048 100%);
+      padding: 120px 40px;
+      text-align: center;
+    }
+
+    .cta-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 0.92;
+      margin-bottom: 28px;
+    }
+
+    .cta-copy {
+      color: rgba(255,255,255,0.82);
+      margin: 0 auto 52px;
+      line-height: 1.65;
+      max-width: 620px;
+    }
+
+    .cta-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 1.25rem;
+      padding: 28px 24px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      transition: background 0.2s ease;
+    }
+
+    .cta-card-icon {
+      font-size: 1.75rem;
+      color: #fff;
+    }
+
+    .cta-card-title {
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+
+    .cta-card-copy {
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .cta-email-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+    }
+
+    .cta-email-icon,
+    .footer-mail-icon {
+      font-size: 1rem;
+    }
+
+    .footer-shell {
+      background: #080808;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 72px 40px 56px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr repeat(3, auto);
+      gap: 64px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+
+    .footer-brand-mark {
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand-copy {
+      max-width: 320px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.46);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .footer-heading {
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: rgba(255,255,255,0.52);
+      text-decoration: none;
+    }
+
+    .footer-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 260px;
+    }
+
+    .footer-contact-copy {
+      margin: 0;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.52);
+    }
+
+    .footer-mail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding-top: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-mail-link:hover {
+      color: rgba(255,255,255,0.92);
+    }
+
+    .footer-bottom {
+      padding: 0 40px 32px;
+    }
+
+    .footer-bottom-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom-copy {
+      color: rgba(255,255,255,0.28);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-link {
+      color: rgba(255,255,255,0.38);
+      text-decoration: none;
+    }
+
+    .footer-bottom-icon {
+      font-size: 1.2rem;
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 100;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+      text-decoration: none;
+    }
+
     @media (max-width: 768px) {
       :root {
         --nav-height: 79px;
@@ -228,11 +1219,12 @@ const faqItems = [
 
       .nav-inner { padding: 18px 20px !important; }
       .nav-links { display: none !important; }
-      .nav-cta { padding: 10px 18px !important; font-size: 0.72rem !important; }
+      .nav-cta { padding: 10px 18px !important; font-size: 0.68rem !important; }
 
-      .hero-grid { grid-template-columns: 1fr !important; height: auto !important; min-height: 100svh !important; }
-      .hero-text { padding: 40px 24px 60px !important; }
-      .hero-photo { display: block !important; height: 260px !important; order: -1; }
+      .hero-grid { grid-template-columns: 1fr !important; height: auto !important; min-height: auto !important; }
+      .hero-text { padding: 40px 24px 48px !important; }
+      .hero-photo { display: block !important; height: auto !important; max-height: 480px !important; order: 1; overflow: hidden !important; }
+      .hero-img { height: auto !important; max-height: 480px !important; object-fit: contain !important; object-position: top center !important; }
       .hero-h1 { font-size: clamp(3rem, 12vw, 5rem) !important; }
 
       .section-pad { padding-left: 20px !important; padding-right: 20px !important; }
@@ -241,14 +1233,13 @@ const faqItems = [
       .services-grid { grid-template-columns: 1fr !important; }
       .catalog-card { grid-column: span 1 !important; }
 
-      .fullwidth-section { height: 520px !important; }
+      .fullwidth-section { min-height: auto !important; }
       .fullwidth-text { padding: 40px 20px !important; }
       .problem-pills { grid-template-columns: 1fr !important; }
 
-      .gallery-section { padding: 80px 20px !important; }
-      .gallery-header { flex-direction: column !important; align-items: flex-start !important; gap: 24px !important; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      .gallery-stagger { margin-top: 0 !important; }
+      .gallery-section { padding: 80px 20px !important; overflow-x: hidden !important; }
+      .gallery-header { margin-bottom: 40px !important; }
+      .gallery-card { flex-basis: calc((100% - 16px) / 2) !important; }
 
       .ia-section { padding: 80px 20px !important; }
       .ia-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
@@ -257,6 +1248,7 @@ const faqItems = [
 
       .steps-section { padding: 0 20px 80px !important; }
       .steps-inner { padding-top: 80px !important; }
+      .steps-header { grid-template-columns: 1fr !important; margin-bottom: 40px !important; }
       .steps-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
       .steps-line { display: none !important; }
 
@@ -276,7 +1268,7 @@ const faqItems = [
 
     @media (max-width: 480px) {
       .steps-grid { grid-template-columns: 1fr !important; }
-      .gallery-grid { grid-template-columns: 1fr !important; }
+      .gallery-card { flex-basis: 100% !important; }
       .footer-grid { grid-template-columns: 1fr !important; }
       .footer-brand { grid-column: span 1 !important; }
     }
@@ -330,21 +1322,66 @@ const faqItems = [
     .hero-img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center top;
-      filter: grayscale(100%);
-      transition: filter 0.8s ease;
     }
-    .hero-img:hover { filter: grayscale(0%); }
 
     /* ─── Gallery image ─── */
     .gallery-img {
       width: 100%; height: 100%;
       object-fit: cover;
-      filter: grayscale(80%);
-      transition: filter 0.5s ease, transform 0.5s ease;
+      display: block;
+      transition: transform 0.5s ease;
     }
-    .gallery-img:hover {
-      filter: grayscale(0%);
-      transform: scale(1.04);
+    .gallery-card:hover .gallery-img { transform: scale(1.03); }
+
+    .gallery-carousel {
+      position: relative;
+    }
+    .gallery-carousel::before,
+    .gallery-carousel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: clamp(28px, 4vw, 64px);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .gallery-carousel::before {
+      left: 0;
+      background: linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,0) 100%);
+    }
+    .gallery-carousel::after {
+      right: 0;
+      background: linear-gradient(270deg, #0a0a0a 0%, rgba(10,10,10,0) 100%);
+    }
+    .gallery-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 8px 0 12px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      user-select: none;
+      touch-action: pan-y;
+    }
+    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-track.is-dragging {
+      cursor: grabbing;
+    }
+    .gallery-card {
+      flex: 0 0 calc((100% - 32px) / 3);
+      min-width: 0;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: #121212;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+    }
+    .gallery-img {
+      -webkit-user-drag: none;
+      pointer-events: none;
     }
 
     /* ─── WhatsApp CTA buttons ─── */
@@ -369,12 +1406,16 @@ const faqItems = [
       transition: grid-template-rows 0.28s ease;
     }
     .faq-item[open] .faq-body { grid-template-rows: 1fr; }
-    .faq-body-inner { overflow: hidden; }
+    .faq-body-inner {
+      overflow: hidden;
+      padding: 0 28px 24px;
+    }
 
     /* ─── Reduced motion ─── */
     @media (prefers-reduced-motion: reduce) {
       .hero-img, .gallery-img, .service-card, .btn-whatsapp,
       .floating-whatsapp, .faq-body { transition: none !important; }
+      .gallery-track { scroll-behavior: auto !important; }
     }
 
     /* ─── Mobile nav menu ─── */
@@ -410,10 +1451,10 @@ const faqItems = [
 
     /* ─── Mobile hero photo ─── */
     @media (max-width: 768px) {
-      .hero-photo { display: block !important; height: 260px !important; order: -1; }
-      .hero-text { padding: 40px 24px 60px !important; }
+      .hero-photo { display: block !important; height: auto !important; max-height: 480px !important; order: 1; overflow: hidden !important; }
+      .hero-img { height: auto !important; max-height: 480px !important; object-fit: contain !important; object-position: top center !important; }
+      .hero-text { padding: 40px 24px 48px !important; }
       #menu-btn { display: flex !important; }
-      .hero-img { filter: grayscale(0%) !important; }
     }
 
     /* ─── TikTok LIVE section ─── */
@@ -425,6 +1466,12 @@ const faqItems = [
       max-width: 840px;
       margin: 0 auto;
       text-align: center;
+    }
+
+    @media (max-width: 1180px) and (min-width: 481px) {
+      .problem-pills {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
     }
 
     /* ─── AI photo section ─── */
@@ -457,6 +1504,12 @@ const faqItems = [
     }
     .ia-feature-card:last-child {
       grid-column: 2;
+    }
+    @media (max-width: 900px) {
+      .ia-feature-card:first-child { transform: none !important; }
+    }
+    @media (max-width: 768px) {
+      .ia-feature-card:last-child { grid-column: auto !important; }
     }
     .live-features-grid {
       display: grid;
@@ -513,33 +1566,32 @@ const faqItems = [
     }
   </style>
 
-  <nav class="glass-nav" style="position:fixed;top:0;width:100%;z-index:50;">
-    <div class="nav-inner" style="max-width:1400px;margin:0 auto;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;">
-      <div class="font-headline" style="font-weight:900;font-size:1.6rem;letter-spacing:-0.04em;color:#fff;">{brand}</div>
-      <div class="nav-links" style="display:flex;gap:40px;">
-        <a href="#servicios" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Servicios</a>
-        <a href="#visuales" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Visuales</a>
-        <a href="#ia" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Fotos IA</a>
-        <a href="#tiktok-live" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">TikTok LIVE</a>
-        <a href="#faq" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">FAQ</a>
-        <a href="#contacto" style="font-size:0.875rem;font-weight:500;color:rgba(255,255,255,0.7);text-decoration:none;">Contacto</a>
+  <nav class="glass-nav nav-shell">
+    <div class="nav-inner">
+      <a href="/" class="font-headline nav-brand nav-brand-link fs-brand" aria-label="Ir al inicio de Manglar">{brand}</a>
+      <div class="nav-links">
+        <a href="#servicios" class="nav-link fs-nav">Servicios</a>
+        <a href="#visuales" class="nav-link fs-nav">Visuales</a>
+        <a href="#ia" class="nav-link fs-nav">Fotos IA</a>
+        <a href="#tiktok-live" class="nav-link fs-nav">TikTok LIVE</a>
+        <a href="#faq" class="nav-link fs-nav">FAQ</a>
+        <a href="#contacto" class="nav-link fs-nav">Contacto</a>
       </div>
-      <button id="menu-btn" aria-label="Abrir menú" aria-expanded="false" style="background:none;border:none;cursor:pointer;padding:8px;color:#fff;align-items:center;justify-content:center;">
-        <span id="menu-icon" class="material-symbols-outlined" style="font-size:1.5rem;">menu</span>
+      <button id="menu-btn" class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
+        <span id="menu-icon" class="material-symbols-outlined menu-icon">menu</span>
       </button>
       <a
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
         class="nav-cta btn-whatsapp"
-        style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:13px 30px;border-radius:9999px;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;"
       >
         WhatsApp
       </a>
     </div>
   </nav>
 
-  <div id="mobile-menu" role="dialog" aria-label="Menú de navegación" style="position:fixed;top:var(--nav-height);left:0;right:0;z-index:49;background:rgba(14,14,14,0.98);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);padding:16px 20px 24px;flex-direction:column;gap:4px;">
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Menú de navegación">
     <a href="#servicios" class="mobile-nav-link">Servicios</a>
     <a href="#visuales" class="mobile-nav-link">Visuales</a>
     <a href="#ia" class="mobile-nav-link">Fotos IA</a>
@@ -549,225 +1601,208 @@ const faqItems = [
   </div>
 
   <main>
-    <section class="hero-grid" style="min-height:calc(100vh - var(--nav-height));display:grid;grid-template-columns:1fr 1fr;overflow:visible;">
-      <div class="hero-text" style="display:flex;flex-direction:column;justify-content:center;padding:64px 48px 64px 40px;background:#0e0e0e;position:relative;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff8c95,#e80048);padding:7px 16px;border-radius:9999px;margin-bottom:28px;width:fit-content;">
-          <span style="width:6px;height:6px;background:#fff;border-radius:50%;display:inline-block;"></span>
-          <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;">Operación completa + TikTok LIVE + IA</span>
+    <section class="hero-grid">
+      <div class="hero-text">
+        <div class="hero-kicker">
+          <span class="hero-kicker-dot"></span>
+          <span class="hero-kicker-copy fs-kicker">Operación en México + TikTok LIVE + IA</span>
         </div>
 
-        <h1 class="font-headline hero-h1" style="font-size:clamp(3.35rem,6vw,6.2rem);font-weight:900;line-height:0.92;letter-spacing:-0.04em;margin-bottom:24px;max-width:760px;">
-          Impulsa tus ventas<br />
-          en <span style="color:#ff8c95;">Shein</span> y<br />
+        <h1 class="font-headline hero-h1 hero-title fs-hero-title">
+          Agencia para crecer<br />
+          en <span class="brand-accent">Shein</span> y<br />
           TikTok Shop.
         </h1>
 
-        <p style="font-size:1.1rem;line-height:1.7;color:rgba(255,255,255,0.7);max-width:530px;margin-bottom:18px;">
-          Nos encargamos de tu catálogo, fotos con IA, campañas, descuentos y TikTok LIVE para que tu tienda venda más sin que tú tengas que operar todo el día.
+        <p class="hero-copy fs-body-lg">
+          Operamos catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para marcas y tiendas que venden en México y necesitan crecer sin cargar toda la operación interna.
         </p>
 
-        <p style="font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.52);max-width:540px;margin-bottom:32px;">
-          Operación estable para tiendas de 10 a 5,000+ productos, con foco en orden, velocidad y optimización continua.
-        </p>
-
-        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+        <div class="hero-actions">
           <a
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-whatsapp"
-            style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:18px 36px;border-radius:9999px;font-size:1rem;font-weight:700;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;"
+            class="btn-whatsapp hero-primary-cta fs-body"
           >
             Escríbenos por WhatsApp
           </a>
-          <a href="#servicios" style="color:rgba(255,255,255,0.6);font-size:1rem;font-weight:600;text-decoration:none;">
+          <a href="#servicios" class="hero-secondary-link fs-body">
             Ver servicios →
           </a>
         </div>
       </div>
 
-      <div class="hero-photo" style="position:relative;overflow:hidden;background:#d6d0c8;">
+      <div class="hero-photo">
         <Image
           src={heroPhoto.src}
           alt={heroPhoto.alt}
           width={heroPhoto.width}
           format="webp"
-          quality="high"
+          quality="mid"
+          widths={heroPhoto.widths}
+          sizes={heroPhoto.sizes}
           loading={heroPhoto.loading}
           priority={heroPhoto.priority}
           class="hero-img"
         />
-        <div style="position:absolute;inset:0;background:linear-gradient(to right, #0e0e0e 0%, transparent 20%);pointer-events:none;"></div>
-        <div style="position:absolute;bottom:40px;left:32px;background:rgba(14,14,14,0.9);backdrop-filter:blur(16px);padding:18px 24px;border-radius:1rem;border:1px solid rgba(255,255,255,0.1);">
-          <div style="color:#ff8c95;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.75rem;font-weight:900;margin-bottom:2px;">10 a 5,000+</div>
-          <div style="font-size:0.65rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;">Productos bajo operación</div>
-        </div>
+        <div class="hero-photo-overlay"></div>
       </div>
     </section>
 
-    <section id="servicios" class="services-section section-pad" style="padding:120px 40px;max-width:1400px;margin:0 auto;">
-      <div style="margin-bottom:64px;max-width:760px;">
-        <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1;">
+    <section id="servicios" class="services-section section-pad container-wide">
+      <div class="services-intro">
+        <h2 class="font-headline fs-section-title tracking-tight lh-heading">
           Operamos tu tienda.<br />
-          <em style="color:#ff8c95;font-style:italic;">Tú ves resultados.</em>
+          <em class="accent-em">Tú ves resultados.</em>
         </h2>
-        <p style="margin-top:20px;font-size:1.05rem;line-height:1.75;color:rgba(255,255,255,0.58);max-width:680px;">
-          Subir productos, actualizar precios, manejar campañas, generar fotos y operar TikTok LIVE consume horas todos los días. Manglar toma esa carga completa para que puedas enfocarte en hacer crecer tu negocio.
-        </p>
-        <div style="height:3px;width:72px;background:linear-gradient(90deg,#ff8c95,#e80048);border-radius:9999px;margin-top:20px;"></div>
+        <div class="section-divider"></div>
       </div>
 
-      <div class="services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-        <div class="catalog-card service-card" style="grid-column:span 2;background:#161616;border-radius:1.5rem;padding:48px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.06);">
-          <span class="material-symbols-outlined" style="font-size:3rem;color:#ff8c95;margin-bottom:24px;display:block;">{serviceCards[0].icon}</span>
-          <h3 class="font-headline" style="font-size:2.25rem;font-weight:900;margin-bottom:16px;">
+      <div class="services-grid">
+        <div class="catalog-card service-card service-card--catalog">
+          <span class="material-symbols-outlined service-icon-lg">{serviceCards[0].icon}</span>
+          <h3 class="font-headline service-title service-title--xl fs-card-title-xl">
             {serviceCards[0].title}
           </h3>
-          <p style="color:rgba(255,255,255,0.62);line-height:1.75;max-width:520px;margin-bottom:28px;">
-            {serviceCards[0].description}
-          </p>
-          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;">
+          <ul class="service-list">
             {serviceCards[0].items.map((item) => (
-              <li style="display:flex;align-items:center;gap:10px;font-size:0.9rem;color:rgba(255,255,255,0.66);">
-                <span class="material-symbols-outlined" style="font-size:1rem;color:#ff8c95;">check_circle</span>
+              <li class="service-list-item fs-body">
+                <span class="material-symbols-outlined service-check">check_circle</span>
                 {item}
               </li>
             ))}
           </ul>
-          <div style="position:absolute;bottom:-20px;right:-20px;opacity:0.04;">
-            <span class="material-symbols-outlined" style="font-size:200px;color:#ff8c95;">inventory_2</span>
+          <div class="service-bg-icon-wrap">
+            <span class="material-symbols-outlined service-bg-icon">inventory_2</span>
           </div>
         </div>
 
-        <div class="service-card" style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(255,140,149,0.18);display:flex;flex-direction:column;justify-content:space-between;">
+        <div class="service-card service-card--live">
           <div>
-            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff8c95,#e80048);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
-              <span class="material-symbols-outlined" style="font-size:24px;color:#fff;">{serviceCards[3].icon}</span>
+            <div class="service-icon-circle">
+              <span class="material-symbols-outlined service-icon-circle-symbol">{serviceCards[3].icon}</span>
             </div>
-            <h3 class="font-headline" style="font-size:1.75rem;font-weight:900;margin-bottom:12px;">{serviceCards[3].title}</h3>
-            <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.62);">{serviceCards[3].description}</p>
-          </div>
-          <div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06);">
-            <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff8c95;">Canal repetible</span>
+            <h3 class="font-headline service-title fs-card-title-lg">{serviceCards[3].title}</h3>
+            <p class="service-copy service-copy--live fs-body">{serviceCards[3].description}</p>
           </div>
         </div>
 
         {serviceCards.slice(1, 3).map((service) => (
-          <div class="service-card" style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(255,255,255,0.06);">
-            <span class="material-symbols-outlined" style="font-size:2.5rem;margin-bottom:20px;display:block;color:#ff8c95;">
+          <div class="service-card">
+            <span class="material-symbols-outlined service-icon-md">
               {service.icon}
             </span>
-            <h3 class="font-headline" style="font-size:1.35rem;font-weight:900;margin-bottom:12px;">{service.title}</h3>
-            <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.58);">{service.description}</p>
+            <h3 class="font-headline service-title fs-card-title-sm">{service.title}</h3>
+            <p class="service-copy fs-body">{service.description}</p>
           </div>
         ))}
 
-        <div class="service-card" style="background:#161616;border-radius:1.5rem;padding:36px;border:1px solid rgba(255,255,255,0.06);">
-          <span class="material-symbols-outlined" style="font-size:2.5rem;color:#ff8c95;margin-bottom:20px;display:block;">{serviceCards[4].icon}</span>
-          <h3 class="font-headline" style="font-size:1.35rem;font-weight:900;margin-bottom:12px;">{serviceCards[4].title}</h3>
-          <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.58);">{serviceCards[4].description}</p>
+        <div class="service-card">
+          <span class="material-symbols-outlined service-icon-md">{serviceCards[4].icon}</span>
+          <h3 class="font-headline service-title fs-card-title-sm">{serviceCards[4].title}</h3>
+          <p class="service-copy fs-body">{serviceCards[4].description}</p>
         </div>
       </div>
     </section>
 
-    <section class="fullwidth-section" style="position:relative;height:560px;overflow:hidden;">
+    <section class="fullwidth-section">
       <Image
         src={productionPhoto.src}
         alt={productionPhoto.alt}
         width={productionPhoto.width}
         format="webp"
-        quality="high"
+        quality="mid"
+        widths={productionPhoto.widths}
+        sizes={productionPhoto.sizes}
         loading="lazy"
         class="fullwidth-image"
-        style="width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(0.6);"
       />
-      <div style="position:absolute;inset:0;background:linear-gradient(to top,#0e0e0e 0%,rgba(14,14,14,0.2) 60%,transparent 100%);"></div>
-      <div class="fullwidth-text" style="position:absolute;bottom:0;left:0;right:0;padding:60px 40px;max-width:1400px;margin:0 auto;">
-        <span class="material-symbols-outlined" style="font-size:3rem;color:#ff8c95;margin-bottom:16px;display:block;">schedule</span>
-        <h3 class="font-headline" style="font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-0.04em;margin-bottom:12px;">
+      <div class="fullwidth-overlay"></div>
+      <div class="fullwidth-text">
+        <h2 class="font-headline problem-title fs-section-title-compact">
           El tiempo operativo está<br />
-          <em style="color:#ff8c95;font-style:italic;">frenando tu crecimiento.</em>
-        </h3>
-        <p style="font-size:1rem;color:rgba(255,255,255,0.72);max-width:640px;line-height:1.65;margin-bottom:28px;">
-          Subir productos, crear fotos, gestionar precios, campañas y contenido requiere horas. Manglar toma esa carga y la convierte en operación continua.
+          <em class="accent-em">frenando tu crecimiento.</em>
+        </h2>
+        <p class="problem-copy fs-body-lg">
+          Subir productos, crear fotos, gestionar precios, campañas, descuentos y contenido comercial requiere horas. Manglar toma esa carga y la convierte en una operación continua para Shein y TikTok Shop.
         </p>
-        <div class="problem-pills" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:980px;">
+        <div class="problem-pills">
           {[
             { icon: 'category', title: 'Catálogos incompletos', desc: 'Variantes mal cargadas, atributos ausentes y stock desactualizado.' },
             { icon: 'hide_image', title: 'Fotos malas o sin fotos', desc: 'Sin buenas imágenes, la tasa de clics cae antes de que el cliente decida.' },
             { icon: 'event_busy', title: 'Campañas perdidas', desc: 'Fechas clave que pasan sin descuentos ni promociones configuradas.' },
             { icon: 'trending_down', title: 'Ventas que nunca llegaron', desc: 'Operación lenta y desordenada que frena el crecimiento día a día.' },
           ].map(({ icon, title, desc }) => (
-            <div style="padding:16px 18px;border-radius:1rem;background:rgba(14,14,14,0.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-                <span class="material-symbols-outlined" style="font-size:1.1rem;color:#ff8c95;">{icon}</span>
-                <span style="font-size:0.85rem;font-weight:700;color:rgba(255,255,255,0.9);">{title}</span>
+            <div class="problem-pill">
+              <div class="problem-pill-head">
+                <span class="material-symbols-outlined problem-pill-icon">{icon}</span>
+                <span class="problem-pill-title fs-body">{title}</span>
               </div>
-              <p style="font-size:0.78rem;line-height:1.55;color:rgba(255,255,255,0.55);margin:0;">{desc}</p>
+              <p class="problem-pill-copy fs-body">{desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="visuales" class="gallery-section" style="padding:120px 40px;background:#0a0a0a;">
-      <div style="max-width:1400px;margin:0 auto;">
-        <div class="gallery-header" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;gap:32px;">
+    <section id="visuales" class="gallery-section">
+      <div class="container-wide">
+        <div class="gallery-header">
           <div>
-            <h2 class="font-headline" style="font-size:clamp(2.5rem,6vw,5.5rem);font-weight:900;letter-spacing:-0.04em;text-transform:uppercase;line-height:0.9;">
+            <h2 class="font-headline fs-section-title-wide tracking-tight lh-snug">
               Visuales que<br />
-              <em style="color:#ff8c95;font-style:italic;">sí convierten</em>
+              <em class="accent-em accent-em--gallery">sí convierten</em>
             </h2>
-            <p style="font-size:1rem;color:rgba(255,255,255,0.58);font-style:italic;margin-top:16px;max-width:520px;line-height:1.65;">
-              "Imágenes limpias, consistentes y optimizadas para marketplace. Sin sesiones, sin fotógrafos y sin semanas de espera."
+            <p class="gallery-quote fs-body-lg">
+              <strong>"Imágenes limpias, consistentes y optimizadas para marketplace. Sin sesiones, sin fotógrafos y sin semanas de espera."</strong>
             </p>
           </div>
-
         </div>
 
-        <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;">
-          {photos.map((photo, i) => (
-            <div class={i % 2 !== 0 ? 'gallery-stagger' : ''} style={`border-radius:1.25rem;overflow:hidden;aspect-ratio:3/4;${i % 2 !== 0 ? 'margin-top:56px;' : ''}`}>
+        <div class="gallery-carousel">
+          <div class="gallery-track" data-gallery-track aria-label="Carrusel de fotos de producto">
+            {carouselPhotos.map((photo) => (
+              <div class="gallery-card" aria-hidden={photo.isDecorative ? 'true' : 'false'}>
               <Image
                 src={photo.src}
-                alt={photo.alt}
+                alt={photo.isDecorative ? '' : photo.alt}
                 width={photo.width}
                 format="webp"
-                quality="high"
+                quality="mid"
+                widths={photo.widths}
+                sizes={photo.sizes}
                 loading="lazy"
                 class="gallery-img"
               />
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="ia" class="ia-section section-pad" style="padding:120px 40px;">
-      <div style="max-width:1400px;margin:0 auto;">
+    <section id="ia" class="ia-section section-pad">
+      <div class="container-wide">
         <div class="ia-grid">
           <div class="ia-copy">
-            <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,140,149,0.08);padding:8px 14px;border-radius:9999px;border:1px solid rgba(255,140,149,0.18);margin-bottom:28px;">
-              <span style="width:7px;height:7px;background:#ff8c95;border-radius:50%;display:inline-block;"></span>
-              <span style="font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ffb4bb;">Producción visual escalable</span>
-            </div>
-            <h2 class="font-headline" style="font-size:clamp(2.8rem,5vw,4.8rem);font-weight:900;letter-spacing:-0.04em;line-height:0.94;margin-bottom:24px;">
-              Fotos de producto con<br /><em style="color:#ff8c95;font-style:italic;">Inteligencia Artificial</em>
+            <h2 class="font-headline fs-section-title tracking-tight ia-title">
+              Fotos de producto con<br /><em class="accent-em">Inteligencia Artificial</em>
             </h2>
-            <p style="font-size:1.08rem;line-height:1.75;color:rgba(255,255,255,0.66);margin:0;max-width:52ch;">
-              Las fotos son uno de los cuellos de botella más pesados en e-commerce. Generamos imágenes limpias, consistentes y optimizadas para marketplace sin sesiones largas, sin fotógrafos y sin costos variables.
+            <p class="ia-copy-text fs-body-lg">
+              Las fotos son uno de los cuellos de botella más pesados en e-commerce. Generamos imágenes limpias, consistentes y optimizadas para marketplace sin sesiones largas, sin fotógrafos y sin costos variables para que tu catálogo se vea vendible desde el primer scroll.
             </p>
           </div>
 
           <div class="ia-feature-grid">
             {visualFeatures.map((item) => (
               <div class="ia-feature-card">
-                <div style="width:44px;height:44px;background:linear-gradient(135deg,rgba(255,140,149,0.15),rgba(232,0,72,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,140,149,0.2);">
-                  <span class="material-symbols-outlined" style="font-size:1.3rem;color:#ff8c95;">{item.icon}</span>
+                <div class="ia-icon-badge">
+                  <span class="material-symbols-outlined ia-icon">{item.icon}</span>
                 </div>
                 <div>
-                  <div class="font-headline" style="font-weight:700;font-size:1rem;margin-bottom:6px;">{item.title}</div>
-                  <div style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.6);">{item.desc}</div>
+                  <h3 class="font-headline ia-feature-title fs-body">{item.title}</h3>
+                  <p class="ia-feature-copy fs-body">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -776,30 +1811,78 @@ const faqItems = [
       </div>
     </section>
 
-    <section id="tiktok-live" style="padding:120px 40px;background:#080808;border-top:1px solid rgba(255,255,255,0.04);">
-      <div style="max-width:1400px;margin:0 auto;">
-        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff8c95,#e80048);padding:7px 16px;border-radius:9999px;margin:0 auto 40px;width:fit-content;">
-          <span style="width:6px;height:6px;background:#fff;border-radius:50%;display:inline-block;"></span>
-          <span style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fff;">Canal de ventas repetible</span>
+    <section id="marcas" class="brands-section">
+      <div class="container-wide">
+        <h2 class="font-headline brands-title fs-section-title">
+          Empresas que nos eligieron
+        </h2>
+        <div class="partner-logos-carousel" aria-label="Carrusel de logos de empresas que eligieron Manglar">
+          <div class="partner-logos-track">
+            {partnerLogoLoop.map((logo) => (
+              <div class="brand-logo-item" aria-hidden={logo.isDecorative ? 'true' : 'false'}>
+                <img
+                  src={logo.src}
+                  alt={logo.isDecorative ? '' : logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="brand-logo-image"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso" class="steps-section">
+      <div class="steps-inner">
+        <div class="steps-header">
+          <div>
+            <div class="steps-kicker fs-label">Proceso</div>
+            <h2 class="font-headline fs-section-title tracking-tight lh-snug">
+              Cómo ordenamos,<br />
+              operamos y escalamos<br />
+              tu tienda
+            </h2>
+          </div>
+          <p class="steps-intro fs-body-lg">
+            Empezamos con diagnóstico, ordenamos catálogo, activamos campañas y llevamos TikTok LIVE a un flujo comercial repetible. El objetivo es vender más con una operación estable y medible.
+          </p>
         </div>
 
+        <div class="steps-grid">
+          <div class="steps-line" aria-hidden="true"></div>
+          {steps.map((step) => (
+            <article class="step-card">
+              <div class="step-number fs-label">{step.n}</div>
+              <h3 class="font-headline step-title fs-card-title-sm">{step.title}</h3>
+              <p class="step-copy fs-body">{step.desc}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="tiktok-live" class="live-section">
+      <div class="container-wide">
         <div class="live-intro-grid">
           <div class="live-intro-copy">
-            <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:0.95;margin-bottom:24px;">
+            <h2 class="font-headline live-title fs-section-title">
               TikTok LIVE que<br />
-              <em style="color:#ff8c95;font-style:italic;">vende de verdad</em>
+              <em class="accent-em">vende de verdad</em>
             </h2>
-            <p style="font-size:1.1rem;line-height:1.75;color:rgba(255,255,255,0.66);margin:0 auto 32px;max-width:720px;">
+            <p class="live-copy fs-body-lg">
               No es solo transmitir. Un LIVE bien operado es la herramienta de mayor conversión en TikTok Shop cuando tiene estrategia, productos correctos y gestión activa en tiempo real.
             </p>
             <a
               href={whatsappLive}
               target="_blank"
               rel="noopener noreferrer"
-              class="btn-whatsapp"
-              style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:18px 32px;border-radius:9999px;font-size:0.95rem;font-weight:700;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;"
+              class="btn-whatsapp live-cta fs-body"
             >
-              <span class="material-symbols-outlined" style="font-size:1.2rem;">live_tv</span>
+              <span class="material-symbols-outlined live-cta-icon">live_tv</span>
               Quiero operar mi TikTok LIVE
             </a>
           </div>
@@ -807,47 +1890,47 @@ const faqItems = [
 
         <div class="live-features-grid">
           {liveItems.map(item => (
-            <div style="background:#161616;border-radius:1.25rem;padding:28px;border:1px solid rgba(255,255,255,0.06);">
-              <div style="width:44px;height:44px;background:linear-gradient(135deg,rgba(255,140,149,0.15),rgba(232,0,72,0.1));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;border:1px solid rgba(255,140,149,0.2);">
-                <span class="material-symbols-outlined" style="font-size:1.3rem;color:#ff8c95;">{item.icon}</span>
+            <div class="live-feature-card">
+              <div class="live-feature-icon-wrap">
+                <span class="material-symbols-outlined live-feature-icon">{item.icon}</span>
               </div>
-              <h3 class="font-headline" style="font-size:0.95rem;font-weight:800;margin-bottom:8px;">{item.title}</h3>
-              <p style="font-size:0.82rem;line-height:1.65;color:rgba(255,255,255,0.55);margin:0;">{item.desc}</p>
+              <h3 class="font-headline live-feature-title fs-body">{item.title}</h3>
+              <p class="live-feature-copy fs-body">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="faq" class="faq-section section-pad" style="padding:120px 40px;background:#0e0e0e;">
-      <div style="max-width:1400px;margin:0 auto;">
-        <div class="faq-grid" style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:40px;align-items:start;">
+    <section id="faq" class="faq-section section-pad">
+      <div class="container-wide">
+        <div class="faq-grid">
           <div>
-            <div style="font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:#ff8c95;margin-bottom:18px;">FAQ</div>
-            <h2 class="font-headline" style="font-size:clamp(2.5rem,5vw,4.6rem);font-weight:900;letter-spacing:-0.04em;line-height:0.96;margin-bottom:18px;">
+            <div class="faq-label fs-label">FAQ</div>
+            <h2 class="font-headline faq-title fs-section-title">
               Preguntas frecuentes<br />para empezar rápido
             </h2>
-            <p style="font-size:1rem;line-height:1.75;color:rgba(255,255,255,0.66);max-width:440px;">
-              Todo lo que necesitás saber antes de empezar. Si tenés alguna pregunta adicional, escribinos por WhatsApp y la respondemos en el momento.
+            <p class="faq-copy fs-body-lg">
+              Todo lo que necesitas saber antes de empezar. Si tienes alguna pregunta adicional, escríbenos por WhatsApp y la respondemos en el momento.
             </p>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="faq-stack">
             {faqItems.map((item) => (
               <details class="faq-item">
                 <summary>
-                  <span class="font-headline" style="font-size:1.05rem;font-weight:800;letter-spacing:-0.02em;color:#fff;">
+                  <span class="font-headline faq-question fs-body">
                     {item.question}
                   </span>
-                  <span class="faq-icon material-symbols-outlined" style="font-size:1.2rem;color:#ff8c95;">add</span>
+                  <span class="faq-icon material-symbols-outlined live-cta-icon brand-accent">add</span>
                 </summary>
                 <div class="faq-body">
-                  <div class="faq-body-inner" style="padding:0 28px 24px;">
-                    <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px;color:rgba(255,255,255,0.72);line-height:1.7;font-size:0.92rem;">
+                  <div class="faq-body-inner">
+                    <ul class="faq-list fs-body">
                       {item.bullets.map((bullet) => <li>{bullet}</li>)}
                     </ul>
                     {item.note && (
-                      <div style="margin-top:18px;padding-left:14px;border-left:3px solid rgba(255,140,149,0.4);font-size:0.88rem;line-height:1.7;color:rgba(255,255,255,0.68);">
+                      <div class="faq-note fs-body">
                         {item.note}
                       </div>
                     )}
@@ -860,12 +1943,12 @@ const faqItems = [
       </div>
     </section>
 
-    <section id="contacto" class="cta-section" style="background:linear-gradient(135deg,#ff8c95 0%,#e80048 100%);padding:120px 40px;text-align:center;">
-      <div style="max-width:960px;margin:0 auto;">
-<h2 class="font-headline" style="font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:0.92;margin-bottom:28px;">
-          Tu tienda puede<br /><em style="font-style:italic;">vender más</em><br />sin operar todo el día
+    <section id="contacto" class="cta-section">
+      <div class="cta-container">
+        <h2 class="font-headline cta-title fs-cta-title">
+          Tu tienda puede<br /><em class="accent-italic">vender más</em><br />sin operar todo el día
         </h2>
-        <p style="font-size:1.15rem;color:rgba(255,255,255,0.82);margin-bottom:52px;line-height:1.65;max-width:620px;margin-left:auto;margin-right:auto;">
+        <p class="cta-copy fs-body-lg">
           Revisamos catálogo, fotos, pricing, campañas y TikTok LIVE en una primera conversación sin costo.
         </p>
         <div class="cta-channels">
@@ -873,62 +1956,59 @@ const faqItems = [
             href={whatsappDiagnostico}
             target="_blank"
             rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp"
-            style="background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:1.25rem;padding:28px 24px;text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:12px;transition:background 0.2s ease;"
+            class="cta-channel-card btn-whatsapp cta-card"
           >
-            <span class="material-symbols-outlined" style="font-size:1.75rem;color:#fff;">search</span>
+            <span class="material-symbols-outlined cta-card-icon">search</span>
             <div>
-              <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">Diagnóstico gratuito</div>
-              <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">No sé por dónde empezar, quiero que revisen mi tienda</div>
+              <div class="font-headline cta-card-title fs-body">Diagnóstico gratuito</div>
+              <div class="cta-card-copy fs-body">No sé por dónde empezar, quiero que revisen mi tienda</div>
             </div>
           </a>
           <a
             href={whatsappCatalogo}
             target="_blank"
             rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp"
-            style="background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:1.25rem;padding:28px 24px;text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:12px;transition:background 0.2s ease;"
+            class="cta-channel-card btn-whatsapp cta-card"
           >
-            <span class="material-symbols-outlined" style="font-size:1.75rem;color:#fff;">inventory_2</span>
+            <span class="material-symbols-outlined cta-card-icon">inventory_2</span>
             <div>
-              <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">Operar mi catálogo</div>
-              <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">Necesito gestión de productos, fotos y campañas</div>
+              <div class="font-headline cta-card-title fs-body">Operar mi catálogo</div>
+              <div class="cta-card-copy fs-body">Necesito gestión de productos, fotos y campañas</div>
             </div>
           </a>
           <a
             href={whatsappLive}
             target="_blank"
             rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp"
-            style="background:rgba(255,255,255,0.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);border-radius:1.25rem;padding:28px 24px;text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;gap:12px;transition:background 0.2s ease;"
+            class="cta-channel-card btn-whatsapp cta-card"
           >
-            <span class="material-symbols-outlined" style="font-size:1.75rem;color:#fff;">live_tv</span>
+            <span class="material-symbols-outlined cta-card-icon">live_tv</span>
             <div>
-              <div class="font-headline" style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:4px;text-align:left;">TikTok LIVE</div>
-              <div style="font-size:0.82rem;color:rgba(255,255,255,0.75);line-height:1.5;text-align:left;">Quiero arrancar o mejorar mis transmisiones</div>
+              <div class="font-headline cta-card-title fs-body">TikTok LIVE</div>
+              <div class="cta-card-copy fs-body">Quiero arrancar o mejorar mis transmisiones</div>
             </div>
           </a>
         </div>
         <a
           href="mailto:contacto@agenciamanglar.mx"
-          style="font-size:0.9rem;color:rgba(255,255,255,0.7);text-decoration:none;display:inline-flex;align-items:center;gap:6px;"
+          class="cta-email-link fs-body"
         >
-          <span class="material-symbols-outlined" style="font-size:1rem;">mail</span>
+          <span class="material-symbols-outlined cta-email-icon">mail</span>
           contacto@agenciamanglar.mx
         </a>
       </div>
     </section>
   </main>
 
-  <footer style="background:#080808;border-top:1px solid rgba(255,255,255,0.04);">
-    <div class="footer-inner" style="max-width:1400px;margin:0 auto;padding:72px 40px 56px;">
-      <div class="footer-grid" style="display:grid;grid-template-columns:1fr repeat(3,auto);gap:64px;align-items:start;margin-bottom:56px;">
+  <footer class="footer-shell">
+    <div class="footer-inner">
+      <div class="footer-grid">
         <div class="footer-brand">
-          <div class="font-headline" style="font-weight:900;font-size:1.5rem;letter-spacing:-0.04em;color:#fff;margin-bottom:20px;">{brand}</div>
-          <p style="font-size:0.875rem;color:rgba(255,255,255,0.46);max-width:320px;line-height:1.75;">
+          <div class="font-headline footer-brand-mark fs-brand">{brand}</div>
+          <p class="footer-brand-copy fs-body">
             Operación completa para Shein y TikTok Shop: catálogo, fotos con IA, campañas, descuentos y TikTok LIVE.
           </p>
-          <div style="display:flex;gap:10px;margin-top:20px;">
+          <div class="footer-socials">
             <a href="https://tiktok.com/@agenciamanglar.mx" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Manglar" class="social-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.13 8.13 0 004.77 1.52V6.81a4.85 4.85 0 01-1-.12z"/></svg>
             </a>
@@ -938,60 +2018,50 @@ const faqItems = [
           </div>
         </div>
         <div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:20px;">Servicios</div>
-          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;">
+          <div class="footer-heading fs-label">Servicios</div>
+          <ul class="footer-links">
             {[
               'Gestión integral de tienda',
               'Fotos de producto con IA',
               'Campañas y descuentos',
               'TikTok LIVE',
             ].map((item) => (
-              <li><a href="#servicios" style="font-size:0.875rem;color:rgba(255,255,255,0.52);text-decoration:none;">{item}</a></li>
+              <li><a href="#servicios" class="footer-link fs-body">{item}</a></li>
             ))}
           </ul>
         </div>
         <div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:20px;">Proceso</div>
-          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;">
+          <div class="footer-heading fs-label">Proceso</div>
+          <ul class="footer-links">
             {['Diagnóstico', 'Ordenar catálogo', 'Operar', 'Optimizar'].map((item) => (
-              <li><a href="#proceso" style="font-size:0.875rem;color:rgba(255,255,255,0.52);text-decoration:none;">{item}</a></li>
+              <li><a href="#proceso" class="footer-link fs-body">{item}</a></li>
             ))}
           </ul>
         </div>
         <div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:20px;">Contacto</div>
-          <div style="display:flex;flex-direction:column;gap:10px;max-width:260px;">
-            <p style="font-size:0.875rem;line-height:1.7;color:rgba(255,255,255,0.52);margin:0;">
+          <div class="footer-heading fs-label">Contacto</div>
+          <div class="footer-contact">
+            <p class="footer-contact-copy fs-body">
               Atención por WhatsApp para revisar catálogo, fotos, campañas y el plan operativo ideal para tu tienda.
             </p>
             <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              style="display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-weight:700;padding:12px 18px;border-radius:10px;text-decoration:none;font-size:0.875rem;"
-            >
-              Abrir conversación
-            </a>
-            <a
               href="mailto:contacto@agenciamanglar.mx"
-              style="display:inline-flex;align-items:center;gap:8px;font-size:0.875rem;color:rgba(255,255,255,0.52);text-decoration:none;padding-top:4px;transition:color 0.2s;"
-              onmouseover="this.style.color='rgba(255,255,255,0.9)'"
-              onmouseout="this.style.color='rgba(255,255,255,0.52)'"
+              class="footer-mail-link fs-body"
             >
-              <span class="material-symbols-outlined" style="font-size:1rem;">mail</span>
+              <span class="material-symbols-outlined footer-mail-icon">mail</span>
               contacto@agenciamanglar.mx
             </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom" style="padding:0 40px 32px;">
-      <div class="footer-bottom-inner" style="max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
-        <p style="font-size:0.75rem;color:rgba(255,255,255,0.28);">© 2026 {brand}. Todos los derechos reservados.</p>
-        <div style="display:flex;gap:20px;">
-          <a href="#visuales" aria-label="Ir a Visuales" style="color:rgba(255,255,255,0.38);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">image</span></a>
-          <a href="#faq" aria-label="Ir a Preguntas frecuentes" style="color:rgba(255,255,255,0.38);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">help</span></a>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" style="color:rgba(255,255,255,0.38);text-decoration:none;"><span class="material-symbols-outlined" style="font-size:1.2rem;">chat</span></a>
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner">
+        <p class="footer-bottom-copy fs-body">© {currentYear} {brand}. Todos los derechos reservados.</p>
+        <div class="footer-bottom-links">
+          <a href="#visuales" aria-label="Ir a Visuales" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">image</span></a>
+          <a href="#faq" aria-label="Ir a Preguntas frecuentes" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">help</span></a>
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">chat</span></a>
         </div>
       </div>
     </div>
@@ -1003,7 +2073,6 @@ const faqItems = [
     rel="noopener noreferrer"
     class="floating-whatsapp"
     aria-label="Contactar por WhatsApp"
-    style="position:fixed;bottom:32px;right:32px;z-index:100;width:62px;height:62px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,0.45);text-decoration:none;"
   >
     <svg width="32" height="32" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
   </a>
@@ -1027,5 +2096,119 @@ const faqItems = [
       btn.setAttribute('aria-expanded', 'false');
     });
   });
+
+  const galleryTrack = document.querySelector('[data-gallery-track]') as HTMLDivElement | null;
+
+  if (galleryTrack) {
+    let animationFrame = 0;
+    let resumeTimer: number | undefined;
+    let isDragging = false;
+    let pointerId: number | null = null;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let lastTimestamp = 0;
+
+    const getSegmentWidth = () => galleryTrack.scrollWidth / 3;
+
+    const stopAutoScroll = () => {
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+      lastTimestamp = 0;
+    };
+
+    const normalizeScroll = () => {
+      const segmentWidth = getSegmentWidth();
+      if (!segmentWidth) return;
+
+      if (galleryTrack.scrollLeft <= segmentWidth * 0.5) {
+        galleryTrack.scrollLeft += segmentWidth;
+      } else if (galleryTrack.scrollLeft >= segmentWidth * 1.5) {
+        galleryTrack.scrollLeft -= segmentWidth;
+      }
+    };
+
+    const tick = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+
+      const delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      galleryTrack.scrollLeft += (delta * 28) / 1000;
+      normalizeScroll();
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const startAutoScroll = () => {
+      stopAutoScroll();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      animationFrame = window.requestAnimationFrame(tick);
+    };
+
+    const queueAutoResume = () => {
+      if (resumeTimer) window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        if (!isDragging) startAutoScroll();
+      }, 1400);
+    };
+
+    const centerLoop = () => {
+      const segmentWidth = getSegmentWidth();
+      if (!segmentWidth) return;
+      galleryTrack.scrollLeft = segmentWidth;
+    };
+
+    galleryTrack.addEventListener('pointerdown', (event) => {
+      isDragging = true;
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startScrollLeft = galleryTrack.scrollLeft;
+      galleryTrack.classList.add('is-dragging');
+      stopAutoScroll();
+      if (resumeTimer) window.clearTimeout(resumeTimer);
+      galleryTrack.setPointerCapture(event.pointerId);
+    });
+
+    galleryTrack.addEventListener('pointermove', (event) => {
+      if (!isDragging || event.pointerId !== pointerId) return;
+      const deltaX = event.clientX - startX;
+      const segmentWidth = getSegmentWidth();
+      let nextScrollLeft = startScrollLeft - deltaX;
+
+      if (segmentWidth) {
+        if (nextScrollLeft <= segmentWidth * 0.5) {
+          nextScrollLeft += segmentWidth;
+          startScrollLeft += segmentWidth;
+        } else if (nextScrollLeft >= segmentWidth * 1.5) {
+          nextScrollLeft -= segmentWidth;
+          startScrollLeft -= segmentWidth;
+        }
+      }
+
+      galleryTrack.scrollLeft = nextScrollLeft;
+    });
+
+    const finishDrag = (event?: PointerEvent) => {
+      if (!isDragging) return;
+      if (event && event.pointerId !== pointerId) return;
+
+      isDragging = false;
+      if (pointerId !== null && galleryTrack.hasPointerCapture(pointerId)) {
+        galleryTrack.releasePointerCapture(pointerId);
+      }
+      pointerId = null;
+      galleryTrack.classList.remove('is-dragging');
+      normalizeScroll();
+      queueAutoResume();
+    };
+
+    galleryTrack.addEventListener('pointerup', finishDrag);
+    galleryTrack.addEventListener('pointercancel', finishDrag);
+    galleryTrack.addEventListener('lostpointercapture', () => {
+      finishDrag();
+    });
+    window.addEventListener('resize', centerLoop);
+
+    centerLoop();
+    startAutoScroll();
+  }
 </script>
 </Layout>
