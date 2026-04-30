@@ -11,14 +11,30 @@ import productionModaInfantil from '../assets/images/manglar-operacion-catalogo-
 const brand = 'Manglar';
 const currentYear = new Date().getFullYear();
 const whatsappNumber = '525544636484';
-const whatsappText = encodeURIComponent(
+const createWhatsAppLink = (message: string) =>
+  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+const whatsappLink = createWhatsAppLink(
   'Hola, quiero impulsar mis ventas en Shein y TikTok Shop con Manglar.'
 );
-const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappText}`;
+const whatsappDiagnostico = createWhatsAppLink(
+  'Hola, quiero solicitar el diagnóstico gratuito de mi tienda en Shein o TikTok Shop.'
+);
+const whatsappLive = createWhatsAppLink(
+  'Hola, me interesa la gestión de TikTok LIVE para mi tienda.'
+);
+const whatsappCatalogo = createWhatsAppLink(
+  'Hola, necesito ayuda con la gestión de catálogo y operación de mi tienda.'
+);
 
-const whatsappDiagnostico = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola, quiero solicitar el diagnóstico gratuito de mi tienda en Shein o TikTok Shop.')}`;
-const whatsappLive = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola, me interesa la gestión de TikTok LIVE para mi tienda.')}`;
-const whatsappCatalogo = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola, necesito ayuda con la gestión de catálogo y operación de mi tienda.')}`;
+const navLinks = [
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#visuales', label: 'Visuales' },
+  { href: '#ia', label: 'Fotos IA' },
+  { href: '#tiktok-live', label: 'TikTok LIVE' },
+  { href: '#faq', label: 'FAQ' },
+  { href: '#contacto', label: 'Contacto' },
+];
 
 const liveItems = [
   { icon: 'strategy', title: 'Estrategia previa', desc: 'Definimos qué vender, en qué orden y con qué dinámica de precio para maximizar ventas en cada transmisión.' },
@@ -143,6 +159,13 @@ const visualFeatures = [
   },
 ];
 
+const problemItems = [
+  { icon: 'category', title: 'Catálogos incompletos', desc: 'Variantes mal cargadas, atributos ausentes y stock desactualizado.' },
+  { icon: 'hide_image', title: 'Fotos malas o sin fotos', desc: 'Sin buenas imágenes, la tasa de clics cae antes de que el cliente decida.' },
+  { icon: 'event_busy', title: 'Campañas perdidas', desc: 'Fechas clave que pasan sin descuentos ni promociones configuradas.' },
+  { icon: 'trending_down', title: 'Ventas que nunca llegaron', desc: 'Operación lenta y desordenada que frena el crecimiento día a día.' },
+];
+
 const partnerLogos = [
   {
     label: 'Barbie',
@@ -261,1379 +284,108 @@ const faqItems = [
     note: 'La cotización exacta sale después de revisar tu catálogo y objetivos.',
   },
 ];
+
+const contactChannels = [
+  {
+    href: whatsappDiagnostico,
+    icon: 'search',
+    title: 'Diagnóstico gratuito',
+    desc: 'No sé por dónde empezar, quiero que revisen mi tienda',
+  },
+  {
+    href: whatsappCatalogo,
+    icon: 'inventory_2',
+    title: 'Operar mi catálogo',
+    desc: 'Necesito gestión de productos, fotos y campañas',
+  },
+  {
+    href: whatsappLive,
+    icon: 'live_tv',
+    title: 'TikTok LIVE',
+    desc: 'Quiero arrancar o mejorar mis transmisiones',
+  },
+];
+
+const footerServiceLinks = [
+  'Gestión integral de tienda',
+  'Fotos de producto con IA',
+  'Campañas y descuentos',
+  'TikTok LIVE',
+];
+const footerProcessLinks = ['Diagnóstico', 'Ordenar catálogo', 'Operar', 'Optimizar'];
 ---
 
 <Layout
   title="Manglar | Agencia para Shein, TikTok Shop y TikTok LIVE en México"
   description="Manglar opera Shein y TikTok Shop de principio a fin en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más sin frenar tu operación."
 >
-  <style>
-    :root {
-      --nav-height: 91px;
-    }
-
-    #servicios,
-    #visuales,
-    #ia,
-    #marcas,
-    #proceso,
-    #tiktok-live,
-    #faq,
-    #contacto {
-      scroll-margin-top: 112px;
-    }
-
-    main {
-      padding-top: var(--nav-height);
-    }
-
-    .nav-shell {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 50;
-    }
-
-    .nav-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 22px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-brand {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #fff;
-    }
-
-    .nav-brand-link {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-    }
-
-    .nav-link {
-      font-weight: 500;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-    }
-
-    .menu-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-      color: #fff;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .menu-icon {
-      font-size: 1.5rem;
-    }
-
-    .nav-cta {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      color: #fff;
-      padding: 0.8125rem 1.875rem;
-      border-radius: 9999px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    .mobile-menu {
-      position: fixed;
-      top: var(--nav-height);
-      left: 0;
-      right: 0;
-      z-index: 49;
-      background: rgba(14,14,14,0.98);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 16px 20px 24px;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .hero-grid {
-      min-height: calc(100vh - var(--nav-height));
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: visible;
-    }
-
-    .hero-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 64px 48px 64px 40px;
-      background: #0e0e0e;
-      position: relative;
-    }
-
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, #ff8c95, #e80048);
-      padding: 0.4375rem 1rem;
-      border-radius: 9999px;
-      margin-bottom: 28px;
-      width: fit-content;
-    }
-
-    .hero-kicker-dot {
-      width: 6px;
-      height: 6px;
-      background: #fff;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .hero-kicker-copy {
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #fff;
-    }
-
-    .hero-title {
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      margin-bottom: 24px;
-      max-width: 760px;
-    }
-
-    .hero-copy {
-      line-height: 1.7;
-      color: rgba(255,255,255,0.7);
-      max-width: 530px;
-      margin-bottom: 32px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .hero-primary-cta {
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      padding: 1rem 2rem;
-      border-radius: 9999px;
-      color: #fff;
-      text-decoration: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-    }
-
-    .hero-secondary-link {
-      color: rgba(255,255,255,0.6);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .ia-title {
-      line-height: 0.94;
-      margin-bottom: 24px;
-    }
-
-    .hero-photo {
-      position: relative;
-      overflow: hidden;
-      background: #d6d0c8;
-    }
-
-    .hero-photo-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, #0e0e0e 0%, transparent 20%);
-      pointer-events: none;
-    }
-
-    .services-section {
-      padding: 104px 40px 120px;
-    }
-
-    .services-intro {
-      margin-bottom: 64px;
-      max-width: 760px;
-    }
-
-    .section-divider {
-      height: 3px;
-      width: 72px;
-      background: linear-gradient(90deg, #ff8c95, #e80048);
-      border-radius: 9999px;
-      margin-top: 20px;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .service-card {
-      background: #161616;
-      border-radius: 1.5rem;
-      padding: 36px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .service-card--catalog {
-      grid-column: span 2;
-      padding: 48px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .service-card--live {
-      border-color: rgba(255,140,149,0.18);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .service-icon-lg {
-      font-size: 3rem;
-      color: #ff8c95;
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    .service-icon-md {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      display: block;
-      color: #ff8c95;
-    }
-
-    .service-icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff8c95, #e80048);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-    }
-
-    .service-icon-circle-symbol {
-      font-size: 1.5rem;
-      color: #fff;
-    }
-
-    .service-title {
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .service-title--xl {
-      margin-bottom: 16px;
-    }
-
-    .service-copy {
-      line-height: 1.65;
-      color: rgba(255,255,255,0.58);
-    }
-
-    .service-copy--live {
-      line-height: 1.7;
-      color: rgba(255,255,255,0.62);
-    }
-
-    .service-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .service-list-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: rgba(255,255,255,0.66);
-    }
-
-    .service-check {
-      font-size: 1rem;
-      color: #ff8c95;
-    }
-
-    .service-bg-icon-wrap {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      opacity: 0.04;
-    }
-
-    .service-bg-icon {
-      font-size: 12.5rem;
-      color: #ff8c95;
-    }
-
-    .fullwidth-section {
-      position: relative;
-      min-height: 680px;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-end;
-    }
-
-    .fullwidth-image {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
-      filter: brightness(0.6);
-    }
-
-    .fullwidth-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, #0e0e0e 0%, rgba(14,14,14,0.2) 60%, transparent 100%);
-    }
-
-    .fullwidth-text {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      padding: 60px 40px;
-      max-width: 1400px;
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-
-    .problem-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      margin-bottom: 12px;
-    }
-
-    .problem-copy {
-      color: rgba(255,255,255,0.72);
-      max-width: 640px;
-      line-height: 1.65;
-      margin-bottom: 28px;
-    }
-
-    .problem-pills {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      max-width: 980px;
-    }
-
-    .problem-pill {
-      padding: 16px 18px;
-      border-radius: 1rem;
-      background: rgba(14,14,14,0.72);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .problem-pill-head {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .problem-pill-icon {
-      font-size: 1.1rem;
-      color: #ff8c95;
-    }
-
-    .problem-pill-title {
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-    }
-
-    .problem-pill-copy {
-      line-height: 1.55;
-      color: rgba(255,255,255,0.55);
-      margin: 0;
-    }
-
-    .container-wide {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .accent-em {
-      color: #ff8c95;
-      font-style: italic;
-    }
-
-    .accent-italic {
-      font-style: italic;
-    }
-
-    .accent-em--gallery {
-      display: inline-block;
-      margin-top: 0.08em;
-    }
-
-    .gallery-section {
-      padding: 120px 40px;
-      background: #0a0a0a;
-    }
-
-    .gallery-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 64px;
-      gap: 32px;
-    }
-
-    .gallery-quote {
-      margin-top: 16px;
-      max-width: 520px;
-      font-style: italic;
-      color: rgba(255,255,255,0.58);
-      line-height: 1.65;
-    }
-
-    .ia-section {
-      padding: 120px 40px;
-    }
-
-    .ia-copy-text {
-      margin: 0;
-      max-width: 52ch;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.66);
-    }
-
-    .ia-icon-badge,
-    .live-feature-icon-wrap {
-      width: 44px;
-      height: 44px;
-      background: linear-gradient(135deg, rgba(255,140,149,0.15), rgba(232,0,72,0.1));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,140,149,0.2);
-      flex-shrink: 0;
-    }
-
-    .ia-icon,
-    .live-feature-icon {
-      font-size: 1.3rem;
-      color: #ff8c95;
-    }
-
-    .ia-feature-title {
-      margin: 0 0 6px;
-      font-weight: 700;
-    }
-
-    .ia-feature-copy {
-      margin: 0;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .brands-section {
-      padding: 80px 40px 100px;
-      background: #0e0e0e;
-    }
-
-    .brands-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 0.96;
-      margin-bottom: 56px;
-      text-align: center;
-    }
-
-    .brand-logo-item {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 40px;
-    }
-
-    .brand-logo-image {
-      height: 4.5rem;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .steps-section {
-      padding: 0 40px 120px;
-      background:
-        linear-gradient(180deg, #0e0e0e 0%, #090909 100%);
-    }
-
-    .steps-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding-top: 96px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .steps-header {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 32px;
-      align-items: end;
-      margin-bottom: 56px;
-    }
-
-    .steps-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-      color: #ff8c95;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .steps-kicker::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff8c95, #e80048);
-      box-shadow: 0 0 18px rgba(255,140,149,0.42);
-    }
-
-    .steps-intro {
-      margin: 0;
-      max-width: 560px;
-      color: rgba(255,255,255,0.64);
-      line-height: 1.75;
-    }
-
-    .steps-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .steps-line {
-      position: absolute;
-      top: 42px;
-      left: 42px;
-      right: 42px;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(255,140,149,0.28), rgba(255,255,255,0.08));
-      pointer-events: none;
-    }
-
-    .step-card {
-      position: relative;
-      z-index: 1;
-      min-height: 220px;
-      padding: 24px 22px 22px;
-      border-radius: 1.5rem;
-      border: 1px solid rgba(255,255,255,0.08);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)),
-        #101010;
-      box-shadow: 0 18px 44px rgba(0,0,0,0.18);
-    }
-
-    .step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      margin-bottom: 22px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff8c95, #e80048);
-      color: #fff;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-    }
-
-    .step-title {
-      margin: 0 0 10px;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .step-copy {
-      margin: 0;
-      color: rgba(255,255,255,0.62);
-      line-height: 1.7;
-    }
-
-    .live-section {
-      padding: 120px 40px;
-      background: #080808;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-
-    .live-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 0.95;
-      margin-bottom: 24px;
-    }
-
-    .live-copy {
-      margin: 0 auto 32px;
-      max-width: 720px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.66);
-    }
-
-    .live-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      padding: 1rem 2rem;
-      border-radius: 9999px;
-      color: #fff;
-      text-decoration: none;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-    }
-
-    .live-cta-icon {
-      font-size: 1.2rem;
-    }
-
-    .live-feature-card {
-      background: #161616;
-      border-radius: 1.25rem;
-      padding: 28px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .live-feature-icon-wrap {
-      margin-bottom: 18px;
-    }
-
-    .live-feature-title {
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .live-feature-copy {
-      margin: 0;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.55);
-    }
-
-    .faq-section {
-      padding: 120px 40px;
-      background: #0e0e0e;
-    }
-
-    .faq-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 40px;
-      align-items: start;
-    }
-
-    .faq-label {
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #ff8c95;
-      margin-bottom: 18px;
-    }
-
-    .faq-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      line-height: 0.96;
-      margin-bottom: 18px;
-    }
-
-    .faq-copy {
-      max-width: 440px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.66);
-    }
-
-    .faq-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .faq-question {
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #fff;
-    }
-
-    .faq-list {
-      margin: 0;
-      padding-left: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      color: rgba(255,255,255,0.72);
-      line-height: 1.7;
-    }
-
-    .faq-note {
-      margin-top: 18px;
-      padding-left: 14px;
-      border-left: 3px solid rgba(255,140,149,0.4);
-      line-height: 1.7;
-      color: rgba(255,255,255,0.68);
-    }
-
-    .cta-section {
-      background: linear-gradient(135deg, #ff8c95 0%, #e80048 100%);
-      padding: 120px 40px;
-      text-align: center;
-    }
-
-    .cta-container {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .cta-title {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #fff;
-      line-height: 0.92;
-      margin-bottom: 28px;
-    }
-
-    .cta-copy {
-      color: rgba(255,255,255,0.82);
-      margin: 0 auto 52px;
-      line-height: 1.65;
-      max-width: 620px;
-    }
-
-    .cta-card {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 1.25rem;
-      padding: 28px 24px;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      transition: background 0.2s ease;
-    }
-
-    .cta-card-icon {
-      font-size: 1.75rem;
-      color: #fff;
-    }
-
-    .cta-card-title {
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 4px;
-      text-align: left;
-    }
-
-    .cta-card-copy {
-      color: rgba(255,255,255,0.75);
-      line-height: 1.5;
-      text-align: left;
-    }
-
-    .cta-email-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.82);
-      text-decoration: none;
-    }
-
-    .cta-email-icon,
-    .footer-mail-icon {
-      font-size: 1rem;
-    }
-
-    .footer-shell {
-      background: #080808;
-      border-top: 1px solid rgba(255,255,255,0.04);
-    }
-
-    .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 72px 40px 56px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr repeat(3, auto);
-      gap: 64px;
-      align-items: start;
-      margin-bottom: 56px;
-    }
-
-    .footer-brand-mark {
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    .footer-brand-copy {
-      max-width: 320px;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.46);
-    }
-
-    .footer-socials {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .footer-heading {
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.42);
-      margin-bottom: 20px;
-    }
-
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .footer-link {
-      color: rgba(255,255,255,0.52);
-      text-decoration: none;
-    }
-
-    .footer-contact {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 260px;
-    }
-
-    .footer-contact-copy {
-      margin: 0;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.52);
-    }
-
-    .footer-mail-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      padding-top: 4px;
-      transition: color 0.2s ease;
-    }
-
-    .footer-mail-link:hover {
-      color: rgba(255,255,255,0.92);
-    }
-
-    .footer-bottom {
-      padding: 0 40px 32px;
-    }
-
-    .footer-bottom-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-bottom-copy {
-      color: rgba(255,255,255,0.28);
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-bottom-link {
-      color: rgba(255,255,255,0.38);
-      text-decoration: none;
-    }
-
-    .footer-bottom-icon {
-      font-size: 1.2rem;
-    }
-
-    .floating-whatsapp {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      z-index: 100;
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      background: #25D366;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 24px rgba(37,211,102,0.45);
-      text-decoration: none;
-    }
-
-    @media (max-width: 768px) {
-      :root {
-        --nav-height: 79px;
-      }
-
-      .nav-inner { padding: 18px 20px !important; }
-      .nav-links { display: none !important; }
-      .nav-cta { padding: 10px 18px !important; font-size: 0.68rem !important; }
-
-      .hero-grid { grid-template-columns: 1fr !important; height: auto !important; min-height: auto !important; }
-      .hero-text { padding: 40px 24px 48px !important; }
-      .hero-photo { display: block !important; height: auto !important; max-height: 480px !important; order: 1; overflow: hidden !important; }
-      .hero-img { height: auto !important; max-height: 480px !important; object-fit: contain !important; object-position: top center !important; }
-      .hero-h1 { font-size: clamp(3rem, 12vw, 5rem) !important; }
-
-      .section-pad { padding-left: 20px !important; padding-right: 20px !important; }
-
-      .services-section { padding: 80px 20px !important; }
-      .services-grid { grid-template-columns: 1fr !important; }
-      .catalog-card { grid-column: span 1 !important; }
-
-      .fullwidth-section { min-height: auto !important; }
-      .fullwidth-text { padding: 40px 20px !important; }
-      .problem-pills { grid-template-columns: 1fr !important; }
-
-      .gallery-section { padding: 80px 20px !important; overflow-x: hidden !important; }
-      .gallery-header { margin-bottom: 40px !important; }
-      .gallery-card { flex-basis: calc((100% - 16px) / 2) !important; }
-
-      .ia-section { padding: 80px 20px !important; }
-      .ia-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-      .ia-copy { max-width: 100% !important; }
-      .ia-feature-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
-
-      .steps-section { padding: 0 20px 80px !important; }
-      .steps-inner { padding-top: 80px !important; }
-      .steps-header { grid-template-columns: 1fr !important; margin-bottom: 40px !important; }
-      .steps-grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
-      .steps-line { display: none !important; }
-
-      .faq-section { padding: 80px 20px !important; }
-      .faq-grid { grid-template-columns: 1fr !important; }
-
-      .cta-section { padding: 80px 20px !important; }
-
-      .footer-inner { padding: 56px 20px !important; }
-      .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
-      .footer-brand { grid-column: span 2 !important; }
-      .footer-bottom-inner { flex-direction: column !important; gap: 16px !important; text-align: center !important; }
-      .footer-bottom { padding: 0 20px 32px !important; }
-
-      .floating-whatsapp { bottom: 20px !important; right: 20px !important; left: auto !important; width: 58px !important; height: 58px !important; }
-    }
-
-    @media (max-width: 480px) {
-      .steps-grid { grid-template-columns: 1fr !important; }
-      .gallery-card { flex-basis: 100% !important; }
-      .footer-grid { grid-template-columns: 1fr !important; }
-      .footer-brand { grid-column: span 1 !important; }
-    }
-
-    .faq-item {
-      background: #161616;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 1.25rem;
-      overflow: hidden;
-    }
-
-    .faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 24px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .faq-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-icon {
-      transition: transform 0.2s ease;
-    }
-
-    .faq-item[open] .faq-icon {
-      transform: rotate(45deg);
-    }
-
-    /* ─── Nav links hover ─── */
-    .nav-links a {
-      transition: color 0.2s ease;
-    }
-    .nav-links a:hover { color: #fff; }
-
-    /* ─── Service card hover ─── */
-    .service-card {
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,140,149,0.28) !important;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-    }
-
-    /* ─── Hero image ─── */
-    .hero-img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-    }
-
-    /* ─── Gallery image ─── */
-    .gallery-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-    .gallery-card:hover .gallery-img { transform: scale(1.03); }
-
-    .gallery-carousel {
-      position: relative;
-    }
-    .gallery-carousel::before,
-    .gallery-carousel::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: clamp(28px, 4vw, 64px);
-      pointer-events: none;
-      z-index: 2;
-    }
-    .gallery-carousel::before {
-      left: 0;
-      background: linear-gradient(90deg, #0a0a0a 0%, rgba(10,10,10,0) 100%);
-    }
-    .gallery-carousel::after {
-      right: 0;
-      background: linear-gradient(270deg, #0a0a0a 0%, rgba(10,10,10,0) 100%);
-    }
-    .gallery-track {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding: 8px 0 12px;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      cursor: grab;
-      user-select: none;
-      touch-action: pan-y;
-    }
-    .gallery-track::-webkit-scrollbar { display: none; }
-    .gallery-track.is-dragging {
-      cursor: grabbing;
-    }
-    .gallery-card {
-      flex: 0 0 calc((100% - 32px) / 3);
-      min-width: 0;
-      border-radius: 1.5rem;
-      overflow: hidden;
-      aspect-ratio: 3 / 4;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: #121212;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.28);
-    }
-    .gallery-img {
-      -webkit-user-drag: none;
-      pointer-events: none;
-    }
-
-    /* ─── WhatsApp CTA buttons ─── */
-    .btn-whatsapp {
-      transition: transform 0.2s ease;
-    }
-    .btn-whatsapp:hover { transform: scale(1.03); }
-
-    /* ─── Floating WhatsApp ─── */
-    .floating-whatsapp {
-      transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
-    .floating-whatsapp:hover {
-      transform: scale(1.12) !important;
-      box-shadow: 0 8px 36px rgba(37,211,102,0.55) !important;
-    }
-
-    /* ─── FAQ smooth expand ─── */
-    .faq-body {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.28s ease;
-    }
-    .faq-item[open] .faq-body { grid-template-rows: 1fr; }
-    .faq-body-inner {
-      overflow: hidden;
-      padding: 0 28px 24px;
-    }
-
-    /* ─── Reduced motion ─── */
-    @media (prefers-reduced-motion: reduce) {
-      .hero-img, .gallery-img, .service-card, .btn-whatsapp,
-      .floating-whatsapp, .faq-body { transition: none !important; }
-      .gallery-track { scroll-behavior: auto !important; }
-    }
-
-    /* ─── Mobile nav menu ─── */
-    #menu-btn { display: none; }
-    #mobile-menu { display: none; }
-    .mobile-nav-link {
-      display: block;
-      padding: 14px 16px;
-      border-radius: 0.75rem;
-      font-size: 0.975rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-    .mobile-nav-link:hover { background: rgba(255,255,255,0.06); color: #fff; }
-
-    /* ─── Footer social icons ─── */
-    .social-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.6);
-      text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .social-icon:hover { background: rgba(255,255,255,0.12); color: #fff; }
-
-    /* ─── Mobile hero photo ─── */
-    @media (max-width: 768px) {
-      .hero-photo { display: block !important; height: auto !important; max-height: 480px !important; order: 1; overflow: hidden !important; }
-      .hero-img { height: auto !important; max-height: 480px !important; object-fit: contain !important; object-position: top center !important; }
-      .hero-text { padding: 40px 24px 48px !important; }
-      #menu-btn { display: flex !important; }
-    }
-
-    /* ─── TikTok LIVE section ─── */
-    .live-intro-grid {
-      display: block;
-      margin-bottom: 80px;
-    }
-    .live-intro-copy {
-      max-width: 840px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    @media (max-width: 1180px) and (min-width: 481px) {
-      .problem-pills {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      }
-    }
-
-    /* ─── AI photo section ─── */
-    .ia-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 56px;
-      align-items: start;
-    }
-    .ia-copy {
-      max-width: 560px;
-    }
-    .ia-feature-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-      align-items: start;
-    }
-    .ia-feature-card {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      background: #161616;
-      border-radius: 1rem;
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .ia-feature-card:first-child {
-      transform: translateY(28px);
-    }
-    .ia-feature-card:last-child {
-      grid-column: 2;
-    }
-    @media (max-width: 900px) {
-      .ia-feature-card:first-child { transform: none !important; }
-    }
-    @media (max-width: 768px) {
-      .ia-feature-card:last-child { grid-column: auto !important; }
-    }
-    .live-features-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-    }
-
-    /* ─── Email capture ─── */
-    .email-capture-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .form-input {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 0.875rem;
-      padding: 16px 20px;
-      color: #fff;
-      font-size: 0.95rem;
-      font-family: 'Manrope', sans-serif;
-      outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease;
-    }
-    .form-input:focus { border-color: rgba(255,140,149,0.5); }
-    .form-input::placeholder { color: rgba(255,255,255,0.36); }
-
-    /* ─── CTA channels ─── */
-    .cta-channels {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 900px;
-      margin: 0 auto 40px;
-    }
-    .cta-channel-card:hover { background: rgba(255,255,255,0.22) !important; }
-
-    /* ─── Pulse animation ─── */
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.85); }
-    }
-
-    @media (max-width: 768px) {
-      .live-features-grid { grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
-      .email-capture-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-      .cta-channels { grid-template-columns: 1fr !important; max-width: 100% !important; }
-    }
-    @media (max-width: 480px) {
-      .live-features-grid { grid-template-columns: 1fr !important; }
-    }
-  </style>
-
-  <nav class="glass-nav nav-shell">
-    <div class="nav-inner">
-      <a href="/" class="font-headline nav-brand nav-brand-link fs-brand" aria-label="Ir al inicio de Manglar">{brand}</a>
-      <div class="nav-links">
-        <a href="#servicios" class="nav-link fs-nav">Servicios</a>
-        <a href="#visuales" class="nav-link fs-nav">Visuales</a>
-        <a href="#ia" class="nav-link fs-nav">Fotos IA</a>
-        <a href="#tiktok-live" class="nav-link fs-nav">TikTok LIVE</a>
-        <a href="#faq" class="nav-link fs-nav">FAQ</a>
-        <a href="#contacto" class="nav-link fs-nav">Contacto</a>
+  <nav class="site-nav--glass site-nav">
+    <div class="site-nav__inner">
+      <a href="/" class="font-headline site-nav__brand site-nav__brand-link fs-brand" aria-label="Ir al inicio de Manglar">{brand}</a>
+      <div class="site-nav__links">
+        {navLinks.map((link) => (
+          <a href={link.href} class="site-nav__link fs-nav">{link.label}</a>
+        ))}
       </div>
-      <button id="menu-btn" class="menu-btn" aria-label="Abrir menú" aria-expanded="false">
-        <span id="menu-icon" class="material-symbols-outlined menu-icon">menu</span>
+      <button
+        class="site-nav__menu-button"
+        type="button"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-menu-button
+      >
+        <span class="material-symbols-outlined site-nav__menu-icon" data-menu-icon>menu</span>
       </button>
       <a
         href={whatsappLink}
         target="_blank"
         rel="noopener noreferrer"
-        class="nav-cta btn-whatsapp"
+        class="site-nav__cta whatsapp-link"
       >
         WhatsApp
       </a>
     </div>
   </nav>
 
-  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Menú de navegación">
-    <a href="#servicios" class="mobile-nav-link">Servicios</a>
-    <a href="#visuales" class="mobile-nav-link">Visuales</a>
-    <a href="#ia" class="mobile-nav-link">Fotos IA</a>
-    <a href="#tiktok-live" class="mobile-nav-link">TikTok LIVE</a>
-    <a href="#faq" class="mobile-nav-link">FAQ</a>
-    <a href="#contacto" class="mobile-nav-link">Contacto</a>
+  <div id="mobile-nav" class="mobile-nav" role="dialog" aria-label="Menú de navegación" hidden data-mobile-nav>
+    {navLinks.map((link) => (
+      <a href={link.href} class="mobile-nav__link">{link.label}</a>
+    ))}
   </div>
 
-  <main>
-    <section class="hero-grid">
-      <div class="hero-text">
-        <div class="hero-kicker">
-          <span class="hero-kicker-dot"></span>
-          <span class="hero-kicker-copy fs-kicker">Operación en México + TikTok LIVE + IA</span>
+  <main class="site-main">
+    <section class="hero">
+      <div class="hero__content">
+        <div class="hero__eyebrow">
+          <span class="hero__eyebrow-dot"></span>
+          <span class="hero__eyebrow-copy fs-kicker">Operación completa + TikTok LIVE + IA</span>
         </div>
 
-        <h1 class="font-headline hero-h1 hero-title fs-hero-title">
-          Agencia para crecer<br />
+        <h1 class="font-headline hero__heading hero__title fs-hero-title">
+          Impulsa tus ventas<br />
           en <span class="brand-accent">Shein</span> y<br />
           TikTok Shop.
         </h1>
 
-        <p class="hero-copy fs-body-lg">
-          Operamos catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para marcas y tiendas que venden en México y necesitan crecer sin cargar toda la operación interna.
+        <p class="hero__copy fs-body-lg">
+          Nos encargamos de tu catálogo, fotos con IA, campañas, descuentos y TikTok LIVE para que tu tienda venda más sin que tú tengas que operar todo el día.
         </p>
 
-        <div class="hero-actions">
+        <div class="hero__actions">
           <a
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-whatsapp hero-primary-cta fs-body"
+            class="whatsapp-link hero__primary-link fs-body"
           >
             Escríbenos por WhatsApp
           </a>
-          <a href="#servicios" class="hero-secondary-link fs-body">
-            Ver servicios →
-          </a>
+          <a href="#servicios" class="hero__secondary-link fs-body"></a>
         </div>
       </div>
 
-      <div class="hero-photo">
+      <div class="hero__media">
         <Image
           src={heroPhoto.src}
           alt={heroPhoto.alt}
@@ -1644,69 +396,69 @@ const faqItems = [
           sizes={heroPhoto.sizes}
           loading={heroPhoto.loading}
           priority={heroPhoto.priority}
-          class="hero-img"
+          class="hero__image"
         />
-        <div class="hero-photo-overlay"></div>
+        <div class="hero__media-overlay"></div>
       </div>
     </section>
 
-    <section id="servicios" class="services-section section-pad container-wide">
-      <div class="services-intro">
+    <section id="servicios" class="services section-gutter page-container">
+      <div class="services__intro">
         <h2 class="font-headline fs-section-title tracking-tight lh-heading">
           Operamos tu tienda.<br />
-          <em class="accent-em">Tú ves resultados.</em>
+          <em class="text-accent">Tú ves resultados.</em>
         </h2>
         <div class="section-divider"></div>
       </div>
 
-      <div class="services-grid">
-        <div class="catalog-card service-card service-card--catalog">
-          <span class="material-symbols-outlined service-icon-lg">{serviceCards[0].icon}</span>
-          <h3 class="font-headline service-title service-title--xl fs-card-title-xl">
+      <div class="services__grid">
+        <div class="service-card service-card--catalog">
+          <span class="material-symbols-outlined service-card__icon--lg">{serviceCards[0].icon}</span>
+          <h3 class="font-headline service-card__title service-card__title--xl fs-card-title-xl">
             {serviceCards[0].title}
           </h3>
-          <ul class="service-list">
+          <ul class="service-card__list">
             {serviceCards[0].items.map((item) => (
-              <li class="service-list-item fs-body">
-                <span class="material-symbols-outlined service-check">check_circle</span>
+              <li class="service-card__list-item fs-body">
+                <span class="material-symbols-outlined service-card__check">check_circle</span>
                 {item}
               </li>
             ))}
           </ul>
-          <div class="service-bg-icon-wrap">
-            <span class="material-symbols-outlined service-bg-icon">inventory_2</span>
+          <div class="service-card__bg-icon-wrap">
+            <span class="material-symbols-outlined service-card__bg-icon">inventory_2</span>
           </div>
         </div>
 
         <div class="service-card service-card--live">
           <div>
-            <div class="service-icon-circle">
-              <span class="material-symbols-outlined service-icon-circle-symbol">{serviceCards[3].icon}</span>
+            <div class="service-card__icon-badge">
+              <span class="material-symbols-outlined service-card__icon-symbol">{serviceCards[3].icon}</span>
             </div>
-            <h3 class="font-headline service-title fs-card-title-lg">{serviceCards[3].title}</h3>
-            <p class="service-copy service-copy--live fs-body">{serviceCards[3].description}</p>
+            <h3 class="font-headline service-card__title fs-card-title-lg">{serviceCards[3].title}</h3>
+            <p class="service-card__copy service-card__copy--live fs-body">{serviceCards[3].description}</p>
           </div>
         </div>
 
         {serviceCards.slice(1, 3).map((service) => (
           <div class="service-card">
-            <span class="material-symbols-outlined service-icon-md">
+            <span class="material-symbols-outlined service-card__icon--md">
               {service.icon}
             </span>
-            <h3 class="font-headline service-title fs-card-title-sm">{service.title}</h3>
-            <p class="service-copy fs-body">{service.description}</p>
+            <h3 class="font-headline service-card__title fs-card-title-sm">{service.title}</h3>
+            <p class="service-card__copy fs-body">{service.description}</p>
           </div>
         ))}
 
         <div class="service-card">
-          <span class="material-symbols-outlined service-icon-md">{serviceCards[4].icon}</span>
-          <h3 class="font-headline service-title fs-card-title-sm">{serviceCards[4].title}</h3>
-          <p class="service-copy fs-body">{serviceCards[4].description}</p>
+          <span class="material-symbols-outlined service-card__icon--md">{serviceCards[4].icon}</span>
+          <h3 class="font-headline service-card__title fs-card-title-sm">{serviceCards[4].title}</h3>
+          <p class="service-card__copy fs-body">{serviceCards[4].description}</p>
         </div>
       </div>
     </section>
 
-    <section class="fullwidth-section">
+    <section class="challenge">
       <Image
         src={productionPhoto.src}
         alt={productionPhoto.alt}
@@ -1716,118 +468,59 @@ const faqItems = [
         widths={productionPhoto.widths}
         sizes={productionPhoto.sizes}
         loading="lazy"
-        class="fullwidth-image"
+        class="challenge__image"
       />
-      <div class="fullwidth-overlay"></div>
-      <div class="fullwidth-text">
-        <h2 class="font-headline problem-title fs-section-title-compact">
+      <div class="challenge__overlay"></div>
+      <div class="challenge__content">
+        <h2 class="font-headline challenge__title fs-section-title-compact">
           El tiempo operativo está<br />
-          <em class="accent-em">frenando tu crecimiento.</em>
+          <em class="text-accent">frenando tu crecimiento.</em>
         </h2>
-        <p class="problem-copy fs-body-lg">
+        <p class="challenge__copy fs-body-lg">
           Subir productos, crear fotos, gestionar precios, campañas, descuentos y contenido comercial requiere horas. Manglar toma esa carga y la convierte en una operación continua para Shein y TikTok Shop.
         </p>
-        <div class="problem-pills">
-          {[
-            { icon: 'category', title: 'Catálogos incompletos', desc: 'Variantes mal cargadas, atributos ausentes y stock desactualizado.' },
-            { icon: 'hide_image', title: 'Fotos malas o sin fotos', desc: 'Sin buenas imágenes, la tasa de clics cae antes de que el cliente decida.' },
-            { icon: 'event_busy', title: 'Campañas perdidas', desc: 'Fechas clave que pasan sin descuentos ni promociones configuradas.' },
-            { icon: 'trending_down', title: 'Ventas que nunca llegaron', desc: 'Operación lenta y desordenada que frena el crecimiento día a día.' },
-          ].map(({ icon, title, desc }) => (
-            <div class="problem-pill">
-              <div class="problem-pill-head">
-                <span class="material-symbols-outlined problem-pill-icon">{icon}</span>
-                <span class="problem-pill-title fs-body">{title}</span>
+        <div class="challenge__list">
+          {problemItems.map(({ icon, title, desc }) => (
+            <div class="challenge-card">
+              <div class="challenge-card__header">
+                <span class="material-symbols-outlined challenge-card__icon">{icon}</span>
+                <span class="challenge-card__title fs-body">{title}</span>
               </div>
-              <p class="problem-pill-copy fs-body">{desc}</p>
+              <p class="challenge-card__copy fs-body">{desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="visuales" class="gallery-section">
-      <div class="container-wide">
-        <div class="gallery-header">
+    <section id="visuales" class="visual-gallery">
+      <div class="page-container">
+        <div class="visual-gallery__header">
           <div>
             <h2 class="font-headline fs-section-title-wide tracking-tight lh-snug">
               Visuales que<br />
-              <em class="accent-em accent-em--gallery">sí convierten</em>
+              <em class="text-accent text-accent--gallery">sí convierten</em>
             </h2>
-            <p class="gallery-quote fs-body-lg">
+            <p class="visual-gallery__quote fs-body-lg">
               <strong>"Imágenes limpias, consistentes y optimizadas para marketplace. Sin sesiones, sin fotógrafos y sin semanas de espera."</strong>
             </p>
           </div>
         </div>
 
-        <div class="gallery-carousel">
-          <div class="gallery-track" data-gallery-track aria-label="Carrusel de fotos de producto">
+        <div class="visual-gallery__carousel">
+          <div class="visual-gallery__track" data-gallery-track aria-label="Carrusel de fotos de producto">
             {carouselPhotos.map((photo) => (
-              <div class="gallery-card" aria-hidden={photo.isDecorative ? 'true' : 'false'}>
-              <Image
-                src={photo.src}
-                alt={photo.isDecorative ? '' : photo.alt}
-                width={photo.width}
-                format="webp"
-                quality="mid"
-                widths={photo.widths}
-                sizes={photo.sizes}
-                loading="lazy"
-                class="gallery-img"
-              />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="ia" class="ia-section section-pad">
-      <div class="container-wide">
-        <div class="ia-grid">
-          <div class="ia-copy">
-            <h2 class="font-headline fs-section-title tracking-tight ia-title">
-              Fotos de producto con<br /><em class="accent-em">Inteligencia Artificial</em>
-            </h2>
-            <p class="ia-copy-text fs-body-lg">
-              Las fotos son uno de los cuellos de botella más pesados en e-commerce. Generamos imágenes limpias, consistentes y optimizadas para marketplace sin sesiones largas, sin fotógrafos y sin costos variables para que tu catálogo se vea vendible desde el primer scroll.
-            </p>
-          </div>
-
-          <div class="ia-feature-grid">
-            {visualFeatures.map((item) => (
-              <div class="ia-feature-card">
-                <div class="ia-icon-badge">
-                  <span class="material-symbols-outlined ia-icon">{item.icon}</span>
-                </div>
-                <div>
-                  <h3 class="font-headline ia-feature-title fs-body">{item.title}</h3>
-                  <p class="ia-feature-copy fs-body">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="marcas" class="brands-section">
-      <div class="container-wide">
-        <h2 class="font-headline brands-title fs-section-title">
-          Empresas que nos eligieron
-        </h2>
-        <div class="partner-logos-carousel" aria-label="Carrusel de logos de empresas que eligieron Manglar">
-          <div class="partner-logos-track">
-            {partnerLogoLoop.map((logo) => (
-              <div class="brand-logo-item" aria-hidden={logo.isDecorative ? 'true' : 'false'}>
-                <img
-                  src={logo.src}
-                  alt={logo.isDecorative ? '' : logo.alt}
-                  width={logo.width}
-                  height={logo.height}
+              <div class="visual-gallery__card" aria-hidden={photo.isDecorative ? 'true' : 'false'}>
+                <Image
+                  src={photo.src}
+                  alt={photo.isDecorative ? '' : photo.alt}
+                  width={photo.width}
+                  format="webp"
+                  quality="mid"
+                  widths={photo.widths}
+                  sizes={photo.sizes}
                   loading="lazy"
-                  decoding="async"
-                  class="brand-logo-image"
+                  class="visual-gallery__image"
                 />
               </div>
             ))}
@@ -1836,101 +529,155 @@ const faqItems = [
       </div>
     </section>
 
-    <section id="proceso" class="steps-section">
-      <div class="steps-inner">
-        <div class="steps-header">
+    <section id="ia" class="ai-photos section-gutter">
+      <div class="page-container">
+        <div class="ai-photos__grid">
+          <div class="ai-photos__copy">
+            <h2 class="font-headline fs-section-title tracking-tight ai-photos__title">
+              Fotos de producto con<br /><em class="text-accent">Inteligencia Artificial</em>
+            </h2>
+            <p class="ai-photos__text fs-body-lg">
+              Las fotos son uno de los cuellos de botella más pesados en e-commerce. Generamos imágenes limpias, consistentes y optimizadas para marketplace sin sesiones largas, sin fotógrafos y sin costos variables para que tu catálogo se vea vendible desde el primer scroll.
+            </p>
+          </div>
+
+          <div class="ai-photos__features">
+            {visualFeatures.map((item) => (
+              <div class="ai-feature-card">
+                <div class="ai-feature-card__icon-wrap">
+                  <span class="material-symbols-outlined ai-feature-card__icon">{item.icon}</span>
+                </div>
+                <div>
+                  <h3 class="font-headline ai-feature-card__title fs-body">{item.title}</h3>
+                  <p class="ai-feature-card__copy fs-body">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="marcas" class="brand-strip">
+      <div class="page-container">
+        <h2 class="font-headline brand-strip__title fs-section-title">
+          Empresas que nos eligieron
+        </h2>
+        <div class="brand-strip__carousel" aria-label="Carrusel de logos de empresas que eligieron Manglar">
+          <div class="brand-strip__track">
+            {partnerLogoLoop.map((logo) => (
+              <div class="brand-strip__item" aria-hidden={logo.isDecorative ? 'true' : 'false'}>
+                <img
+                  src={logo.src}
+                  alt={logo.isDecorative ? '' : logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="brand-strip__logo"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso" class="process">
+      <div class="process__inner">
+        <div class="process__header">
           <div>
-            <div class="steps-kicker fs-label">Proceso</div>
+            <div class="process__eyebrow fs-label">Proceso</div>
             <h2 class="font-headline fs-section-title tracking-tight lh-snug">
               Cómo ordenamos,<br />
               operamos y escalamos<br />
               tu tienda
             </h2>
           </div>
-          <p class="steps-intro fs-body-lg">
+          <p class="process__intro fs-body-lg">
             Empezamos con diagnóstico, ordenamos catálogo, activamos campañas y llevamos TikTok LIVE a un flujo comercial repetible. El objetivo es vender más con una operación estable y medible.
           </p>
         </div>
 
-        <div class="steps-grid">
-          <div class="steps-line" aria-hidden="true"></div>
+        <div class="process__grid">
+          <div class="process__line" aria-hidden="true"></div>
           {steps.map((step) => (
-            <article class="step-card">
-              <div class="step-number fs-label">{step.n}</div>
-              <h3 class="font-headline step-title fs-card-title-sm">{step.title}</h3>
-              <p class="step-copy fs-body">{step.desc}</p>
+            <article class="process-step">
+              <div class="process-step__number fs-label">{step.n}</div>
+              <h3 class="font-headline process-step__title fs-card-title-sm">{step.title}</h3>
+              <p class="process-step__copy fs-body">{step.desc}</p>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="tiktok-live" class="live-section">
-      <div class="container-wide">
-        <div class="live-intro-grid">
-          <div class="live-intro-copy">
-            <h2 class="font-headline live-title fs-section-title">
+    <section id="tiktok-live" class="live-sales">
+      <div class="page-container">
+        <div class="live-sales__intro">
+          <div class="live-sales__intro-copy">
+            <h2 class="font-headline live-sales__title fs-section-title">
               TikTok LIVE que<br />
-              <em class="accent-em">vende de verdad</em>
+              <em class="text-accent">vende de verdad</em>
             </h2>
-            <p class="live-copy fs-body-lg">
+            <p class="live-sales__copy fs-body-lg">
               No es solo transmitir. Un LIVE bien operado es la herramienta de mayor conversión en TikTok Shop cuando tiene estrategia, productos correctos y gestión activa en tiempo real.
             </p>
             <a
               href={whatsappLive}
               target="_blank"
               rel="noopener noreferrer"
-              class="btn-whatsapp live-cta fs-body"
+              class="whatsapp-link live-sales__cta fs-body"
             >
-              <span class="material-symbols-outlined live-cta-icon">live_tv</span>
+              <span class="material-symbols-outlined live-sales__cta-icon">live_tv</span>
               Quiero operar mi TikTok LIVE
             </a>
           </div>
         </div>
 
-        <div class="live-features-grid">
+        <div class="live-sales__features">
           {liveItems.map(item => (
-            <div class="live-feature-card">
-              <div class="live-feature-icon-wrap">
-                <span class="material-symbols-outlined live-feature-icon">{item.icon}</span>
+            <div class="live-feature">
+              <div class="live-feature__icon-wrap">
+                <span class="material-symbols-outlined live-feature__icon">{item.icon}</span>
               </div>
-              <h3 class="font-headline live-feature-title fs-body">{item.title}</h3>
-              <p class="live-feature-copy fs-body">{item.desc}</p>
+              <h3 class="font-headline live-feature__title fs-body">{item.title}</h3>
+              <p class="live-feature__copy fs-body">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="faq" class="faq-section section-pad">
-      <div class="container-wide">
-        <div class="faq-grid">
+    <section id="faq" class="faq section-gutter">
+      <div class="page-container">
+        <div class="faq__grid">
           <div>
-            <div class="faq-label fs-label">FAQ</div>
-            <h2 class="font-headline faq-title fs-section-title">
+            <div class="faq__label fs-label">FAQ</div>
+            <h2 class="font-headline faq__title fs-section-title">
               Preguntas frecuentes<br />para empezar rápido
             </h2>
-            <p class="faq-copy fs-body-lg">
+            <p class="faq__copy fs-body-lg">
               Todo lo que necesitas saber antes de empezar. Si tienes alguna pregunta adicional, escríbenos por WhatsApp y la respondemos en el momento.
             </p>
           </div>
 
-          <div class="faq-stack">
+          <div class="faq__stack">
             {faqItems.map((item) => (
               <details class="faq-item">
                 <summary>
-                  <span class="font-headline faq-question fs-body">
+                  <span class="font-headline faq-item__question fs-body">
                     {item.question}
                   </span>
-                  <span class="faq-icon material-symbols-outlined live-cta-icon brand-accent">add</span>
+                  <span class="faq-item__icon material-symbols-outlined brand-accent">add</span>
                 </summary>
-                <div class="faq-body">
-                  <div class="faq-body-inner">
-                    <ul class="faq-list fs-body">
+                <div class="faq-item__body">
+                  <div class="faq-item__body-inner">
+                    <ul class="faq-item__list fs-body">
                       {item.bullets.map((bullet) => <li>{bullet}</li>)}
                     </ul>
                     {item.note && (
-                      <div class="faq-note fs-body">
+                      <div class="faq-item__note fs-body">
                         {item.note}
                       </div>
                     )}
@@ -1943,125 +690,98 @@ const faqItems = [
       </div>
     </section>
 
-    <section id="contacto" class="cta-section">
-      <div class="cta-container">
-        <h2 class="font-headline cta-title fs-cta-title">
-          Tu tienda puede<br /><em class="accent-italic">vender más</em><br />sin operar todo el día
+    <section id="contacto" class="contact-cta">
+      <div class="contact-cta__container">
+        <h2 class="font-headline contact-cta__title fs-cta-title">
+          Tu tienda puede<br /><em class="text-italic">vender más</em><br />sin operar todo el día
         </h2>
-        <p class="cta-copy fs-body-lg">
+        <p class="contact-cta__copy fs-body-lg">
           Revisamos catálogo, fotos, pricing, campañas y TikTok LIVE en una primera conversación sin costo.
         </p>
-        <div class="cta-channels">
-          <a
-            href={whatsappDiagnostico}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp cta-card"
-          >
-            <span class="material-symbols-outlined cta-card-icon">search</span>
-            <div>
-              <div class="font-headline cta-card-title fs-body">Diagnóstico gratuito</div>
-              <div class="cta-card-copy fs-body">No sé por dónde empezar, quiero que revisen mi tienda</div>
-            </div>
-          </a>
-          <a
-            href={whatsappCatalogo}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp cta-card"
-          >
-            <span class="material-symbols-outlined cta-card-icon">inventory_2</span>
-            <div>
-              <div class="font-headline cta-card-title fs-body">Operar mi catálogo</div>
-              <div class="cta-card-copy fs-body">Necesito gestión de productos, fotos y campañas</div>
-            </div>
-          </a>
-          <a
-            href={whatsappLive}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="cta-channel-card btn-whatsapp cta-card"
-          >
-            <span class="material-symbols-outlined cta-card-icon">live_tv</span>
-            <div>
-              <div class="font-headline cta-card-title fs-body">TikTok LIVE</div>
-              <div class="cta-card-copy fs-body">Quiero arrancar o mejorar mis transmisiones</div>
-            </div>
-          </a>
+        <div class="contact-cta__channels">
+          {contactChannels.map((channel) => (
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-card whatsapp-link"
+            >
+              <span class="material-symbols-outlined contact-card__icon">{channel.icon}</span>
+              <div>
+                <div class="font-headline contact-card__title fs-body">{channel.title}</div>
+                <div class="contact-card__copy fs-body">{channel.desc}</div>
+              </div>
+            </a>
+          ))}
         </div>
         <a
           href="mailto:contacto@agenciamanglar.mx"
-          class="cta-email-link fs-body"
+          class="contact-cta__email-link fs-body"
         >
-          <span class="material-symbols-outlined cta-email-icon">mail</span>
+          <span class="material-symbols-outlined contact-cta__email-icon">mail</span>
           contacto@agenciamanglar.mx
         </a>
       </div>
     </section>
   </main>
 
-  <footer class="footer-shell">
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="font-headline footer-brand-mark fs-brand">{brand}</div>
-          <p class="footer-brand-copy fs-body">
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <div class="font-headline site-footer__brand-mark fs-brand">{brand}</div>
+          <p class="site-footer__brand-copy fs-body">
             Operación completa para Shein y TikTok Shop: catálogo, fotos con IA, campañas, descuentos y TikTok LIVE.
           </p>
-          <div class="footer-socials">
-            <a href="https://tiktok.com/@agenciamanglar.mx" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Manglar" class="social-icon">
+          <div class="site-footer__socials">
+            <a href="https://tiktok.com/@agenciamanglar.mx" target="_blank" rel="noopener noreferrer" aria-label="TikTok de Manglar" class="social-link">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.13 8.13 0 004.77 1.52V6.81a4.85 4.85 0 01-1-.12z"/></svg>
             </a>
-            <a href="https://instagram.com/agenciamanglar.mx" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Manglar" class="social-icon">
+            <a href="https://instagram.com/agenciamanglar.mx" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Manglar" class="social-link">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
           </div>
         </div>
         <div>
-          <div class="footer-heading fs-label">Servicios</div>
-          <ul class="footer-links">
-            {[
-              'Gestión integral de tienda',
-              'Fotos de producto con IA',
-              'Campañas y descuentos',
-              'TikTok LIVE',
-            ].map((item) => (
-              <li><a href="#servicios" class="footer-link fs-body">{item}</a></li>
+          <div class="site-footer__heading fs-label">Servicios</div>
+          <ul class="site-footer__links">
+            {footerServiceLinks.map((item) => (
+              <li><a href="#servicios" class="site-footer__link fs-body">{item}</a></li>
             ))}
           </ul>
         </div>
         <div>
-          <div class="footer-heading fs-label">Proceso</div>
-          <ul class="footer-links">
-            {['Diagnóstico', 'Ordenar catálogo', 'Operar', 'Optimizar'].map((item) => (
-              <li><a href="#proceso" class="footer-link fs-body">{item}</a></li>
+          <div class="site-footer__heading fs-label">Proceso</div>
+          <ul class="site-footer__links">
+            {footerProcessLinks.map((item) => (
+              <li><a href="#proceso" class="site-footer__link fs-body">{item}</a></li>
             ))}
           </ul>
         </div>
         <div>
-          <div class="footer-heading fs-label">Contacto</div>
-          <div class="footer-contact">
-            <p class="footer-contact-copy fs-body">
+          <div class="site-footer__heading fs-label">Contacto</div>
+          <div class="site-footer__contact">
+            <p class="site-footer__contact-copy fs-body">
               Atención por WhatsApp para revisar catálogo, fotos, campañas y el plan operativo ideal para tu tienda.
             </p>
             <a
               href="mailto:contacto@agenciamanglar.mx"
-              class="footer-mail-link fs-body"
+              class="site-footer__mail-link fs-body"
             >
-              <span class="material-symbols-outlined footer-mail-icon">mail</span>
+              <span class="material-symbols-outlined site-footer__mail-icon">mail</span>
               contacto@agenciamanglar.mx
             </a>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-        <div class="footer-bottom-inner">
-        <p class="footer-bottom-copy fs-body">© {currentYear} {brand}. Todos los derechos reservados.</p>
-        <div class="footer-bottom-links">
-          <a href="#visuales" aria-label="Ir a Visuales" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">image</span></a>
-          <a href="#faq" aria-label="Ir a Preguntas frecuentes" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">help</span></a>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" class="footer-bottom-link"><span class="material-symbols-outlined footer-bottom-icon">chat</span></a>
+    <div class="site-footer__bottom">
+      <div class="site-footer__bottom-inner">
+        <p class="site-footer__bottom-copy fs-body">© {currentYear} {brand}. Todos los derechos reservados.</p>
+        <div class="site-footer__bottom-links">
+          <a href="#visuales" aria-label="Ir a Visuales" class="site-footer__bottom-link"><span class="material-symbols-outlined site-footer__bottom-icon">image</span></a>
+          <a href="#faq" aria-label="Ir a Preguntas frecuentes" class="site-footer__bottom-link"><span class="material-symbols-outlined site-footer__bottom-icon">help</span></a>
+          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" class="site-footer__bottom-link"><span class="material-symbols-outlined site-footer__bottom-icon">chat</span></a>
         </div>
       </div>
     </div>
@@ -2078,22 +798,26 @@ const faqItems = [
   </a>
 
 <script>
-  const btn = document.getElementById('menu-btn') as HTMLButtonElement;
-  const menu = document.getElementById('mobile-menu') as HTMLDivElement;
-  const icon = document.getElementById('menu-icon') as HTMLSpanElement;
+  const btn = document.querySelector('[data-menu-button]') as HTMLButtonElement | null;
+  const menu = document.querySelector('[data-mobile-nav]') as HTMLDivElement | null;
+  const icon = document.querySelector('[data-menu-icon]') as HTMLSpanElement | null;
+
+  const setMobileNavState = (isOpen: boolean) => {
+    if (!btn || !menu || !icon) return;
+
+    menu.hidden = !isOpen;
+    menu.classList.toggle('is-open', isOpen);
+    icon.textContent = isOpen ? 'close' : 'menu';
+    btn.setAttribute('aria-expanded', String(isOpen));
+  };
 
   btn?.addEventListener('click', () => {
-    const isOpen = menu.style.display === 'flex';
-    menu.style.display = isOpen ? 'none' : 'flex';
-    icon.textContent = isOpen ? 'menu' : 'close';
-    btn.setAttribute('aria-expanded', String(!isOpen));
+    setMobileNavState(menu?.hidden ?? true);
   });
 
-  document.querySelectorAll('.mobile-nav-link').forEach(a => {
+  document.querySelectorAll('.mobile-nav__link').forEach(a => {
     a.addEventListener('click', () => {
-      menu.style.display = 'none';
-      icon.textContent = 'menu';
-      btn.setAttribute('aria-expanded', 'false');
+      setMobileNavState(false);
     });
   });
 
