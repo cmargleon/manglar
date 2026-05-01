@@ -1,43 +1,76 @@
-# Astro Starter Kit: Minimal
+# Manglar Landing
+
+Landing estática de Manglar construida con Astro.
+
+## Comandos
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## SEO e indexación
 
-## 🚀 Project Structure
+La landing ya genera los archivos principales para indexación:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `dist/index.html`
+- `dist/robots.txt`
+- `dist/sitemap-index.xml`
+- `dist/sitemap-0.xml`
+
+La URL canónica de producción es:
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+https://agenciamanglar.mx/
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Después de cada deploy público, revisar estas URLs:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```text
+https://agenciamanglar.mx/
+https://agenciamanglar.mx/robots.txt
+https://agenciamanglar.mx/sitemap-index.xml
+https://agenciamanglar.mx/sitemap-0.xml
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Google Search Console
 
-## 🧞 Commands
+Pasos recomendados:
 
-All commands are run from the root of the project, from a terminal:
+1. Crear una propiedad de dominio para `agenciamanglar.mx`.
+2. Verificarla con un registro DNS TXT.
+3. Enviar el sitemap `https://agenciamanglar.mx/sitemap-index.xml`.
+4. Usar "Inspección de URL" para `https://agenciamanglar.mx/` y solicitar indexación.
+5. Confirmar que Search Console marque la URL como rastreable e indexable.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Si se prefiere verificar por meta tag HTML, configurar esta variable en el entorno de build:
 
-## 👀 Want to learn more?
+```sh
+PUBLIC_GOOGLE_SITE_VERIFICATION=token-de-google
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+El layout insertará automáticamente:
+
+```html
+<meta name="google-site-verification" content="token-de-google">
+```
+
+## Redirects requeridos
+
+El hosting debe redirigir todas las variantes a la URL canónica:
+
+```text
+http://agenciamanglar.mx/      -> https://agenciamanglar.mx/
+http://www.agenciamanglar.mx/  -> https://agenciamanglar.mx/
+https://www.agenciamanglar.mx/ -> https://agenciamanglar.mx/
+```
+
+No debe existir una versión pública duplicada en un subdominio temporal del hosting.
+
+Hay un ejemplo de configuración nginx en:
+
+```text
+docs/nginx-canonical-redirect.conf
+```

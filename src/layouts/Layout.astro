@@ -5,16 +5,23 @@ interface Props {
   title?: string;
   description?: string;
   canonicalUrl?: string;
+  faqItems?: {
+    question: string;
+    answer: string;
+  }[];
 }
-
-const {
-  title = "Manglar | Agencia para Shein y TikTok Shop en México",
-  description = "Manglar opera Shein y TikTok Shop en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más con una operación ordenada.",
-  canonicalUrl = "https://agenciamanglar.mx",
-} = Astro.props;
 
 const siteName = 'Manglar';
 const siteUrl = 'https://agenciamanglar.mx';
+const defaultCanonicalUrl = `${siteUrl}/`;
+const {
+  title = "Manglar | Agencia para Shein y TikTok Shop en México",
+  description = "Manglar opera Shein y TikTok Shop en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más con una operación ordenada.",
+  canonicalUrl = defaultCanonicalUrl,
+  faqItems = [],
+} = Astro.props;
+
+const canonicalHref = new URL(canonicalUrl, defaultCanonicalUrl).href;
 const ogImage = `${siteUrl}/og-image.jpg`;
 const ogImageAlt =
   'Manglar, agencia para operar catálogo, fotos con IA y TikTok LIVE en Shein y TikTok Shop en México';
@@ -40,6 +47,10 @@ const organizationSchema = {
   areaServed: {
     '@type': 'Country',
     name: 'Mexico',
+  },
+  brand: {
+    '@type': 'Brand',
+    name: siteName,
   },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -73,7 +84,7 @@ const serviceSchema = {
     name: 'Mexico',
   },
   availableLanguage: ['es-MX'],
-  url: canonicalUrl,
+  url: canonicalHref,
   description:
     'Gestión completa de catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para marcas y tiendas que venden en Shein y TikTok Shop.',
 };
@@ -93,8 +104,8 @@ const websiteSchema = {
 const webPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  '@id': `${canonicalUrl}/#webpage`,
-  url: canonicalUrl,
+  '@id': `${canonicalHref}#webpage`,
+  url: canonicalHref,
   name: title,
   description,
   inLanguage: 'es-MX',
@@ -114,6 +125,31 @@ const webPageSchema = {
     height: 630,
   },
 };
+
+const faqSchema =
+  faqItems.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${canonicalHref}#faq`,
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+    : undefined;
+
+const structuredData = [
+  organizationSchema,
+  serviceSchema,
+  websiteSchema,
+  webPageSchema,
+  faqSchema,
+].filter(Boolean);
 ---
 
 <!doctype html>
@@ -122,9 +158,13 @@ const webPageSchema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content={siteName} />
     <meta name="theme-color" content="#0e0e0e" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={canonicalUrl} />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href={canonicalHref} />
+    <link rel="alternate" hreflang="es-MX" href={canonicalHref} />
+    <link rel="alternate" hreflang="x-default" href={canonicalHref} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {googleSiteVerification && (
@@ -133,7 +173,7 @@ const webPageSchema = {
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={canonicalHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
@@ -154,10 +194,9 @@ const webPageSchema = {
 
     <title>{title}</title>
 
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+    {structuredData.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

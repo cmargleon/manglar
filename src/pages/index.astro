@@ -285,6 +285,11 @@ const faqItems = [
   },
 ];
 
+const faqSchemaItems = faqItems.map(({ question, bullets, note }) => ({
+  question,
+  answer: [...bullets, note].filter(Boolean).join(' '),
+}));
+
 const contactChannels = [
   {
     href: whatsappDiagnostico,
@@ -318,6 +323,7 @@ const footerProcessLinks = ['Diagnóstico', 'Ordenar catálogo', 'Operar', 'Opti
 <Layout
   title="Manglar | Agencia para Shein, TikTok Shop y TikTok LIVE en México"
   description="Manglar opera Shein y TikTok Shop de principio a fin en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más sin frenar tu operación."
+  faqItems={faqSchemaItems}
 >
   <nav class="site-nav--glass site-nav">
     <div class="site-nav__inner">
@@ -381,7 +387,7 @@ const footerProcessLinks = ['Diagnóstico', 'Ordenar catálogo', 'Operar', 'Opti
           >
             Escríbenos por WhatsApp
           </a>
-          <a href="#servicios" class="hero__secondary-link fs-body"></a>
+          <a href="#servicios" class="hero__secondary-link fs-body">Ver servicios</a>
         </div>
       </div>
 
