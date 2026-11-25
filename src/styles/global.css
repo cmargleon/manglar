@@ -475,7 +475,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .gallery-carousel::after { right: 0; background: linear-gradient(270deg, var(--bg), rgba(14, 14, 16, 0)); }
 .gallery-track {
   display: flex; gap: 16px; overflow-x: auto; padding: 0; margin: 0;
-  cursor: grab; scrollbar-width: none; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  cursor: grab; scrollbar-width: none; touch-action: pan-x pan-y; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; user-select: none; -webkit-user-select: none;
 }
 .gallery-track::-webkit-scrollbar { display: none; }
 .gallery-track.is-dragging { cursor: grabbing; }

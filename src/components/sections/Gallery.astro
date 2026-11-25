@@ -217,7 +217,8 @@ const loop = [0, 1, 2].flatMap((copy) => items.map((item) => ({ ...item, clone: 
 
     // Arrastre con mouse / touch
     track.addEventListener('pointerdown', (e) => {
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      // En táctil se usa el scroll nativo (con inercia); solo el mouse arrastra por JS.
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
       dragging = true;
       moved = false;
       pointerId = e.pointerId;
@@ -260,6 +261,35 @@ const loop = [0, 1, 2].flatMap((copy) => items.map((item) => ({ ...item, clone: 
     track.addEventListener('pointerup', endDrag);
     track.addEventListener('pointercancel', endDrag);
     track.addEventListener('lostpointercapture', endDrag);
+
+    // Táctil: pausa el autoplay mientras el dedo toca y hasta que termina la inercia
+    let touching = false;
+    let idleTimer: number | undefined;
+    track.addEventListener('touchstart', () => {
+      touching = true;
+      dragging = true;
+      stop();
+      window.clearTimeout(resumeTimer);
+    }, { passive: true });
+    const settle = () => {
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        if (touching) return;
+        dragging = false;
+        normalize();
+        resumeLater(2400);
+      }, 180);
+    };
+    const touchEnd = () => {
+      touching = false;
+      settle();
+    };
+    track.addEventListener('touchend', touchEnd, { passive: true });
+    track.addEventListener('touchcancel', touchEnd, { passive: true });
+    track.addEventListener('scroll', () => {
+      if (frame || !dragging) return; // scroll del autoplay o de las flechas
+      settle();
+    }, { passive: true });
 
     // Scroll manual (trackpad / rueda horizontal)
     track.addEventListener(

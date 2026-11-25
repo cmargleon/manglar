@@ -129,7 +129,30 @@ const {
       swatches.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.variant === idx)));
       imgs.forEach((img) => img.classList.toggle('is-active', img.dataset.variantImg === idx));
     };
-    swatches.forEach((btn) => btn.addEventListener('click', () => show(Number(btn.dataset.variant))));
+    // Cambio automático de color; se pausa un rato tras cualquier interacción
+    const INTERVAL = 3500;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let timer: number | undefined;
+    let visible = false;
+    const schedule = (delay = INTERVAL) => {
+      window.clearTimeout(timer);
+      if (reduceMotion.matches || !visible || document.hidden) return;
+      timer = window.setTimeout(() => {
+        show(current + 1);
+        schedule();
+      }, delay);
+    };
+    const userShow = (i: number) => {
+      show(i);
+      schedule(INTERVAL * 2);
+    };
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      schedule();
+    }).observe(sheet);
+    document.addEventListener('visibilitychange', () => schedule());
+
+    swatches.forEach((btn) => btn.addEventListener('click', () => userShow(Number(btn.dataset.variant))));
 
     const photo = sheet.querySelector<HTMLElement>('.sheet__photo');
     let startX = 0;
@@ -141,7 +164,7 @@ const {
     photo?.addEventListener('touchend', (e) => {
       const dx = e.changedTouches[0].clientX - startX;
       const dy = e.changedTouches[0].clientY - startY;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) userShow(current + (dx < 0 ? 1 : -1));
     }, { passive: true });
   });
 </script>
