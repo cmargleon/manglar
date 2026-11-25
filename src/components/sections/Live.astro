@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import { liveService, whatsappLink } from '../../data/site';
+import presenter from '../../assets/images/manglar-tiktok-live-presentadora.webp';
+---
+
+<section id="tiktok-live" class="section section--muted live" aria-labelledby="tiktok-live-title">
+  <div class="container">
+    <div class="live__top">
+      <SectionHeader id="tiktok-live-title" eyebrow={liveService.eyebrow} title={liveService.title} lead={liveService.lead}>
+        <ul class="check-list live__highlights" role="list">
+          {liveService.highlights.map((h) => <li><Icon name="check" size={16} />{h}</li>)}
+        </ul>
+        <a
+          class="btn btn--primary btn--lg"
+          href={whatsappLink(liveService.whatsappMessage)}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="cta_live_click"
+          data-track-label="live_home"
+        >
+          {liveService.cta}<Icon name="arrowRight" size={18} />
+        </a>
+      </SectionHeader>
+
+      <div class="live-mock" data-reveal>
+        <Image
+          src={presenter}
+          alt="Ejemplo ilustrativo de una transmisión de TikTok LIVE de Manglar con una presentadora y un producto anclado"
+          widths={[360, 640, 941]}
+          sizes="(max-width: 640px) 80vw, 320px"
+          format="webp"
+          quality={85}
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <div class="live__phases">
+      {liveService.phases.map((phase, i) => (
+        <article class="benefit live-phase" data-reveal style={`--delay:${i * 60}ms`}>
+          <p class="live-phase__label">0{i + 1} · {phase.label}</p>
+          <h3>{phase.title}</h3>
+          <p>{phase.desc}</p>
+          <ul class="check-list" role="list">
+            {phase.points.map((pt) => <li><Icon name="check" size={16} />{pt}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="fine-print">{liveService.note}</p>
+  </div>
+</section>

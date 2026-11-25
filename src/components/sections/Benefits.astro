@@ -1,0 +1,29 @@
+---
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  items: { icon: 'camera' | 'layers' | 'upload' | 'refresh' | 'clock' | 'store' | 'rocket' | 'file' | 'shield'; title: string; desc: string }[];
+  muted?: boolean;
+}
+const { eyebrow, title, lead, items, muted = false } = Astro.props;
+const id = `beneficios-${eyebrow.toLowerCase().replace(/[^a-z]+/g, '-')}`;
+---
+
+<section class:list={['section', { 'section--muted': muted }]} aria-labelledby={id}>
+  <div class="container">
+    <SectionHeader id={id} eyebrow={eyebrow} title={title} lead={lead} />
+    <div class="benefit-grid">
+      {items.map((item, i) => (
+        <article class="benefit" data-reveal style={`--delay:${i * 60}ms`}>
+          <span class="icon-badge"><Icon name={item.icon} size={22} /></span>
+          <h3>{item.title}</h3>
+          <p>{item.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

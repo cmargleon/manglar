@@ -1,0 +1,25 @@
+---
+import { mailtoLink } from '../../data/site';
+import Icon from '../Icon.astro';
+interface Props {
+  title: string;
+  text: string;
+  label: string;
+  trackLabel: string;
+}
+const { title, text, label, trackLabel } = Astro.props;
+---
+
+<section class="cta-band" aria-label="Solicitar diagnóstico">
+  <div class="container">
+    <div class="cta-band__inner" data-reveal>
+      <div>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <a href={mailtoLink()} class="btn btn--primary btn--lg" data-track="cta_diagnostico_click" data-track-label={trackLabel}>
+        {label}<Icon name="arrowRight" size={18} />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+import { mailtoLink } from '../../data/site';
+import { Image } from 'astro:assets';
+import faqPhoto from '../../assets/images/manglar-galeria-top-deportivo-mujer.webp';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import type { FaqItem } from '../../data/site';
+
+interface Props {
+  items: FaqItem[];
+  title?: string;
+}
+const { items, title = 'Preguntas frecuentes' } = Astro.props;
+---
+
+<section id="preguntas" class="section section--muted" aria-labelledby="preguntas-title">
+  <div class="container split split--faq">
+    <SectionHeader
+      id="preguntas-title"
+      eyebrow="Preguntas"
+      title={title}
+      lead="Si tienes otra duda, escríbenos y te respondemos con gusto."
+    >
+      <a href={mailtoLink()} class="btn btn--outline" data-track="cta_diagnostico_click" data-track-label="faq">
+        Hablar con el equipo
+      </a>
+      <div class="faq-photo" aria-hidden="true"><Image src={faqPhoto} alt="" widths={[400, 700]} sizes="(min-width: 960px) 30vw, 100vw" loading="lazy" /></div>
+    </SectionHeader>
+    <div class="faq-list">
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary>
+            <span>{item.question}</span>
+            <Icon name="plus" size={20} class="faq-item__icon" />
+          </summary>
+          <div class="faq-item__body"><p>{item.answer}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

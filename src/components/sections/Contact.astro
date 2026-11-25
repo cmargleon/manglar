@@ -1,0 +1,29 @@
+---
+import Icon from '../Icon.astro';
+import { site, whatsappLink } from '../../data/site';
+
+interface Props {
+  title?: string;
+  lead?: string;
+}
+const {
+  title = 'Cuéntanos sobre tu catálogo.',
+  lead = 'Escríbenos para agendar un diagnóstico sin costo y conversar sobre lo que necesitas delegar.',
+} = Astro.props;
+---
+
+<section id="contacto" class="section section--dark contact" aria-labelledby="contacto-title">
+  <div class="container">
+    <p class="eyebrow">Diagnóstico gratuito</p>
+    <h2 id="contacto-title" class="section-title">{title}</h2>
+    <p class="section-lead">{lead}</p>
+    <div class="contact__direct">
+      <a class="btn btn--primary" href={whatsappLink()} target="_blank" rel="noopener noreferrer" data-track-label="contacto">
+        <Icon name="whatsapp" size={18} /> Escríbenos por WhatsApp
+      </a>
+      <a class="contact__email" href={`mailto:${site.email}`} data-track-label="contacto">
+        <Icon name="mail" size={18} /> {site.email}
+      </a>
+    </div>
+  </div>
+</section>

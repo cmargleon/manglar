@@ -1,0 +1,76 @@
+---
+import PhotoBg from '../PhotoBg.astro';
+import bg from '../../assets/images/manglar-galeria-sueter-negro-mujer.jpg';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import { plans, planIncludes, formatMXN, whatsappLink } from '../../data/site';
+
+interface Props {
+  /** Muestra la aclaración de TikTok LIVE (solo en el home). */
+  liveNote?: boolean;
+}
+const { liveNote = false } = Astro.props;
+---
+
+<section id="planes" class="section section--photo" aria-labelledby="planes-title">
+  <PhotoBg src={bg} position="center 30%" />
+  <div class="container">
+    <SectionHeader
+      id="planes-title"
+      eyebrow="Planes de servicio"
+      title="Una operación que crece con tu negocio."
+      lead="Soluciones adaptadas a tu catálogo y tus canales de venta."
+      align="center"
+    />
+
+    <div class="pricing-grid">
+      {plans.map((plan, i) => (
+        <article class:list={['plan-card', { 'plan-card--entry': 'entry' in plan && plan.entry }]} data-reveal style={`--delay:${i * 60}ms`}>
+          <div class="plan-card__head">
+            <h3>{plan.name}</h3>
+            {'entry' in plan && plan.entry && <span class="tag tag--accent">Punto de entrada</span>}
+          </div>
+          <p class="plan-card__markets">
+{plan.marketsLabel}</p>
+          <p class="plan-card__period">{plan.price ? 'Desde' : 'Precio'}</p>
+          <p class="plan-card__price">
+            <span class="plan-card__amount">{plan.price ? formatMXN(plan.price) : 'A medida'}</span>
+            <span class="plan-card__period">{plan.price ? 'MXN / mes' : 'Según operación'}</span>
+          </p>
+          <p class="plan-card__summary">{plan.summary}</p>
+          <div class="plan-card__meter" aria-hidden="true">
+            {[1, 2, 3].map((n) => <span class:list={{ 'is-on': n <= plan.marketplaces }}></span>)}
+          </div>
+          <a
+            href={whatsappLink(`Hola, me gustaría solicitar una ${plan.price ? 'diagnóstico' : 'propuesta'} para el plan ${plan.name} de Agencia Manglar.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={['btn', 'btn--block', 'entry' in plan && plan.entry ? 'btn--primary' : 'btn--outline']}
+            data-track="plan_click"
+            data-track-label={plan.id}
+          >
+            {plan.price ? 'Solicitar diagnóstico' : 'Solicitar propuesta'}
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="plan-base" data-reveal>
+      <p class="plan-base__title">Todos los planes incluyen el servicio completo:</p>
+      <ul class="plan-base__list" role="list">
+        {planIncludes.map((item) => <li><Icon name="check" size={16} />{item}</li>)}
+      </ul>
+    </div>
+
+    {liveNote && (
+      <div class="plan-live" data-reveal>
+        <span class="tag tag--accent">TikTok LIVE</span>
+        <p>
+          La gestión de TikTok LIVE se cotiza aparte. El alcance y la frecuencia de las transmisiones se definen en el
+          diagnóstico.
+        </p>
+        <a href="#tiktok-live">Ver TikTok LIVE<Icon name="arrowRight" size={16} /></a>
+      </div>
+    )}
+  </div>
+</section>

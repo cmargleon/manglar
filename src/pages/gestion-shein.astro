@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TrustStrip from '../components/sections/TrustStrip.astro';
+import Problems from '../components/sections/Problems.astro';
+import Services from '../components/sections/Services.astro';
+import Benefits from '../components/sections/Benefits.astro';
+import Process from '../components/sections/Process.astro';
+import Gallery from '../components/sections/Gallery.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Faq from '../components/sections/Faq.astro';
+import Contact from '../components/sections/Contact.astro';
+import { faqs } from '../data/site';
+
+const pageFaqs = faqs.filter((f) =>
+  [
+    '¿Puedo contratar el servicio si ya vendo en SHEIN?',
+    '¿Quién mantiene el control de mis cuentas?',
+    '¿Puedo contratar varios marketplaces?',
+    '¿Qué incluye el precio mensual?',
+  ].includes(f.question)
+);
+---
+
+<Layout
+  title="Gestión de catálogo en SHEIN México | Agencia Manglar"
+  description="¿Ya vendes en SHEIN? Delega fotografías, fichas y publicación de productos a un equipo especializado. Solicita un diagnóstico de tu catálogo."
+  path="/gestion-shein/"
+  faqItems={pageFaqs}
+  pageEvent="landing_view_gestion_shein"
+  nav="landing"
+>
+  <Hero
+    eyebrow="Para empresas que ya venden en SHEIN"
+    title="Externaliza la operación de tu catálogo en SHEIN."
+    subtitle="Preparamos tus fotografías, organizamos tus fichas y publicamos tus productos nuevos para que tu equipo deje de hacer trabajo repetitivo y se concentre en vender."
+    primaryLabel="Solicitar diagnóstico de mi catálogo"
+    secondaryLabel="Qué hacemos"
+    trackLabel="hero_gestion_shein"
+  />
+  <TrustStrip />
+
+  <Problems
+    title="Tu equipo no debería pasar el día subiendo productos."
+    lead="Cuando el catálogo crece, la operación en SHEIN se vuelve una carga constante: nuevas temporadas, variantes, imágenes y correcciones que siempre compiten con otras prioridades."
+  />
+
+  <Benefits
+    eyebrow="Qué ganas"
+    title="Una operación de catálogo ordenada, sin ampliar tu equipo."
+    items={[
+      { icon: 'clock', title: 'Menos trabajo manual', desc: 'Tu equipo deja de preparar imágenes y capturar fichas una por una.' },
+      { icon: 'camera', title: 'Consistencia visual', desc: 'Criterios de imagen definidos por colección, aplicados a todo el catálogo.' },
+      { icon: 'upload', title: 'Lanzamientos más ágiles', desc: 'Un flujo establecido para preparar y publicar productos nuevos.' },
+    ]}
+  />
+
+  <Services
+    title="Lo que hacemos por tu catálogo en SHEIN."
+    lead="Trabajamos con tu cuenta, tus productos y tus criterios. Tú mantienes el control; nosotros nos encargamos de la ejecución."
+  />
+  <Gallery />
+  <Process />
+  <CtaBand
+    title="¿Cuánto tiempo dedica hoy tu equipo al catálogo?"
+    text="En el diagnóstico revisamos tu operación actual y te proponemos un alcance concreto."
+    label="Solicitar diagnóstico de mi catálogo"
+    trackLabel="banda_gestion_shein"
+  />
+  <Pricing />
+  <Faq items={pageFaqs} />
+  <Contact
+    title="Solicita el diagnóstico de tu catálogo en SHEIN."
+    lead="Cuéntanos cómo operas hoy tu catálogo y qué te gustaría delegar. Te contactamos para agendar una revisión sin costo."
+  />
+</Layout>

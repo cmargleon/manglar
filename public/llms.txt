@@ -1,0 +1,21 @@
+# Agencia Manglar
+
+> Empresa mexicana que externaliza la operación de catálogos ecommerce para fabricantes, distribuidores, importadores y marcas: fotografía comercial, organización de fichas, publicación y mantenimiento en SHEIN, Mercado Libre y TikTok Shop, además de la gestión de transmisiones de TikTok LIVE con presentador incluido. Es un servicio gestionado por un equipo, no un software.
+
+- El primer mes siempre se enfoca en SHEIN; los demás marketplaces se incorporan a partir del segundo mes, según el plan contratado.
+- También gestiona transmisiones de TikTok LIVE (estrategia, presentador, operación y análisis), disponibles desde el inicio del servicio.
+- Las cuentas de seller siguen a nombre del cliente.
+- Cuando se usa inteligencia artificial para producir o mejorar imágenes, cada imagen se revisa y se informa al cliente.
+- El servicio no garantiza ventas ni aprobaciones; Agencia Manglar no está afiliada a ningún marketplace.
+- Planes mensuales en MXN de 1 a 3 marketplaces. Diagnóstico inicial sin costo.
+
+## Páginas
+
+- [Inicio](https://agenciamanglar.mx/): servicios, proceso, planes, precios y preguntas frecuentes.
+- [Gestión de catálogo en SHEIN](https://agenciamanglar.mx/gestion-shein/): para empresas que ya venden en SHEIN.
+- [Vender en SHEIN México](https://agenciamanglar.mx/vender-en-shein/): para empresas que quieren comenzar en SHEIN.
+
+## Contacto
+
+- Correo: contacto@agenciamanglar.mx
+- WhatsApp: +52 55 4463 6484

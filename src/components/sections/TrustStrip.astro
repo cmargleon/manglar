@@ -1,0 +1,39 @@
+---
+import Icon from '../Icon.astro';
+
+interface Props {
+  /** Destaca TikTok LIVE (solo en el home). */
+  live?: boolean;
+}
+const { live = false } = Astro.props;
+
+const baseItems = [
+  { icon: 'store' as const, title: 'Empresa mexicana', desc: 'Operamos desde México para el mercado mexicano.' },
+  { icon: 'layers' as const, title: 'Servicio gestionado', desc: 'Nuestro equipo se encarga; tú no operas ninguna herramienta.' },
+  { icon: 'tag' as const, title: 'Multicategoría', desc: 'Trabajamos con todo tipo de sellers y productos.' },
+  { icon: 'shield' as const, title: 'Tus cuentas, tu control', desc: 'Las cuentas siguen a tu nombre y decides los accesos.' },
+  { icon: 'file' as const, title: 'Diagnóstico sin costo', desc: 'Revisamos tu catálogo antes de proponerte un plan.' },
+];
+
+const items = live
+  ? baseItems.map((item) =>
+      item.title === 'Multicategoría'
+        ? { icon: 'video' as const, title: 'TikTok LIVE con presentador', desc: 'Producimos y conducimos tus transmisiones en vivo.' }
+        : item
+    )
+  : baseItems;
+---
+
+<section class="trust" aria-label="Por qué Agencia Manglar">
+  <ul class="container trust__grid" role="list">
+    {items.map((item) => (
+      <li class="trust__item">
+        <span class="trust__icon"><Icon name={item.icon} size={20} /></span>
+        <div>
+          <p class="trust__title">{item.title}</p>
+          <p class="trust__desc">{item.desc}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>

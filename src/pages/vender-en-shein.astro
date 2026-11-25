@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TrustStrip from '../components/sections/TrustStrip.astro';
+import Services from '../components/sections/Services.astro';
+import Benefits from '../components/sections/Benefits.astro';
+import Process from '../components/sections/Process.astro';
+import Gallery from '../components/sections/Gallery.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Faq from '../components/sections/Faq.astro';
+import Contact from '../components/sections/Contact.astro';
+import { faqs } from '../data/site';
+
+const pageFaqs = faqs.filter((f) =>
+  [
+    '¿Por qué el primer mes se trabaja solo con SHEIN?',
+    '¿Quién mantiene el control de mis cuentas?',
+    '¿Qué incluye el precio mensual?',
+  ].includes(f.question)
+);
+---
+
+<Layout
+  title="Vender en SHEIN México: prepara tu catálogo | Agencia Manglar"
+  description="¿Quieres vender en SHEIN México? Revisamos tu catálogo, preparamos imágenes y fichas, y operamos tu arranque. Para fabricantes, distribuidores y marcas."
+  path="/vender-en-shein/"
+  faqItems={pageFaqs}
+  pageEvent="landing_view_vender_en_shein"
+  nav="landing"
+>
+  <Hero
+    eyebrow="Para fabricantes, distribuidores y marcas mexicanas"
+    title="Suma SHEIN como canal de venta, sin armar un equipo nuevo."
+    subtitle="Revisamos tu catálogo, preparamos imágenes y fichas de producto, te acompañamos en la incorporación y operamos tus primeras publicaciones en SHEIN México."
+    primaryLabel="Evaluar mi catálogo para SHEIN"
+    secondaryLabel="Cómo funciona"
+    secondaryHref="#proceso"
+    trackLabel="hero_vender_en_shein"
+  />
+  <TrustStrip />
+
+  <Benefits
+    muted
+    eyebrow="Por qué con Manglar"
+    title="Explorar un canal nuevo no debería frenar tu operación actual."
+    lead="Abrir SHEIN implica preparar imágenes, estructurar fichas y aprender requisitos nuevos. Nosotros nos encargamos de esa preparación para que tu equipo siga enfocado en lo que ya funciona."
+    items={[
+      { icon: 'file', title: 'Revisión inicial del catálogo', desc: 'Identificamos qué productos están listos, cuáles necesitan ajustes y qué información falta.' },
+      { icon: 'camera', title: 'Imágenes e información listas', desc: 'Preparamos fotografías comerciales y fichas con títulos, atributos y variantes ordenadas.' },
+      { icon: 'rocket', title: 'Acompañamiento en la incorporación', desc: 'Te guiamos durante el proceso de alta y operamos el catálogo en sus primeras etapas.' },
+    ]}
+  />
+
+  <section class="section section--tight" aria-labelledby="aprobacion-title">
+    <div class="container">
+      <div class="notice" style="margin:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <div>
+          <h2 id="aprobacion-title" style="font-size:1rem;margin-bottom:4px;color:inherit">Importante sobre la aprobación</h2>
+          <p>
+            La aceptación como seller, así como la aprobación de categorías y productos, depende exclusivamente de SHEIN. Agencia
+            Manglar te ayuda a preparar tu catálogo y acompaña el proceso, pero no puede garantizar la aprobación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process />
+  <Services
+    title="Todo lo necesario para operar tu catálogo en SHEIN."
+    lead="Un servicio gestionado por nuestro equipo. No necesitas contratar personal ni aprender herramientas nuevas."
+  />
+  <Gallery />
+  <CtaBand
+    title="¿Tu catálogo está listo para SHEIN?"
+    text="Lo revisamos contigo sin costo y te decimos qué haría falta para empezar."
+    label="Evaluar mi catálogo para SHEIN"
+    trackLabel="banda_vender_en_shein"
+  />
+  <Pricing />
+  <Faq items={pageFaqs} />
+  <Contact
+    title="Evaluemos tu catálogo para SHEIN."
+    lead="Cuéntanos qué vendes y cómo está organizado tu catálogo. Te contactamos para revisar contigo si SHEIN es un buen canal para tu empresa y qué haría falta para empezar."
+  />
+</Layout>

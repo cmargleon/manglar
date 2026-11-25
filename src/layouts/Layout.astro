@@ -1,104 +1,81 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFab from '../components/WhatsAppFab.astro';
+import { Font } from 'astro:assets';
+import { site, type FaqItem } from '../data/site';
 
 interface Props {
-  title?: string;
-  description?: string;
-  canonicalUrl?: string;
-  faqItems?: {
-    question: string;
-    answer: string;
-  }[];
+  title: string;
+  description: string;
+  /** Ruta canónica, por ejemplo "/" o "/gestion-shein". */
+  path: string;
+  faqItems?: FaqItem[];
+  /** Evento de analítica que se dispara al cargar la página. */
+  pageEvent?: string;
+  /** Datos estructurados adicionales específicos de la página. */
+  schema?: Record<string, unknown>[];
+  noindex?: boolean;
+  nav?: 'home' | 'landing' | 'minimal' | 'inner';
 }
 
-const siteName = 'Manglar';
-const siteUrl = 'https://agenciamanglar.mx';
-const defaultCanonicalUrl = `${siteUrl}/`;
 const {
-  title = "Manglar | Agencia para Shein y TikTok Shop en México",
-  description = "Manglar opera Shein y TikTok Shop en México: catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para vender más con una operación ordenada.",
-  canonicalUrl = defaultCanonicalUrl,
+  title,
+  description,
+  path,
   faqItems = [],
+  pageEvent,
+  schema = [],
+  noindex = false,
+  nav = 'home',
 } = Astro.props;
 
-const canonicalHref = new URL(canonicalUrl, defaultCanonicalUrl).href;
-const ogImage = `${siteUrl}/og-image.jpg`;
-const ogImageAlt =
-  'Manglar, agencia para operar catálogo, fotos con IA y TikTok LIVE en Shein y TikTok Shop en México';
-const telephone = '+52 55 4463 6484';
+const canonicalHref = new URL(path, `${site.url}/`).href;
+const ogImage = `${site.url}/og-image.jpg`;
+const ogImageAlt = 'Agencia Manglar: operación de catálogos para SHEIN, Mercado Libre y TikTok Shop';
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const ga4Id = import.meta.env.PUBLIC_GA4_ID as string | undefined;
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN as string | undefined;
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  '@id': `${siteUrl}/#organization`,
-  name: siteName,
-  url: siteUrl,
-  logo: `${siteUrl}/favicon.svg`,
-  image: ogImage,
-  email: 'contacto@agenciamanglar.mx',
-  telephone,
+  '@id': `${site.url}/#organization`,
+  name: site.name,
+  alternateName: site.shortName,
+  url: `${site.url}/`,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${site.url}/logo.png`,
+    width: 512,
+    height: 512,
+  },
+  image: `${site.url}/og-image.jpg`,
+  email: site.email,
+  telephone: site.phoneDisplay,
   description:
-    'Agencia especializada en operación integral de tiendas Shein y TikTok Shop: catálogo, fotos con IA, campañas, descuentos y TikTok LIVE.',
-  sameAs: [
-    'https://tiktok.com/@agenciamanglar.mx',
-    'https://instagram.com/agenciamanglar.mx',
-  ],
-  areaServed: {
-    '@type': 'Country',
-    name: 'Mexico',
-  },
-  brand: {
-    '@type': 'Brand',
-    name: siteName,
-  },
+    'Empresa mexicana especializada en la externalización de la operación de catálogos para ecommerce y marketplaces, y en la gestión de transmisiones de TikTok LIVE.',
+  sameAs: [site.social.tiktok, site.social.instagram],
+  areaServed: { '@type': 'Country', name: 'México' },
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'sales',
-    email: 'contacto@agenciamanglar.mx',
-    telephone,
+    email: site.email,
+    telephone: site.phoneDisplay,
     availableLanguage: ['es-MX'],
     areaServed: 'MX',
   },
-  knowsAbout: [
-    'Agencia Shein México',
-    'Gestión TikTok Shop',
-    'TikTok LIVE ventas',
-    'Operación e-commerce',
-    'Catálogo marketplace',
-    'Fotos de producto con IA',
-  ],
-};
-
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${siteUrl}/#service`,
-  serviceType: 'Gestión integral de marketplaces',
-  name: 'Operación integral de tiendas Shein y TikTok Shop',
-  provider: {
-    '@id': `${siteUrl}/#organization`,
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Mexico',
-  },
-  availableLanguage: ['es-MX'],
-  url: canonicalHref,
-  description:
-    'Gestión completa de catálogo, fotos de producto con IA, campañas, descuentos y TikTok LIVE para marcas y tiendas que venden en Shein y TikTok Shop.',
 };
 
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  '@id': `${siteUrl}/#website`,
-  url: siteUrl,
-  name: siteName,
+  '@id': `${site.url}/#website`,
+  url: `${site.url}/`,
+  name: site.name,
   inLanguage: 'es-MX',
-  publisher: {
-    '@id': `${siteUrl}/#organization`,
-  },
+  publisher: { '@id': `${site.url}/#organization` },
 };
 
 const webPageSchema = {
@@ -109,21 +86,7 @@ const webPageSchema = {
   name: title,
   description,
   inLanguage: 'es-MX',
-  isPartOf: {
-    '@type': 'WebSite',
-    '@id': `${siteUrl}/#website`,
-    name: siteName,
-    url: siteUrl,
-  },
-  about: {
-    '@id': `${siteUrl}/#service`,
-  },
-  primaryImageOfPage: {
-    '@type': 'ImageObject',
-    url: ogImage,
-    width: 1200,
-    height: 630,
-  },
+  isPartOf: { '@id': `${site.url}/#website` },
 };
 
 const faqSchema =
@@ -135,21 +98,12 @@ const faqSchema =
         mainEntity: faqItems.map((item) => ({
           '@type': 'Question',
           name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer,
-          },
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
         })),
       }
     : undefined;
 
-const structuredData = [
-  organizationSchema,
-  serviceSchema,
-  websiteSchema,
-  webPageSchema,
-  faqSchema,
-].filter(Boolean);
+const structuredData = [organizationSchema, websiteSchema, webPageSchema, ...schema, faqSchema].filter(Boolean);
 ---
 
 <!doctype html>
@@ -157,60 +111,85 @@ const structuredData = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content={siteName} />
-    <meta name="theme-color" content="#0e0e0e" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#0e0e10" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
     <link rel="canonical" href={canonicalHref} />
-    <link rel="alternate" hreflang="es-MX" href={canonicalHref} />
-    <link rel="alternate" hreflang="x-default" href={canonicalHref} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    {googleSiteVerification && (
-      <meta name="google-site-verification" content={googleSiteVerification} />
-    )}
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalHref} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:secure_url" content={ogImage} />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={ogImageAlt} />
-    <meta property="og:site_name" content={siteName} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="es_MX" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={ogImageAlt} />
 
-    <title>{title}</title>
+    <script is:inline>
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-reveal');
+      }
+    </script>
 
-    {structuredData.map((schema) => (
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    ))}
+    {structuredData.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-      rel="stylesheet"
-    />
+    <Font cssVariable="--font-jakarta" preload={[{ weight: 500 }]} />
+    <Font cssVariable="--font-manrope" preload={[{ weight: 400 }]} />
+
+    {ga4Id && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}></script>
+        <script is:inline define:vars={{ ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', ga4Id, { anonymize_ip: true });
+        </script>
+      </>
+    )}
+    {plausibleDomain && <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js"></script>}
   </head>
-  <body>
-    <slot />
+  <body data-page-event={pageEvent}>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <Header mode={nav} />
+    <main id="contenido">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppFab />
+
+    <script>
+      import { initAnalytics } from '../scripts/analytics';
+      initAnalytics();
+
+      // Aparición sutil de secciones (desactivada con prefers-reduced-motion en CSS).
+      const revealables = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (document.documentElement.classList.contains('js-reveal')) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+        );
+        revealables.forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>

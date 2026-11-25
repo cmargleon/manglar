@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import shein from '../../assets/images/manglar-galeria-sueter-navideno-mujer.jpg';
+import meli from '../../assets/images/manglar-galeria-carrito-organizador.jpg';
+import tiktok from '../../assets/images/manglar-galeria-mochila-skate-hombre.jpg';
+const photos = [
+  { src: shein, alt: 'Fotografía de moda para SHEIN: mujer con suéter navideño rojo y falda a cuadros' },
+  { src: meli, alt: 'Fotografía de producto para Mercado Libre: carrito organizador de hogar' },
+  { src: tiktok, alt: 'Fotografía de estilo de vida para TikTok Shop: hombre con mochila y patineta' },
+];
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import { marketplaces} from '../../data/site';
+
+interface Props {
+  title?: string;
+  lead?: string;
+}
+const {
+  title = 'Una sola operación para tus marketplaces.',
+  lead = 'Acompañamos la operación de tu catálogo en los principales marketplaces de México, con criterios consistentes entre canales.',
+} = Astro.props;
+---
+
+<section class="section section--tight" aria-labelledby="marketplaces-title">
+  <div class="container">
+    <SectionHeader id="marketplaces-title" eyebrow="Marketplaces" title={title} lead={lead} />
+    <ul class="market-grid" role="list">
+      {marketplaces.map((m, i) => (
+        <li data-reveal style={`--delay:${i * 60}ms`}>
+          <div class="market-card">
+          <div class="market-card__photo"><Image src={photos[i % 3].src} alt={photos[i % 3].alt} widths={[400, 700]} sizes="(min-width: 768px) 33vw, 100vw" loading="lazy" /></div>
+          <div class="market-card__top">
+            <span class="market-card__index">0{i + 1}</span>
+            {'note' in m && <span class="tag">{m.note}</span>}
+          </div>
+          <h3 class="market-card__name">{m.name}</h3>
+          <p>{m.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

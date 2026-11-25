@@ -1,0 +1,121 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Benefits from '../../components/sections/Benefits.astro';
+import Process from '../../components/sections/Process.astro';
+import Services from '../../components/sections/Services.astro';
+import Pricing from '../../components/sections/Pricing.astro';
+import CtaBand from '../../components/sections/CtaBand.astro';
+import Faq from '../../components/sections/Faq.astro';
+import Contact from '../../components/sections/Contact.astro';
+import Icon from '../../components/Icon.astro';
+import { faqs, marketplaceHref, marketplacePages, marketplaces, type MarketplaceId } from '../../data/site';
+
+export function getStaticPaths() {
+  return marketplaces.map((m) => ({ params: { id: m.id } }));
+}
+
+const id = Astro.params.id as MarketplaceId;
+const marketplace = marketplaces.find((m) => m.id === id)!;
+const page = marketplacePages[id];
+const others = marketplaces.filter((m) => m.id !== id);
+
+const pageFaqs = faqs.filter((f) =>
+  [
+    '¿Qué hace exactamente Agencia Manglar?',
+    id === 'shein' ? '¿Me ayudan a comenzar a vender en SHEIN?' : '¿Por qué el primer mes se trabaja solo con SHEIN?',
+    '¿Puedo contratar varios marketplaces?',
+    '¿Quién mantiene el control de mis cuentas?',
+  ].includes(f.question)
+);
+---
+
+<Layout
+  title={page.seoTitle}
+  description={page.seoDescription}
+  path={marketplaceHref(id)}
+  faqItems={pageFaqs}
+  pageEvent={`marketplace_view_${id.replace('-', '_')}`}
+  nav="inner"
+>
+  <Hero
+    eyebrow={page.eyebrow}
+    title={page.title}
+    subtitle={page.subtitle}
+    primaryLabel={page.cta}
+    secondaryLabel="Cómo trabajamos"
+    secondaryHref="#proceso"
+    trackLabel={`hero_marketplace_${id}`}
+  />
+
+  <section class="section section--tight" aria-labelledby="disponibilidad-title">
+    <div class="container">
+      <div class="notice" style="margin:0">
+        <Icon name="info" size={20} />
+        <div>
+          <h2 id="disponibilidad-title" style="font-size:1rem;margin-bottom:4px;color:inherit">Cuándo se trabaja {marketplace.name}</h2>
+          <p>
+            {page.availability} La aprobación de cuentas, categorías y productos depende exclusivamente de {marketplace.name}.
+            Agencia Manglar no está afiliada a {marketplace.name}.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Benefits muted eyebrow={marketplace.name} title={page.benefitsTitle} lead={page.benefitsLead} items={page.benefits} />
+
+  {id === 'shein' && (
+    <section class="section section--tight" aria-labelledby="shein-rutas-title">
+      <div class="container">
+        <h2 id="shein-rutas-title" class="sr-only">Opciones para SHEIN</h2>
+        <ul class="market-grid market-grid--two" role="list">
+          <li>
+            <a class="market-card market-card--link" href="/gestion-shein/">
+              <h3 class="market-card__name">Ya vendo en SHEIN</h3>
+              <p>Delega la operación diaria de tu catálogo y libera tiempo de tu equipo.</p>
+              <span class="market-card__more">Gestión de catálogo en SHEIN <Icon name="arrowRight" size={16} /></span>
+            </a>
+          </li>
+          <li>
+            <a class="market-card market-card--link" href="/vender-en-shein/">
+              <h3 class="market-card__name">Quiero comenzar en SHEIN</h3>
+              <p>Preparamos tu catálogo y te acompañamos en la incorporación al canal.</p>
+              <span class="market-card__more">Comenzar a vender en SHEIN <Icon name="arrowRight" size={16} /></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <Process />
+  <Services />
+  <CtaBand
+    title={`¿Quieres operar tu catálogo en ${marketplace.name}?`}
+    text="Lo revisamos contigo sin costo y te decimos qué haría falta para empezar."
+    label={page.cta}
+    trackLabel={`banda_marketplace_${id}`}
+  />
+  <Pricing />
+
+  <section class="section section--tight" aria-labelledby="otros-marketplaces-title">
+    <div class="container">
+      <h2 id="otros-marketplaces-title" class="section-title" style="font-size:1.5rem;margin-bottom:24px">Otros marketplaces que operamos</h2>
+      <ul class="market-grid market-grid--two" role="list">
+        {others.map((m) => (
+          <li>
+            <a class="market-card market-card--link" href={marketplaceHref(m.id)}>
+              <h3 class="market-card__name">{m.name}</h3>
+              <p>{m.desc}</p>
+              <span class="market-card__more">Ver {m.name} <Icon name="arrowRight" size={16} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Faq items={pageFaqs} />
+  <Contact title={page.contactTitle} lead={page.contactLead} />
+</Layout>

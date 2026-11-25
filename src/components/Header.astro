@@ -1,0 +1,184 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+import { marketplaces, marketplaceHref, whatsappLink } from '../data/site';
+
+interface Props {
+  mode?: 'home' | 'landing' | 'minimal' | 'inner';
+}
+
+const { mode = 'home' } = Astro.props;
+const prefix = mode === 'home' ? '' : '/';
+
+const links =
+  mode === 'landing'
+    ? [
+        { href: '#servicios', label: 'Qué hacemos' },
+        { href: '#proceso', label: 'Cómo trabajamos' },
+        { href: '#planes', label: 'Planes' },
+        { href: '#preguntas', label: 'Preguntas' },
+      ]
+    : [
+        { href: `${prefix}#trabajo`, label: 'Trabajo visual' },
+        { href: `${prefix}#servicios`, label: 'Servicios' },
+        { href: `${prefix}#tiktok-live`, label: 'TikTok LIVE' },
+        { href: `${prefix}#planes`, label: 'Planes' },
+        { href: `${prefix}#preguntas`, label: 'Preguntas' },
+      ];
+
+// Las landings de campaña mantienen un menú enfocado, sin desplegable.
+// Desplegable de marketplaces pausado hasta publicar sus páginas.
+const showMarketplaces = false;
+const marketplaceLinks = marketplaces.map((m) => ({ href: marketplaceHref(m.id), label: m.name }));
+const currentPath = Astro.url.pathname;
+
+const ctaHref = whatsappLink();
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__brand" aria-label="Agencia Manglar, ir al inicio">
+      <Logo />
+    </a>
+
+    <nav class="site-header__nav" aria-label="Principal">
+      <ul>
+        {showMarketplaces && (
+          <li class="nav-dropdown" data-dropdown>
+            <button
+              class="nav-dropdown__toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="menu-marketplaces"
+              data-dropdown-toggle
+            >
+              Marketplaces
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            <ul id="menu-marketplaces" class="nav-dropdown__menu" hidden data-dropdown-menu>
+              {marketplaceLinks.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        )}
+        {links.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href={ctaHref} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm" data-track="cta_diagnostico_click" data-track-label="header">
+        Solicitar diagnóstico
+      </a>
+      <button
+        class="site-header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        data-menu-toggle
+      >
+        <span class="sr-only" data-menu-label>Abrir menú</span>
+        <span data-icon-open><Icon name="menu" size={22} /></span>
+        <span data-icon-close hidden><Icon name="close" size={22} /></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="menu-movil" class="mobile-menu" hidden data-menu>
+    <nav aria-label="Menú móvil" class="container">
+      {showMarketplaces && (
+        <>
+          <p class="mobile-menu__group">Marketplaces</p>
+          <ul class="mobile-menu__sub">
+            {marketplaceLinks.map((link) => (
+              <li>
+                <a href={link.href} data-menu-link aria-current={currentPath === link.href ? 'page' : undefined}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      <ul>
+        {links.map((link) => (
+          <li><a href={link.href} data-menu-link>{link.label}</a></li>
+        ))}
+      </ul>
+      <a href={ctaHref} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--block" data-menu-link data-track="cta_diagnostico_click" data-track-label="menu_movil">
+        Solicitar diagnóstico gratuito
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const iconOpen = document.querySelector<HTMLElement>('[data-icon-open]');
+  const iconClose = document.querySelector<HTMLElement>('[data-icon-close]');
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+    if (label) label.textContent = open ? 'Cerrar menú' : 'Abrir menú';
+    if (iconOpen) iconOpen.hidden = open;
+    if (iconClose) iconClose.hidden = !open;
+    document.body.classList.toggle('menu-open', open);
+  };
+
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  menu?.querySelectorAll('[data-menu-link]').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 960px)').addEventListener('change', (e) => e.matches && setOpen(false));
+
+  // Desplegable de marketplaces (escritorio): clic, teclado y hover con puntero fino.
+  const dropdown = document.querySelector<HTMLElement>('[data-dropdown]');
+  const ddToggle = dropdown?.querySelector<HTMLButtonElement>('[data-dropdown-toggle]');
+  const ddMenu = dropdown?.querySelector<HTMLElement>('[data-dropdown-menu]');
+  const setDropdown = (open: boolean) => {
+    if (!ddToggle || !ddMenu) return;
+    ddToggle.setAttribute('aria-expanded', String(open));
+    ddMenu.hidden = !open;
+  };
+  let hoverOpenedAt = 0;
+  ddToggle?.addEventListener('click', () => {
+    // Si el hover acaba de abrirlo, el clic que le sigue no debe cerrarlo.
+    if (Date.now() - hoverOpenedAt < 400) return;
+    setDropdown(ddToggle.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('click', (event) => {
+    if (dropdown && !dropdown.contains(event.target as Node)) setDropdown(false);
+  });
+  dropdown?.addEventListener('focusout', (event) => {
+    if (!dropdown.contains(event.relatedTarget as Node | null)) setDropdown(false);
+  });
+  dropdown?.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && ddToggle?.getAttribute('aria-expanded') === 'true') {
+      event.stopPropagation();
+      setDropdown(false);
+      ddToggle.focus();
+    }
+  });
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    dropdown?.addEventListener('mouseenter', () => {
+      if (ddToggle?.getAttribute('aria-expanded') !== 'true') hoverOpenedAt = Date.now();
+      setDropdown(true);
+    });
+    dropdown?.addEventListener('mouseleave', () => setDropdown(false));
+  }
+
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>

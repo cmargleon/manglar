@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '../data/site';
+---
+
+<a
+  href={whatsappLink()}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="wa-fab"
+  aria-label="Escríbenos por WhatsApp (se abre en una pestaña nueva)"
+  data-track-label="boton_flotante"
+>
+  <Icon name="whatsapp" size={26} />
+</a>
+

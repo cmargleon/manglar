@@ -1,0 +1,57 @@
+---
+import PhotoBg from '../PhotoBg.astro';
+import bg from '../../assets/images/manglar-galeria-prensa-francesa-cafe.jpg';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+
+interface Props {
+  title?: string;
+  lead?: string;
+}
+const {
+  title = 'Publicar sin estrategia te está costando ventas.',
+  lead = 'La operación manual, las fotos genéricas, los catálogos desordenados y no vender en todos los canales detienen tu expansión.',
+} = Astro.props;
+
+const before = [
+  'Fotos creadas una por una, sin criterios comerciales definidos.',
+  'Falta de homologación visual en fotografías y diseño de tienda.',
+  'Carga manual de productos.',
+  'Títulos sin optimización comercial.',
+  'La apertura de nuevos canales se pospone por falta de tiempo.',
+  'Transmisiones en vivo improvisadas, o sin nadie que las conduzca.',
+];
+
+const after = [
+  'Fotografía con IA, optimizada para destacar atributos y convertir visitas en ventas.',
+  'Identidad visual unificada en fotografías, fichas y Store Design.',
+  'Catalogación centralizada, adaptada a los requisitos de cada marketplace.',
+  'Títulos y descripciones optimizados con palabras clave para mejorar la visibilidad.',
+  'Expansión a nuevos marketplaces sin sobrecargar al equipo interno.',
+  'TikTok LIVE con presentador, guion comercial y operación a cargo de nuestro equipo.',
+];
+---
+
+<section class="section section--muted section--photo" aria-labelledby="problema-title">
+  <PhotoBg src={bg} />
+  <div class="container">
+    <SectionHeader id="problema-title" eyebrow="El problema" title={title} lead={lead} align="center" />
+    <div class="compare" data-reveal>
+      <div class="compare__col compare__col--before">
+        <h3 class="compare__head">Sin Manglar</h3>
+        <ul role="list">
+          {before.map((item) => <li><Icon name="close" size={16} />{item}</li>)}
+        </ul>
+      </div>
+      <div class="compare__col compare__col--after">
+        <h3 class="compare__head">Con Manglar</h3>
+        <ul role="list">
+          {after.map((item) => <li><Icon name="check" size={16} />{item}</li>)}
+        </ul>
+      </div>
+    </div>
+    <p class="compare__closing">
+      Nosotros absorbemos la carga operativa para que tu equipo se concentre en hacer crecer el negocio.
+    </p>
+  </div>
+</section>

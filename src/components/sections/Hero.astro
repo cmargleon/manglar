@@ -1,0 +1,133 @@
+---
+import { mailtoLink } from '../../data/site';
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import sueterAzul from '../../assets/images/manglar-ficha-sueter-navideno-azul.jpg';
+import sueterRojo from '../../assets/images/manglar-ficha-sueter-navideno-rojo.jpg';
+import sueterVerde from '../../assets/images/manglar-ficha-sueter-navideno-verde.jpg';
+import sueterBeige from '../../assets/images/manglar-ficha-sueter-navideno-beige.jpg';
+
+const colorVariants = [
+  { name: 'Azul', hex: '#1f6fd1', src: sueterAzul },
+  { name: 'Rojo', hex: '#c4161c', src: sueterRojo },
+  { name: 'Verde', hex: '#1f4a34', src: sueterVerde },
+  { name: 'Beige', hex: '#e6dccb', src: sueterBeige },
+];
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  primaryLabel: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  trackLabel: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  primaryLabel,
+  primaryHref = mailtoLink(),
+  secondaryLabel,
+  secondaryHref = '#servicios',
+  trackLabel,
+} = Astro.props;
+
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow eyebrow--pill"><span class="dot" aria-hidden="true"></span>{eyebrow}</p>
+      <h1 id="hero-title" class="hero__title">
+        {title.split('\n').map((line) => <span class="hero__title-line">{line}</span>)}
+      </h1>
+      <p class="hero__subtitle">{subtitle}</p>
+      <div class="hero__actions">
+        <a href={primaryHref} class="btn btn--primary btn--lg" data-track="cta_diagnostico_click" data-track-label={trackLabel}>
+          {primaryLabel}<Icon name="arrowRight" size={18} />
+        </a>
+        {secondaryLabel && (
+          <a href={secondaryHref} class="btn btn--ghost btn--lg">{secondaryLabel}</a>
+        )}
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-label="Ejemplo ilustrativo de una ficha de producto preparada para varios marketplaces" role="group">
+      <div class="sheet">
+        <div class="sheet__bar">
+          <span class="sheet__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="sheet__title">Ficha de producto</span>
+          <span class="sheet__badge">Ejemplo ilustrativo</span>
+        </div>
+        <div class="sheet__body">
+          <div class="sheet__photo">
+            {colorVariants.map((v, i) => (
+              <Image
+                src={v.src}
+                alt={i === 0 ? `Foto de ficha de producto: suéter navideño color ${v.name.toLowerCase()} para mujer` : ''}
+                data-variant-img={i}
+                class={i === 0 ? 'is-active' : undefined}
+                widths={[280, 420, 560]}
+                sizes="(max-width: 640px) 40vw, 240px"
+                format="webp"
+                quality={78}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+              />
+            ))}
+          </div>
+          <div class="sheet__fields">
+            <div class="sheet__field">
+              <span>Título</span>
+              <strong>Suéter Navideño para Mujer - Ugly Sueter Navidad Moda Ideal para Navidad</strong>
+            </div>
+            <div class="sheet__field">
+              <span>Categoría</span>
+              <strong>Mujer › Ropa de Mujer › Ropa de Tejido de Punto de Mujer › Suéter de Mujer</strong>
+            </div>
+            <div class="sheet__field">
+              <span>Variantes</span>
+              <div class="sheet__swatches" role="radiogroup" aria-label="Color">
+                {colorVariants.map((v, i) => (
+                  <button
+                    type="button"
+                    class="sheet__swatch"
+                    role="radio"
+                    aria-checked={i === 0 ? 'true' : 'false'}
+                    aria-label={v.name}
+                    title={v.name}
+                    data-variant={i}
+                    style={`--swatch:${v.hex}`}
+                  ></button>
+                ))}
+              </div>
+            </div>
+            <div class="sheet__field">
+              <span>Atributos</span>
+              <strong>Suéter de tejido de punto, cuello redondo, con diferentes diseños Navideños, tejido elástico y que aporta calidez.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sheet').forEach((sheet) => {
+    const swatches = sheet.querySelectorAll<HTMLButtonElement>('[data-variant]');
+    const imgs = sheet.querySelectorAll<HTMLElement>('[data-variant-img]');
+    swatches.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.variant;
+        swatches.forEach((b) => b.setAttribute('aria-checked', String(b === btn)));
+        imgs.forEach((img) => img.classList.toggle('is-active', img.dataset.variantImg === idx));
+      }),
+    );
+  });
+</script>

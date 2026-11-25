@@ -1,0 +1,38 @@
+---
+import SectionHeader from '../SectionHeader.astro';
+import { processSteps } from '../../data/site';
+---
+
+<section id="proceso" class="section section--dark" aria-labelledby="proceso-title">
+  <div class="container">
+    <SectionHeader
+      id="proceso-title"
+      eyebrow="Cómo trabajamos"
+      title="Un proceso claro, desde el primer día."
+      lead="Todo comienza con una etapa de incorporación: conocemos tu empresa, tu catálogo y tu forma de trabajar antes de publicar un solo producto."
+    />
+
+    <ol class="process-list" role="list">
+      {processSteps.map((step, i) => (
+        <li class="process-step" data-reveal style={`--delay:${i * 70}ms`}>
+          <span class="process-step__n">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{step.title}</h3>
+          <p>{step.desc}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="timeline" data-reveal>
+      <div class="timeline__item">
+        <span class="timeline__when">Mes 1</span>
+        <h3>Nos concentramos exclusivamente en SHEIN</h3>
+        <p>Conocemos tu catálogo a fondo y establecemos el flujo operativo: criterios de imagen, estructura de fichas y forma de publicar.</p>
+      </div>
+      <div class="timeline__item">
+        <span class="timeline__when">Desde el mes 2</span>
+        <h3>Incorporamos los demás marketplaces de tu plan</h3>
+        <p>Replicamos y adaptamos lo construido a Mercado Libre o TikTok Shop, según los canales contratados.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,58 @@
+---
+import { Image } from 'astro:assets';
+import a from '../../assets/images/manglar-galeria-polo-azul-hombre.jpg';
+import b from '../../assets/images/manglar-galeria-vasos-cristal-rosa.jpg';
+import c from '../../assets/images/manglar-galeria-tenis-negros-mujer.jpg';
+import d from '../../assets/images/manglar-galeria-mancuerna-fitness.jpg';
+const strip = [
+  { src: a, alt: 'Fotografía de catálogo: hombre con playera tipo polo azul marino sobre fondo de estudio' },
+  { src: b, alt: 'Fotografía de producto: juego de vasos de cristal rosa con su empaque' },
+  { src: c, alt: 'Fotografía de calzado: tenis de lona negros con suela blanca en exterior' },
+  { src: d, alt: 'Fotografía de producto fitness: mancuerna hexagonal negra en uso' },
+];
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import { services } from '../../data/site';
+
+interface Props {
+  title?: string;
+  lead?: string;
+  intro?: boolean;
+}
+const {
+  intro = true,
+  title = 'Nos encargamos de la operación de tu catálogo.',
+  lead = 'Un servicio profesional gestionado por personas y apoyado por tecnología. Tú no tienes que aprender ni operar ninguna herramienta.',
+} = Astro.props;
+---
+
+<section id="servicios" class="section" aria-labelledby={intro ? 'servicios-title' : undefined} aria-label={intro ? undefined : 'Servicios'}>
+  <div class="container">
+    {intro && (
+      <>
+        <SectionHeader id="servicios-title" eyebrow="Servicios" title={title} lead={lead} />
+        <div class="photo-strip" data-reveal>
+          {strip.map((p) => <Image src={p.src} alt={p.alt} widths={[400, 700]} sizes="(min-width: 768px) 25vw, 50vw" loading="lazy" />)}
+        </div>
+      </>
+    )}
+    <div class="service-grid">
+      {services.map((s, i) => (
+        <article class="service-card" data-reveal style={`--delay:${i * 60}ms`}>
+          <span class="icon-badge"><Icon name={s.icon} size={22} /></span>
+          <h3>{s.title}</h3>
+          <p>{s.desc}</p>
+          <ul class="check-list" role="list">
+            {s.points.map((pt) => (
+              <li><Icon name="check" size={16} />{pt}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <p class="fine-print">
+      El alcance de cada servicio se define durante el diagnóstico. No incluye gestión de inventario, atención a clientes
+      finales ni logística, salvo que se acuerde expresamente.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+---
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+
+const paths = [
+  {
+    key: 'ya-vendo-shein',
+    icon: 'store' as const,
+    label: 'Opción A',
+    title: 'Ya vendes en SHEIN u otros marketplaces',
+    lead: 'Externaliza las tareas de catálogo y libera tiempo de tu equipo.',
+    benefits: [
+      'Menor carga de trabajo manual.',
+      'Consistencia visual en todo tu catálogo.',
+      'Procesos organizados y documentados.',
+      'Apoyo para publicar nuevos productos.',
+    ],
+    cta: 'Quiero externalizar mi catálogo',
+    href: '/gestion-shein/',
+  },
+  {
+    key: 'comenzar-shein',
+    icon: 'rocket' as const,
+    label: 'Opción B',
+    title: 'Quieres comenzar a vender en SHEIN',
+    lead: 'Te ayudamos a preparar y operar tu entrada a SHEIN México.',
+    benefits: [
+      'Revisión inicial de tu catálogo.',
+      'Preparación de imágenes e información.',
+      'Acompañamiento en el proceso de incorporación.',
+      'Operación inicial del catálogo.',
+    ],
+    cta: 'Quiero comenzar en SHEIN',
+    href: '/vender-en-shein/',
+  },
+];
+---
+
+<section class="section" aria-labelledby="formas-title">
+  <div class="container">
+    <SectionHeader
+      id="formas-title"
+      eyebrow="Dos formas de trabajar con Manglar"
+      title="Empieza desde donde está tu empresa hoy."
+      align="center"
+    />
+    <div class="path-grid">
+      {paths.map((p, i) => (
+        <article class:list={['path-card', { 'path-card--dark': i === 1 }]} data-reveal style={`--delay:${i * 80}ms`}>
+          <div class="path-card__head">
+            <span class="icon-badge"><Icon name={p.icon} size={22} /></span>
+            <span class="path-card__label">{p.label}</span>
+          </div>
+          <h3>{p.title}</h3>
+          <p class="path-card__lead">{p.lead}</p>
+          <ul class="check-list" role="list">
+            {p.benefits.map((b) => <li><Icon name="check" size={16} />{b}</li>)}
+          </ul>
+          <a href={p.href} class:list={['btn', i === 1 ? 'btn--light' : 'btn--dark']} data-track="cta_diagnostico_click" data-track-label={p.key}>
+            {p.cta}<Icon name="arrowRight" size={18} />
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { site, whatsappLink } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <Logo inverted />
+      <p>
+        Agencia Manglar es una empresa mexicana que opera catálogos de productos para fabricantes, distribuidores,
+        importadores y marcas en SHEIN, Mercado Libre y TikTok Shop: fotografía comercial, catálogos,
+        diseño de tienda, campañas y publicación.
+      </p>
+    </div>
+
+    <nav aria-label="Servicios">
+      <h2 class="site-footer__heading">Servicios</h2>
+      <ul>
+        <li><a href="/#servicios">Fotografía y catálogos</a></li>
+        <li><a href="/#servicios">Operación y diseño de tienda</a></li>
+        <li><a href="/#servicios">Campañas y promociones</a></li>
+        <li><a href="/#servicios">Nuevos marketplaces</a></li>
+        <li><a href="/#tiktok-live">TikTok LIVE</a></li>
+        <li><a href="/#planes">Planes</a></li>
+      </ul>
+    </nav>
+
+    <nav aria-label="SHEIN">
+      <h2 class="site-footer__heading">SHEIN</h2>
+      <ul>
+        <li><a href="/gestion-shein/">Gestión de catálogo en SHEIN</a></li>
+        <li><a href="/vender-en-shein/">Comenzar a vender en SHEIN</a></li>
+        <li><a href="/#preguntas">Preguntas frecuentes</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="site-footer__heading">Contacto</h2>
+      <ul class="site-footer__contact">
+        <li>
+          <a href={`mailto:${site.email}`} data-track-label="footer">
+            <Icon name="mail" size={16} />{site.email}
+          </a>
+        </li>
+        <li>
+          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" data-track-label="footer">
+            <Icon name="whatsapp" size={16} />WhatsApp {site.phoneDisplay}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>© {year} Agencia Manglar. Todos los derechos reservados.</p>
+    <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
+  </div>
+  <div class="container">
+    <p class="site-footer__disclaimer">
+      SHEIN, Mercado Libre y TikTok Shop son marcas de sus respectivos titulares. Agencia Manglar es un
+      proveedor de servicios independiente y no está afiliado, patrocinado ni certificado por dichos marketplaces.
+    </p>
+  </div>
+</footer>

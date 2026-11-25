@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+// Datos legales que deben completarse antes de publicar el aviso definitivo.
+// Mientras alguno sea null, la página muestra el aviso de "pendiente" y no se indexa.
+const usesAnalytics = Boolean(import.meta.env.PUBLIC_GA4_ID || import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN);
+const legal = {
+  razonSocial: null as string | null, // p. ej. "Nombre Legal, S.A. de C.V."
+  domicilio: null as string | null, // domicilio fiscal o para oír y recibir notificaciones
+  fechaActualizacion: null as string | null, // p. ej. "10 de noviembre de 2026"
+};
+
+const pending = !legal.razonSocial || !legal.domicilio || !legal.fechaActualizacion;
+const P = (value: string | null, label: string) => value ?? `[PENDIENTE: ${label}]`;
+---
+
+<Layout
+  title="Aviso de privacidad | Agencia Manglar"
+  description="Aviso de privacidad de Agencia Manglar para el tratamiento de datos personales que nos compartes al ponerte en contacto con nosotros."
+  path="/aviso-de-privacidad/"
+  noindex={pending}
+  nav="minimal"
+>
+  <article class="legal">
+    <div class="container legal__inner">
+      <p class="eyebrow">Legal</p>
+      <h1>Aviso de privacidad</h1>
+      <p class="meta">Última actualización: {P(legal.fechaActualizacion, 'fecha de publicación')}</p>
+
+      {pending && (
+        <div class="notice" role="note">
+          <Icon name="alert" size={20} />
+          <p>
+            <strong>Documento en preparación.</strong> Algunos datos jurídicos del responsable están pendientes de completarse.
+            Los apartados marcados como pendientes se actualizarán antes de la publicación definitiva.
+          </p>
+        </div>
+      )}
+
+      <h2>1. Identidad y domicilio del responsable</h2>
+      <p>
+        <span class:list={{ pending: !legal.razonSocial }}>{P(legal.razonSocial, 'razón social o nombre del responsable')}</span>,
+        que opera comercialmente como “Agencia Manglar” (en adelante, “Manglar”), con domicilio en
+        <span class:list={{ pending: !legal.domicilio }}>{P(legal.domicilio, 'domicilio del responsable')}</span>, es responsable del
+        tratamiento de los datos personales que nos proporcionas, conforme a la Ley Federal de Protección de Datos Personales en
+        Posesión de los Particulares y demás normativa aplicable.
+      </p>
+      <p>Para cualquier asunto relacionado con este aviso puedes escribirnos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <h2>2. Datos personales que recabamos</h2>
+      <p>Cuando nos contactas por correo electrónico o WhatsApp, tratamos los datos que nos compartes según el canal:</p>
+      <ul>
+        <li>Nombre.</li>
+        <li>Empresa en la que trabajas.</li>
+        <li>Dirección de correo electrónico.</li>
+        <li>Número de teléfono si nos escribes por WhatsApp o lo compartes con nosotros.</li>
+        <li>Información comercial sobre tu catálogo: situación de tu negocio, marketplaces de interés, volumen aproximado de productos, plan de interés y el mensaje que nos envíes.</li>
+      </ul>
+      <p>No solicitamos datos personales sensibles. Te pedimos no incluirlos en el mensaje.</p>
+
+      <h2>3. Finalidades del tratamiento</h2>
+      <p>Usamos tus datos para atender tu solicitud y dar seguimiento a los servicios que nos pidas.</p>
+      <ul>
+        <li>Responder a tu solicitud de información o de diagnóstico.</li>
+        <li>Contactarte para agendar una reunión y elaborar una propuesta de servicios.</li>
+        <li>Dar seguimiento a la relación comercial que, en su caso, se establezca.</li>
+      </ul>
+      <p>
+        Si quieres limitar el uso o la divulgación de tus datos, escribe a
+        <a href={`mailto:${site.email}`}>{site.email}</a> e indica qué datos y qué uso quieres limitar.
+      </p>
+
+      <h2>4. Cómo recibimos tus datos</h2>
+      <p>
+        Si eliges escribirnos por WhatsApp, la conversación se realiza a través de ese servicio.
+        Podemos comunicar datos cuando una autoridad competente lo requiera conforme a la ley.
+      </p>
+
+      <h2>5. Derechos ARCO y revocación del consentimiento</h2>
+      <p>
+        Puedes acceder a tus datos, rectificarlos, cancelarlos u oponerte a su tratamiento (derechos ARCO), así como revocar tu
+        consentimiento, enviando una solicitud a <a href={`mailto:${site.email}`}>{site.email}</a> que incluya: tu nombre y un
+        medio para comunicarte la respuesta; un documento que acredite tu identidad o, en su caso, la de tu representante; la
+        descripción clara de los datos y del derecho que deseas ejercer; y cualquier elemento que facilite localizar tus datos. Si solicitas una rectificación, indica qué debe cambiar y adjunta la documentación que sustente el cambio.
+      </p>
+      <p>
+        Te comunicaremos nuestra decisión sobre tu solicitud ARCO en un máximo de 20 días. Si procede, la haremos efectiva en los 15 días siguientes a la respuesta. La ley permite ampliar estos plazos una vez cuando se justifique. Si consideras que tu derecho no fue atendido, puedes
+        acudir ante la autoridad competente en materia de protección de datos personales.
+      </p>
+
+      <h2>6. Conservación de los datos</h2>
+      <p>
+        Conservamos los datos de las solicitudes que no deriven en una relación comercial solo durante el tiempo necesario para
+        atenderlas y darles seguimiento, y después los eliminamos o bloqueamos conforme a la ley.
+      </p>
+
+      {usesAnalytics && (
+        <section>
+          <h2>7. Cookies y tecnologías de medición</h2>
+          <p>
+          Usamos herramientas de analítica para medir visitas e interacciones con el sitio.
+          Puedes gestionar las cookies desde la configuración de tu navegador.
+          </p>
+        </section>
+      )}
+
+      <h2>{usesAnalytics ? 8 : 7}. Cambios al aviso de privacidad</h2>
+      <p>Cualquier modificación a este aviso se publicará en esta misma página, indicando la fecha de la última actualización.</p>
+    </div>
+  </article>
+</Layout>

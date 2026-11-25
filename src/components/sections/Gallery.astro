@@ -1,0 +1,301 @@
+---
+import { Image } from 'astro:assets';
+import SectionHeader from '../SectionHeader.astro';
+import Icon from '../Icon.astro';
+import poloAzul from '../../assets/images/manglar-galeria-polo-azul-hombre.jpg';
+import lookRosa from '../../assets/images/manglar-galeria-look-rosa-nina.jpg';
+import prensaCafe from '../../assets/images/manglar-galeria-prensa-francesa-cafe.jpg';
+import sueterNavideno from '../../assets/images/manglar-galeria-sueter-navideno-mujer.jpg';
+import mancuerna from '../../assets/images/manglar-galeria-mancuerna-fitness.jpg';
+import vasosCristal from '../../assets/images/manglar-galeria-vasos-cristal-rosa.jpg';
+import carritoOrganizador from '../../assets/images/manglar-galeria-carrito-organizador.jpg';
+import sueterNegro from '../../assets/images/manglar-galeria-sueter-negro-mujer.jpg';
+import botellaDeportiva from '../../assets/images/manglar-galeria-botella-deportiva.jpg';
+import tenisNegros from '../../assets/images/manglar-galeria-tenis-negros-mujer.jpg';
+import mochilaSkate from '../../assets/images/manglar-galeria-mochila-skate-hombre.jpg';
+
+const items = [
+  {
+    src: poloAzul,
+    alt: 'Hombre con playera tipo polo azul marino y pantalón beige sobre fondo claro de estudio',
+    category: 'Moda masculina',
+    detail: 'Fondo de estudio uniforme',
+  },
+  {
+    src: lookRosa,
+    alt: 'Niña con blusa blanca sin mangas y falda a rayas rosas y blancas en un set de estudio rosa',
+    category: 'Moda infantil',
+    detail: 'Look completo en set',
+  },
+  {
+    src: prensaCafe,
+    alt: 'Manos usando una prensa francesa negra con café sobre una barra de cocina iluminada',
+    category: 'Hogar y cocina',
+    detail: 'Producto en uso',
+  },
+  {
+    src: sueterNavideno,
+    alt: 'Mujer con suéter rojo de motivos navideños y falda a cuadros frente a un escaparate decorado',
+    category: 'Moda femenina',
+    detail: 'Campaña de temporada',
+  },
+  {
+    src: mancuerna,
+    alt: 'Mujer entrenando con una mancuerna hexagonal negra en un espacio interior',
+    category: 'Fitness',
+    detail: 'Producto en contexto de uso',
+  },
+  {
+    src: tenisNegros,
+    alt: 'Tenis de lona negros con franja blanca y suela blanca puestos sobre pavimento',
+    category: 'Calzado',
+    detail: 'Detalle en exterior',
+  },
+  {
+    src: vasosCristal,
+    alt: 'Mujer bebiendo jugo en un vaso de cristal rosa junto a la caja del juego de vasos',
+    category: 'Hogar',
+    detail: 'Producto con empaque',
+  },
+  {
+    src: carritoOrganizador,
+    alt: 'Carrito organizador negro de tres niveles con artículos de baño y lavandería en una habitación',
+    category: 'Organización',
+    detail: 'Ambientación de espacio',
+  },
+  {
+    src: sueterNegro,
+    alt: 'Mujer con suéter negro, jeans claros y bolsa color vino en una calle urbana',
+    category: 'Moda femenina',
+    detail: 'Exterior urbano',
+  },
+  {
+    src: mochilaSkate,
+    alt: 'Joven de espaldas con mochila negra y amarilla con bolsillo a cuadros, sosteniendo una patineta',
+    category: 'Accesorios',
+    detail: 'Estilo de vida urbano',
+  },
+  {
+    src: botellaDeportiva,
+    alt: 'Mujer bebiendo de una botella deportiva azul con toalla al hombro después de entrenar',
+    category: 'Deportes',
+    detail: 'Estilo de vida',
+  },
+];
+
+// Tres copias para el bucle infinito; solo la copia central es accesible.
+const loop = [0, 1, 2].flatMap((copy) => items.map((item) => ({ ...item, clone: copy !== 1 })));
+---
+
+<section id="trabajo" class="section" aria-labelledby="trabajo-title">
+  <div class="container">
+    <div class="gallery-head">
+      <SectionHeader
+        id="trabajo-title"
+        eyebrow="Nuestro trabajo visual"
+        title="Imágenes consistentes para todo tu catálogo."
+        lead="Preparamos fotografías comerciales con una línea visual coherente por colección, adaptadas a los formatos que pide cada canal."
+      />
+      <div class="gallery-nav" data-reveal>
+        <button type="button" class="gallery-nav__btn" data-gallery-prev aria-label="Ver fotos anteriores">
+          <span class="gallery-nav__flip"><Icon name="arrowRight" size={18} /></span>
+        </button>
+        <button type="button" class="gallery-nav__btn" data-gallery-next aria-label="Ver más fotos">
+          <Icon name="arrowRight" size={18} />
+        </button>
+      </div>
+    </div>
+
+    <div class="gallery-carousel" data-reveal>
+      <ul class="gallery-track" data-gallery-track role="list" aria-label="Carrusel de fotos de producto">
+        {loop.map((item) => (
+          <li class="gallery-card" aria-hidden={item.clone ? 'true' : undefined} inert={item.clone ? true : undefined}>
+            <figure>
+              <div class="gallery-card__frame">
+                <Image
+                  src={item.src}
+                  alt={item.clone ? '' : item.alt}
+                  widths={[320, 480, 640]}
+                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 300px"
+                  format="webp"
+                  quality={78}
+                  loading="lazy"
+                  draggable="false"
+                  class="gallery-card__img"
+                />
+              </div>
+              <figcaption>
+                <span class="gallery-card__cat">{item.category}</span>
+                <span class="gallery-card__detail">{item.detail}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.querySelector<HTMLUListElement>('[data-gallery-track]');
+  const prev = document.querySelector<HTMLButtonElement>('[data-gallery-prev]');
+  const next = document.querySelector<HTMLButtonElement>('[data-gallery-next]');
+
+  if (track) {
+    const SPEED = 52; // px por segundo
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let last = 0;
+    let resumeTimer: number | undefined;
+    let hovering = false;
+    let visible = false;
+    let dragging = false;
+    let pointerId: number | null = null;
+    let startX = 0;
+    let startScroll = 0;
+    let moved = false;
+
+    const segment = () => track.scrollWidth / 3;
+    const step = () => {
+      const card = track.querySelector<HTMLElement>('.gallery-card');
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.offsetWidth + gap : track.clientWidth * 0.8;
+    };
+
+    const normalize = () => {
+      const s = segment();
+      if (!s) return;
+      if (track.scrollLeft <= s * 0.5) track.scrollLeft += s;
+      else if (track.scrollLeft >= s * 1.5) track.scrollLeft -= s;
+    };
+
+    const stop = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      last = 0;
+    };
+
+    // Posición acumulada en flotante: en pantallas 1x el navegador redondea
+    // scrollLeft y los incrementos de <1px por frame se perderían.
+    let pos = 0;
+    const tick = (t: number) => {
+      if (!last) {
+        last = t;
+        pos = track.scrollLeft;
+      }
+      pos += ((t - last) * SPEED) / 1000;
+      last = t;
+      const s = segment();
+      if (s && pos >= s * 1.5) pos -= s;
+      track.scrollLeft = pos;
+      frame = requestAnimationFrame(tick);
+    };
+
+    const canRun = () => !reduceMotion.matches && visible && !hovering && !dragging && !document.hidden;
+    const start = () => {
+      stop();
+      if (canRun()) frame = requestAnimationFrame(tick);
+    };
+    const resumeLater = (ms = 1600) => {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(start, ms);
+    };
+
+    const center = () => {
+      track.scrollLeft = segment();
+    };
+
+    // Flechas
+    const go = (dir: 1 | -1) => {
+      stop();
+      normalize();
+      track.scrollBy({ left: dir * step(), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      resumeLater(2400);
+    };
+    prev?.addEventListener('click', () => go(-1));
+    next?.addEventListener('click', () => go(1));
+
+    // Arrastre con mouse / touch
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      dragging = true;
+      moved = false;
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      stop();
+      window.clearTimeout(resumeTimer);
+    });
+
+    track.addEventListener('pointermove', (e) => {
+      if (!dragging || e.pointerId !== pointerId) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) {
+        moved = true;
+        track.classList.add('is-dragging');
+        track.setPointerCapture(e.pointerId);
+      }
+      if (!moved) return;
+      const s = segment();
+      let nextLeft = startScroll - dx;
+      if (s && nextLeft <= s * 0.5) {
+        nextLeft += s;
+        startScroll += s;
+      } else if (s && nextLeft >= s * 1.5) {
+        nextLeft -= s;
+        startScroll -= s;
+      }
+      track.scrollLeft = nextLeft;
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      if (pointerId !== null && track.hasPointerCapture(pointerId)) track.releasePointerCapture(pointerId);
+      pointerId = null;
+      track.classList.remove('is-dragging');
+      normalize();
+      resumeLater();
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('lostpointercapture', endDrag);
+
+    // Scroll manual (trackpad / rueda horizontal)
+    track.addEventListener(
+      'wheel',
+      (e) => {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+        stop();
+        normalize();
+        resumeLater();
+      },
+      { passive: true },
+    );
+
+    // Pausa al pasar el mouse
+    const carousel = track.parentElement!;
+    carousel.addEventListener('mouseenter', () => {
+      hovering = true;
+      stop();
+    });
+    carousel.addEventListener('mouseleave', () => {
+      hovering = false;
+      resumeLater(400);
+    });
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else stop();
+    }).observe(track);
+
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+    reduceMotion.addEventListener('change', start);
+    window.addEventListener('resize', () => {
+      normalize();
+    });
+
+    center();
+  }
+</script>
