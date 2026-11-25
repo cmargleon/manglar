@@ -23,7 +23,6 @@ export const marketplaces = [
     id: 'shein',
     name: 'SHEIN',
     desc: 'Preparación de fichas, imágenes y publicación para el canal de moda y estilo de vida.',
-    note: 'Canal de arranque',
   },
   {
     id: 'mercado-libre',
