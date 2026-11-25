@@ -297,7 +297,10 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .sheet__swatch[aria-checked="true"] { box-shadow: 0 0 0 2px var(--bg-soft), 0 0 0 3px var(--ink); }
 .sheet__swatch:focus-visible { outline: 2px solid var(--brand-tint); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .sheet__photo img { transition: none; } }
-@media (max-width: 640px) { .sheet__photo { aspect-ratio: 3 / 4; min-height: 0; align-self: start; } }
+@media (max-width: 640px) {
+  .sheet__body { grid-template-columns: 1fr; }
+  .sheet__photo { aspect-ratio: 4 / 5; min-height: 0; touch-action: pan-y; }
+}
 .sheet__fields { display: grid; gap: 14px; align-content: start; }
 .sheet__field { display: grid; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
 .sheet__field:last-child { border-bottom: 0; padding-bottom: 0; }

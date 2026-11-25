@@ -72,8 +72,8 @@ const {
                 alt={i === 0 ? `Foto de ficha de producto: suéter navideño color ${v.name.toLowerCase()} para mujer` : ''}
                 data-variant-img={i}
                 class={i === 0 ? 'is-active' : undefined}
-                widths={[280, 420, 560]}
-                sizes="(max-width: 640px) 40vw, 240px"
+                widths={[280, 420, 560, 840]}
+                sizes="(max-width: 640px) 90vw, 240px"
                 format="webp"
                 quality={78}
                 loading={i === 0 ? 'eager' : 'lazy'}
@@ -122,12 +122,26 @@ const {
   document.querySelectorAll<HTMLElement>('.sheet').forEach((sheet) => {
     const swatches = sheet.querySelectorAll<HTMLButtonElement>('[data-variant]');
     const imgs = sheet.querySelectorAll<HTMLElement>('[data-variant-img]');
-    swatches.forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const idx = btn.dataset.variant;
-        swatches.forEach((b) => b.setAttribute('aria-checked', String(b === btn)));
-        imgs.forEach((img) => img.classList.toggle('is-active', img.dataset.variantImg === idx));
-      }),
-    );
+    let current = 0;
+    const show = (i: number) => {
+      current = (i + swatches.length) % swatches.length;
+      const idx = String(current);
+      swatches.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.variant === idx)));
+      imgs.forEach((img) => img.classList.toggle('is-active', img.dataset.variantImg === idx));
+    };
+    swatches.forEach((btn) => btn.addEventListener('click', () => show(Number(btn.dataset.variant))));
+
+    const photo = sheet.querySelector<HTMLElement>('.sheet__photo');
+    let startX = 0;
+    let startY = 0;
+    photo?.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    photo?.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
   });
 </script>
